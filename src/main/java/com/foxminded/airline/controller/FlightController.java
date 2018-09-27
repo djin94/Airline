@@ -23,8 +23,6 @@ public class FlightController {
         return "flight";
     }
 
-    //    @RequestMapping(value = "flight", method = RequestMethod.GET)
-//    @GetMapping("/flight")
     @RequestMapping(value = "/flight", produces =
             MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
