@@ -1,4 +1,4 @@
-package com.foxminded.airport.dao;
+package com.foxminded.airline.dao;
 
 import java.util.List;
 

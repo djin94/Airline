@@ -1,5 +1,9 @@
-package com.foxminded.airport.domain;
+package com.foxminded.airline.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Ticket")
 public class Ticket {
     private long number;
     private String level;
@@ -7,6 +11,8 @@ public class Ticket {
     private int price;
     private Passenger passenger;
 
+    @Id
+    @Column(name = "number", unique = true, nullable = false)
     public long getNumber() {
         return number;
     }
@@ -15,6 +21,7 @@ public class Ticket {
         this.number = number;
     }
 
+    @Column(name = "level", nullable = false)
     public String getLevel() {
         return level;
     }
@@ -23,6 +30,7 @@ public class Ticket {
         this.level = level;
     }
 
+    @Column(name = "place", nullable = false)
     public String getPlace() {
         return place;
     }
@@ -31,6 +39,7 @@ public class Ticket {
         this.place = place;
     }
 
+    @Column(name = "price", nullable = false)
     public int getPrice() {
         return price;
     }
@@ -39,6 +48,8 @@ public class Ticket {
         this.price = price;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "passenger_id")
     public Passenger getPassenger() {
         return passenger;
     }

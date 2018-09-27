@@ -1,8 +1,11 @@
-package com.foxminded.airport.domain;
+package com.foxminded.airline.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "Flight")
 public class Flight {
     private int id;
     private String number;
@@ -10,6 +13,8 @@ public class Flight {
     private Plane plane;
     private List<Ticket> tickets;
 
+    @Id
+    @Column(name = "flight_id", unique = true, nullable = false)
     public int getId() {
         return id;
     }
@@ -18,6 +23,7 @@ public class Flight {
         this.id = id;
     }
 
+    @Column(name = "number", nullable = false)
     public String getNumber() {
         return number;
     }
@@ -26,6 +32,7 @@ public class Flight {
         this.number = number;
     }
 
+    @Column(name = "date", nullable = false)
     public LocalDate getDate() {
         return date;
     }
@@ -34,6 +41,8 @@ public class Flight {
         this.date = date;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "plane_id", nullable = false)
     public Plane getPlane() {
         return plane;
     }
@@ -42,6 +51,8 @@ public class Flight {
         this.plane = plane;
     }
 
+    @OneToMany
+    @JoinColumn(name = "flight_id")
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -50,11 +61,11 @@ public class Flight {
         this.tickets = tickets;
     }
 
-    public void add(Ticket ticket){
+    public void add(Ticket ticket) {
         tickets.add(ticket);
     }
 
-    public void removeTicket(Ticket ticket){
+    public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
     }
 }

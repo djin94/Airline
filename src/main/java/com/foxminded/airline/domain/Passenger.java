@@ -1,5 +1,9 @@
-package com.foxminded.airport.domain;
+package com.foxminded.airline.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Passenger")
 public class Passenger {
     private int id;
     private String lastName;
@@ -7,6 +11,8 @@ public class Passenger {
     private String patronym;
     private String passportNumber;
 
+    @Id
+    @Column(name = "passenger_id", unique = true, nullable = false)
     public int getId() {
         return id;
     }
@@ -15,6 +21,7 @@ public class Passenger {
         this.id = id;
     }
 
+    @Column(name = "lastname", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -23,6 +30,7 @@ public class Passenger {
         this.lastName = lastName;
     }
 
+    @Column(name = "firstname", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -31,6 +39,7 @@ public class Passenger {
         this.firstName = firstName;
     }
 
+    @Column(name = "patronym", nullable = false)
     public String getPatronym() {
         return patronym;
     }
@@ -39,6 +48,7 @@ public class Passenger {
         this.patronym = patronym;
     }
 
+    @Column(name = "passportnumber", nullable = false)
     public String getPassportNumber() {
         return passportNumber;
     }
