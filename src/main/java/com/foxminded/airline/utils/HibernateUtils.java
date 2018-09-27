@@ -14,11 +14,10 @@ public class HibernateUtils {
     private SessionFactory buildSessionFactory() {
         try {
             return new Configuration().configure("hibernate/hibernate.cfg.xml").buildSessionFactory();
-
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             shutdown();
-            throw new ExceptionInInitializerError(ex);
+            return null;
         }
     }
 
