@@ -14,7 +14,7 @@ function createUser() {
 }
 
 function loadFlights() {
-    $.ajax('flight', {
+    $.ajax('', {
         method: 'get',
         contentType: "application/json",
         dataType: 'json',

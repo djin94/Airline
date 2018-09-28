@@ -16,6 +16,7 @@ import java.util.List;
 
 @Controller
 public class MainPageController {
+
     @RequestMapping(value = "/", produces =
             MediaType.TEXT_HTML_VALUE,
             method = RequestMethod.GET)
