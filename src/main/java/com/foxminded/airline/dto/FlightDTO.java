@@ -1,6 +1,6 @@
-package com.foxminded.airline.form;
+package com.foxminded.airline.dto;
 
-public class FlightForm {
+public class FlightDTO {
     private String number;
     private String dateString;
     private String timeString;

@@ -3883,7 +3883,7 @@ var Dropdown = function ($$$1) {
   };
   var Selector = {
     DATA_TOGGLE: '[data-toggle="dropdown"]',
-    FORM_CHILD: '.dropdown form',
+    FORM_CHILD: '.dropdown dto',
     MENU: '.dropdown-menu',
     NAVBAR_NAV: '.navbar-nav',
     VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled)'

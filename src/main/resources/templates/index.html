@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Flight</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
@@ -26,7 +26,9 @@
 </div>
 <div class="center">
     <div class="form">
-
+        <input type="text" class="form-control" onkeyup="return searchAirport();" id="nameAirport">
+        <div id="airports">
+        </div>
     </div>
 </div>
 </body>
