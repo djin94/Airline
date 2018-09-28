@@ -16,32 +16,32 @@ import java.util.List;
 @Controller
 public class FlightController {
 
-    @RequestMapping(value = "/flight", produces =
-            MediaType.TEXT_HTML_VALUE,
-            method = RequestMethod.GET)
-    public String show() {
-        return "flight";
-    }
-
-    @RequestMapping(value = "/flight", produces =
-            MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.GET)
-    public ResponseEntity<List<FlightForm>> showFlight() throws IOException {
-        FlightDAO flightDAO = new FlightDAO();
-        List<Flight> flights = flightDAO.getAll();
-        List<FlightForm> flightForms = new ArrayList<>();
-        flights.stream()
-                .forEach(flight -> {
-                    FlightForm flightForm = new FlightForm();
-                    flightForm.setNumber(flight.getNumber());
-                    flightForm.setPlaneName(flight.getPlane().getName());
-                    flightForm.setDateString(flight.getDate().toLocalDate().toString());
-                    flightForm.setTimeString(flight.getDate().toLocalTime().toString());
-                    flightForm.setDepartureAirport(flight.getDepartureAirport().getName());
-                    flightForm.setArrivalAirport(flight.getArrivalAirport().getName());
-
-                    flightForms.add(flightForm);
-                });
-        return new ResponseEntity<List<FlightForm>>(flightForms, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/flight", produces =
+//            MediaType.TEXT_HTML_VALUE,
+//            method = RequestMethod.GET)
+//    public String show() {
+//        return "flight";
+//    }
+//
+//    @RequestMapping(value = "/flight", produces =
+//            MediaType.APPLICATION_JSON_VALUE,
+//            method = RequestMethod.GET)
+//    public ResponseEntity<List<FlightForm>> showFlight() throws IOException {
+//        FlightDAO flightDAO = new FlightDAO();
+//        List<Flight> flights = flightDAO.getAll();
+//        List<FlightForm> flightForms = new ArrayList<>();
+//        flights.stream()
+//                .forEach(flight -> {
+//                    FlightForm flightForm = new FlightForm();
+//                    flightForm.setNumber(flight.getNumber());
+//                    flightForm.setPlaneName(flight.getPlane().getName());
+//                    flightForm.setDateString(flight.getDate().toLocalDate().toString());
+//                    flightForm.setTimeString(flight.getDate().toLocalTime().toString());
+//                    flightForm.setDepartureAirport(flight.getDepartureAirport().getName());
+//                    flightForm.setArrivalAirport(flight.getArrivalAirport().getName());
+//
+//                    flightForms.add(flightForm);
+//                });
+//        return new ResponseEntity<List<FlightForm>>(flightForms, HttpStatus.OK);
+//    }
 }

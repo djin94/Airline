@@ -3,6 +3,10 @@ label {
 	display:inline-block;
 }
 
+.menu div{
+	width:100%;
+	height: 50px;
+}
 .form div {
 	padding: 5px 0 5px 0;
 }
@@ -17,9 +21,12 @@ label {
 .center div {
 	background-color: aliceblue;
 }
+
 .table td, .table th {
 	background-color: aliceblue;
 }
-body {
-	background-color: aliceblue;
+
+.btn-primary {
+	float: right;
+	margin-right: 5%;
 }
