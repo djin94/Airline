@@ -38,7 +38,7 @@ public class TicketDAO implements Storage<Ticket> {
     public Ticket findById(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Ticket ticket = (Ticket) session.createQuery("from Ticket where Ticket.id=:id").list().get(0);
+        Ticket ticket = (Ticket) session.createQuery("from Ticket where Ticket.id=:id").iterate().next();
         session.getTransaction().commit();
         return ticket;
     }
