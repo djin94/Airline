@@ -11,42 +11,47 @@ $(document).ready(function () {
 
 });
 
-function fire_ajax_submit() {
+function createUser() {
+    if (validate()) {
+        $('#name').css('background-color', '');
+        $.ajax('flight', {
+            method: 'post',
+            data: JSON.stringify({login: $('#name').val()}),
+            complete: function (data) {
+                loadUsers();
+            }
+        });
+    } else {
+        alert("Заполните поля!");
+    }
+}
 
-    var search = {};
-    search["username"] = $("#username").val();
-    //search["email"] = $("#email").val();
-
-    $("#btn-search").prop("disabled", true);
-
-    $.ajax({
-        type: "POST",
+function loadUsers() {
+    $.ajax('flight', {
+        method: 'get',
         contentType: "application/json",
-        url: "/api/search",
-        data: JSON.stringify(search),
         dataType: 'json',
-        cache: false,
-        timeout: 600000,
         success: function (data) {
-
-            var json = "<h4>Ajax Response</h4><pre>"
-                + JSON.stringify(data, null, 4) + "</pre>";
-            $('#feedback').html(json);
-
-            console.log("SUCCESS : ", data);
-            $("#btn-search").prop("disabled", false);
-
-        },
-        error: function (e) {
-
-            var json = "<h4>Ajax Response</h4><pre>"
-                + e.responseText + "</pre>";
-            $('#feedback').html(json);
-
-            console.log("ERROR : ", e);
-            $("#btn-search").prop("disabled", false);
-
+            var table = "<table class='table'>";
+            table += "<tr><th>Номер рейса</th><th>Дата вылета</th><th>Время вылета</th><th>Аэропорт отправления</th><th>Аэропорт прибытия</th><th>Самолет</th>" +
+                "<th>Купить билет</th></tr>";
+            var size = data.length;
+            for (var i = 0; i != size; ++i) {
+                table += "<tr>" + "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>"+"<td>" + data[i].timeString + "</td>"+
+                    "<td>" + data[i].departureAirport + "</td>"+ "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName +
+                    "</td>" + "</tr>"
+            }
+            table += "</table>";
+            $('#users').html(table);
         }
     });
-
 }
+
+function validate() {
+    var result = true;
+    if ($('#name').val() == '') {
+        $('#name').css('background-color', 'red');
+        result = false;
+    }
+    return result;
+};

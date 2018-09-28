@@ -35,7 +35,11 @@ public class FlightController {
                     FlightForm flightForm = new FlightForm();
                     flightForm.setNumber(flight.getNumber());
                     flightForm.setPlaneName(flight.getPlane().getName());
-                    flightForm.setDateString(flight.getDate().toString());
+                    flightForm.setDateString(flight.getDate().toLocalDate().toString());
+                    flightForm.setTimeString(flight.getDate().toLocalTime().toString());
+                    flightForm.setDepartureAirport(flight.getDepartureAirport().getName());
+                    flightForm.setArrivalAirport(flight.getArrivalAirport().getName());
+
                     flightForms.add(flightForm);
                 });
         return new ResponseEntity<List<FlightForm>>(flightForms, HttpStatus.OK);
