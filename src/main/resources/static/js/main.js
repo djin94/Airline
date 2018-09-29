@@ -13,32 +13,46 @@ function createUser() {
     }
 }
 
-function searchAirport() {
+function searchDepartureAirport() {
     $.ajax({
         url: '/searchAirport',
         method: 'post',
         contentType: "application/json",
-        data: JSON.stringify({name: $('#nameAirport').val()}),
+        data: JSON.stringify({name: $('#nameDepartureAirport').val()}),
         dataType: 'json',
         success: function (data) {
-            loadAirports(data);
+            loadAirports(data, 'departureAirports', 'nameDepartureAirport');
         }
     });
 }
 
-function loadAirports(data) {
-    var list = "<div class='list-group'>";
+function searchArrivalAirport() {
+    $.ajax({
+        url: '/searchAirport',
+        method: 'post',
+        contentType: "application/json",
+        data: JSON.stringify({name: $('#nameArrivalAirport').val()}),
+        dataType: 'json',
+        success: function (data) {
+            loadAirports(data, 'arrivalAirports', 'nameArrivalAirport');
+        }
+    });
+}
+
+function loadAirports(data, typeAirport, idInput) {
+    var list = "<div class='list-group' id = 'listAirport'>";
     for (var i = 0; i != data.length; i++) {
         list += "<button type='button' class='list-group-item list-group-item-action' onclick='writeNameAirportToInput(";
-        list += data[i].name+")'>"+data[i].name;
+        list += "value,\"" + typeAirport + "\", \"" + idInput + "\")' value = '" + data[i].name + "'>" + data[i].name;
         list += "</button>";
     }
     list += "</div>";
-    $('#airports').html(list);
+    $('#' + typeAirport).html(list);
 }
 
-function writeNameAirportToInput(name) {
-    $('#nameAirport').val(name);
+function writeNameAirportToInput(name, typeAirport, idInput) {
+    document.getElementById(idInput).value = name;
+    document.getElementById(typeAirport).hidden = true;
 }
 
 function loadFlights() {

@@ -24,12 +24,24 @@
 </div>
 <div id="flights" class="center">
 </div>
-<div class="center">
-    <div class="form">
-        <input type="text" class="form-control" onkeyup="return searchAirport();" id="nameAirport">
-        <div id="airports">
+<div class="form-inline">
+    <div class="center">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" onkeyup="return searchDepartureAirport();"
+                       id="nameDepartureAirport">
+                <div id="departureAirports">
+                </div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" onkeyup="return searchArrivalAirport();"
+                       id="nameArrivalAirport">
+                <div id="arrivalAirports">
+                </div>
+            </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

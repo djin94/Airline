@@ -27,16 +27,19 @@ label {
 	margin-left: 5%;
 	margin-top: 5%;
 }
+
 .top-menu {
 	background: white;
 	box-shadow: 3px 0 7px rgba(0,0,0,.3);
 	padding: 20px;
 }
+
 .top-menu:after {
 	content: "";
 	display: table;
 	clear: both;
 }
+
 .navbar-logo {display: inline-block;}
 .menu-main {
 	list-style: none;
@@ -44,6 +47,7 @@ label {
 	padding: 0;
 	float: right;
 }
+
 .menu-main li {display: inline-block;}
 .menu-main a {
 	text-decoration: none;
@@ -69,6 +73,7 @@ label {
 	opacity: 0;
 	transition: .3s linear;
 }
+
 .menu-main a:hover:before {opacity: 1;}
 @media (max-width: 660px) {
 	.menu-main {
@@ -82,6 +87,10 @@ label {
 	.menu-main a {padding: 0 10px;}
 	.menu-main a:before {transform: rotate(45deg) translateX(-6px);}
 }
+
 @media (max-width: 600px) {
 	.menu-main li {display: block;}
+}
+.input-airport div{
+	width: 80%;
 }
