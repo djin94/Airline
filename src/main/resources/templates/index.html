@@ -5,18 +5,26 @@
     <title>Flight</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/daterangepicker.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/daterangepicker/moment.min.js"></script>
+    <script src="js/daterangepicker/daterangepicker.js"></script>
     <script type="text/javascript">
         $(function () {
-            loadFlights();
+            $('#date').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD.MM.YYYY'
+                }
+            });
         })
     </script>
 </head>
 <body style="background-color: aliceblue">
 <div>
     <nav class="top-menu">
-        <a class="navbar-logo" href=""><img src="images/brand.gif" width="100" height="80"></a>
+        <a class="navbar-logo" href=""><img src="images/Logo-Qatar-Airways.jpg" width="200" height="80"></a>
         <ul class="menu-main">
             <li id="user"><a href="">Войти</a></li>
         </ul>
@@ -24,24 +32,36 @@
 </div>
 <div id="flights" class="center">
 </div>
-<div class="form-inline">
-    <div class="center">
-        <div class="row">
-            <div class="col">
+<form method="get" action="/searchflight">
+<div class="container-fluid">
+    <div class="form-inline">
+        <div class="form-row">
+            <div class="col-md-3">
                 <input type="text" class="form-control" onkeyup="return searchDepartureAirport();"
-                       id="nameDepartureAirport">
-                <div id="departureAirports">
-                </div>
+                       id="nameDepartureAirport" placeholder="Откуда" width="90%">
+
             </div>
-            <div class="col">
+            <div class="col-md-3">
                 <input type="text" class="form-control" onkeyup="return searchArrivalAirport();"
-                       id="nameArrivalAirport">
-                <div id="arrivalAirports">
-                </div>
+                       id="nameArrivalAirport" placeholder="Куда" width="90%">
+
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="date" name="date" placeholder="Дата" required>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" type="submit">Найти</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3" id="departureAirports">
+            </div>
+            <div class="col-md-3" id="arrivalAirports">
             </div>
         </div>
     </div>
 </div>
 </div>
+</form>
 </body>
 </html>
