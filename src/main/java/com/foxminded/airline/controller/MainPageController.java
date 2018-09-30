@@ -3,6 +3,7 @@ package com.foxminded.airline.controller;
 import com.foxminded.airline.dao.AirportDAO;
 import com.foxminded.airline.domain.Airport;
 import com.foxminded.airline.dto.AirportDTO;
+import com.foxminded.airline.utils.HibernateUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ public class MainPageController {
         List<AirportDTO> suitableAirports = new ArrayList<>();
         if(airportDTO.getName()!=null){
         AirportDAO airportDAO = new AirportDAO();
+        if (airportDAO==null){
+            System.out.println("AirportDAO is null");
+        }
         List<Airport> allAirports = airportDAO.getAll();
                 allAirports.stream()
                 .filter(airport -> airport.getName().toLowerCase().contains(airportDTO.getName().toLowerCase()))

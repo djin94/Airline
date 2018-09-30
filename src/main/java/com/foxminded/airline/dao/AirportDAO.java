@@ -47,7 +47,7 @@ public class AirportDAO implements Storage<Airport> {
     public List<Airport> getAll() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Airport> airports = session.createQuery("from Airport").list();
+        List<Airport> airports = (List<Airport>) session.createQuery("from Airport").list();
         session.getTransaction().commit();
         return airports;
     }
