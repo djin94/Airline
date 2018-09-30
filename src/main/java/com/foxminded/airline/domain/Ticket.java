@@ -6,9 +6,8 @@ import javax.persistence.*;
 @Table(name = "Ticket")
 public class Ticket {
     private long number;
-    private String level;
+    private FlightPrice flightPrice;
     private String place;
-    private int price;
     private Passenger passenger;
 
     @Id
@@ -21,31 +20,22 @@ public class Ticket {
         this.number = number;
     }
 
-    @Column(name = "level", nullable = false)
-    public String getLevel() {
-        return level;
+    @ManyToOne
+    @JoinColumn(name = "flightprice_id")
+    public FlightPrice getFlightPrice() {
+        return flightPrice;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setFlightPrice(FlightPrice flightPrice) {
+        this.flightPrice = flightPrice;
     }
 
-    @Column(name = "place", nullable = false)
     public String getPlace() {
         return place;
     }
 
     public void setPlace(String place) {
         this.place = place;
-    }
-
-    @Column(name = "price", nullable = false)
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     @ManyToOne
