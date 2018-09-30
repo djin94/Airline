@@ -1,2 +1,6 @@
 /.idea
 airport.iml
+/src/main/resources/templates/css
+/src/main/resources/templates/images
+/src/main/resources/templates/js
+/src/main/resources/bas.txt
