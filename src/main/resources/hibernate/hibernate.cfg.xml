@@ -19,5 +19,6 @@
 		<mapping class="com.foxminded.airline.domain.Passenger"></mapping>
 		<mapping class="com.foxminded.airline.domain.Plane"></mapping>
 		<mapping class="com.foxminded.airline.domain.Airline"></mapping>
+		<mapping class="com.foxminded.airline.domain.FlightPrice"></mapping>
 	</session-factory>
 </hibernate-configuration>

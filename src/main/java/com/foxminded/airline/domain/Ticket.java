@@ -2,6 +2,7 @@ package com.foxminded.airline.domain;
 
 import javax.persistence.*;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
 @Table(name = "Ticket")
 public class Ticket {

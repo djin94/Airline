@@ -30,11 +30,7 @@ public class MainPageController {
             MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AirportDTO>> searchAirport(@RequestBody AirportDTO airportDTO) {
         List<AirportDTO> suitableAirports = new ArrayList<>();
-        if(airportDTO.getName()!=null){
         AirportDAO airportDAO = new AirportDAO();
-        if (airportDAO==null){
-            System.out.println("AirportDAO is null");
-        }
         List<Airport> allAirports = airportDAO.getAll();
                 allAirports.stream()
                 .filter(airport -> airport.getName().toLowerCase().contains(airportDTO.getName().toLowerCase()))
@@ -42,7 +38,7 @@ public class MainPageController {
                             AirportDTO suitableAirport = new AirportDTO();
                             suitableAirport.setName(airport.getName());
                             suitableAirports.add(suitableAirport);
-                        });}
+                        });
         return new ResponseEntity<List<AirportDTO>>(suitableAirports, HttpStatus.OK);
     }
 }
