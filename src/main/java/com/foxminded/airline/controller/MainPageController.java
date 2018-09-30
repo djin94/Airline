@@ -3,7 +3,6 @@ package com.foxminded.airline.controller;
 import com.foxminded.airline.dao.AirportDAO;
 import com.foxminded.airline.domain.Airport;
 import com.foxminded.airline.dto.AirportDTO;
-import com.foxminded.airline.utils.HibernateUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,20 +24,19 @@ public class MainPageController {
     }
 
 
-
     @RequestMapping(value = "/searchAirport", method = RequestMethod.POST, produces =
             MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AirportDTO>> searchAirport(@RequestBody AirportDTO airportDTO) {
         List<AirportDTO> suitableAirports = new ArrayList<>();
         AirportDAO airportDAO = new AirportDAO();
         List<Airport> allAirports = airportDAO.getAll();
-                allAirports.stream()
+        allAirports.stream()
                 .filter(airport -> airport.getName().toLowerCase().contains(airportDTO.getName().toLowerCase()))
-                        .forEach(airport -> {
-                            AirportDTO suitableAirport = new AirportDTO();
-                            suitableAirport.setName(airport.getName());
-                            suitableAirports.add(suitableAirport);
-                        });
+                .forEach(airport -> {
+                    AirportDTO suitableAirport = new AirportDTO();
+                    suitableAirport.setName(airport.getName());
+                    suitableAirports.add(suitableAirport);
+                });
         return new ResponseEntity<List<AirportDTO>>(suitableAirports, HttpStatus.OK);
     }
 }

@@ -5,7 +5,11 @@ function loadFlights() {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            printFlights(data);
+            if (jQuery.isEmptyObject(data)){
+                printNotFoundMessage();
+            }else {
+                printFlights(data);
+            }
         },
         error:function (e) {
             alert("error");
@@ -13,15 +17,46 @@ function loadFlights() {
     });
 }
 
+function printNotFoundMessage() {
+    var notFoundString = "<h3>К сожалению, мы не нашли подходящих для вас рейсов. Попробуйте изменить параметры поиска.</h3>";
+    $('#flights').html(notFoundString);
+}
+
 function printFlights(data) {
     var table = "<table class='table'>";
     table += "<tr><th>Номер рейса</th><th>Дата вылета</th><th>Время вылета</th><th>Аэропорт отправления</th>" +
         "<th>Аэропорт прибытия</th><th>Самолет</th><th>Купить билет</th></tr>";
     for (var i = 0; i != data.length; ++i) {
-        table += "<tr>" + "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
+        table += "<tr id='tr"+i+"'>" + "<form method='get' action='buyticket'>"+
+            "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
             "<td>" + data[i].departureAirport + "</td>" + "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName +
-            "</td>" + "<td><button class='btn btn-primary'>Купить</button></td>"+"</tr>";
+            "</td>" + "<td><button class='btn btn-primary' type='submit' id = '"+"btn"+i+"'>"+"Купить</button></td>"+
+            "</form> </tr>";
     }
     table += "</table>";
     $('#flights').html(table);
+}
+
+    $(".btn btn-primary").click(function (){
+        $('#' + idMap[ this.id - 1 ]).show();
+    });
+
+function postBtn() {
+    $.ajax( {
+        url: '/searchflight',
+        method: 'get',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            if (jQuery.isEmptyObject(data)){
+                printNotFoundMessage();
+            }else {
+                printFlights(data);
+            }
+        },
+        error:function (e) {
+            alert("error");
+        }
+    });
+    window.location ="/buyticket";
 }

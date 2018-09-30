@@ -21,9 +21,10 @@ import java.util.List;
 @Controller
 public class SearchFlightController {
     private FlightDTO flightDTO;
+
     @RequestMapping(value = "/searchflight",
             produces = MediaType.TEXT_HTML_VALUE,
-            params = {"nameDepartureAirport", "nameArrivalAirport","date"},
+            params = {"nameDepartureAirport", "nameArrivalAirport", "date"},
             method = RequestMethod.GET)
     public String showBuyTicket(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
                                 @RequestParam("nameArrivalAirport") String nameArrivalAirport,
@@ -36,7 +37,7 @@ public class SearchFlightController {
     }
 
     @RequestMapping("/searchflight")
-    public String showAllFlights(){
+    public String showAllFlights() {
         return "searchFlight";
     }
 
@@ -48,9 +49,9 @@ public class SearchFlightController {
         List<Flight> flights = flightDAO.getAll();
         List<FlightDTO> flightDTOS = new ArrayList<>();
         flights.stream()
-                .filter(flight -> flight.getDepartureAirport().getName().toLowerCase().equals(flightDTO.getDepartureAirport().toLowerCase())&&
-                flight.getArrivalAirport().getName().toLowerCase().equals(flightDTO.getArrivalAirport().toLowerCase())&&
-                flight.getDate().toLocalDate().equals(LocalDate.parse(flightDTO.getDateString(),dateFormat)))
+                .filter(flight -> flight.getDepartureAirport().getName().toLowerCase().equals(flightDTO.getDepartureAirport().toLowerCase()) &&
+                        flight.getArrivalAirport().getName().toLowerCase().equals(flightDTO.getArrivalAirport().toLowerCase()) &&
+                        flight.getDate().toLocalDate().equals(LocalDate.parse(flightDTO.getDateString(), dateFormat)))
                 .forEach(flight -> {
                     FlightDTO flightDTO = new FlightDTO();
                     flightDTO.setNumber(flight.getNumber());
