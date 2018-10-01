@@ -5,18 +5,36 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "Flight")
+@Table(name = "flight")
 public class Flight {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "flightId", unique = true)
     private int id;
     private String number;
     private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "planeId")
     private Plane plane;
+
+    @ManyToOne
+    @JoinColumn(name = "departure_airport_id",insertable = false,updatable = false)
     private Airport departureAirport;
+
+    @ManyToOne
+    @JoinColumn(name = "arrival_airport_id",insertable = false,updatable = false)
     private Airport arrivalAirport;
+
+    @OneToMany(mappedBy = "flight")
     private List<Ticket> tickets;
 
-    @Id
-    @Column(name = "flight_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "airlineId")
+    private Airline airline;
+
+
     public int getId() {
         return id;
     }
@@ -25,7 +43,6 @@ public class Flight {
         this.id = id;
     }
 
-    @Column(name = "number", nullable = false)
     public String getNumber() {
         return number;
     }
@@ -34,7 +51,6 @@ public class Flight {
         this.number = number;
     }
 
-    @Column(name = "date", nullable = false)
     public LocalDateTime getDate() {
         return date;
     }
@@ -43,8 +59,6 @@ public class Flight {
         this.date = date;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "plane_id", nullable = false)
     public Plane getPlane() {
         return plane;
     }
@@ -53,8 +67,6 @@ public class Flight {
         this.plane = plane;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "departure_airport_id", nullable = false)
     public Airport getDepartureAirport() {
         return departureAirport;
     }
@@ -63,8 +75,6 @@ public class Flight {
         this.departureAirport = departureAirport;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "arrival_airport_id", nullable = false)
     public Airport getArrivalAirport() {
         return arrivalAirport;
     }
@@ -73,8 +83,6 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    @OneToMany
-    @JoinColumn(name = "flight_id")
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -89,5 +97,13 @@ public class Flight {
 
     public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
     }
 }

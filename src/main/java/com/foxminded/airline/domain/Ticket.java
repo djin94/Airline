@@ -6,13 +6,26 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Ticket")
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "number", unique = true, nullable = false)
     private long number;
+
+    @ManyToOne
+    @JoinColumn(name = "flightpriceId")
     private FlightPrice flightPrice;
+
     private String place;
+
+    @ManyToOne
+    @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
-    @Id
-    @Column(name = "number", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "flightId")
+    private Flight flight;
+
+
     public long getNumber() {
         return number;
     }
@@ -21,8 +34,6 @@ public class Ticket {
         this.number = number;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "flightprice_id")
     public FlightPrice getFlightPrice() {
         return flightPrice;
     }
@@ -39,13 +50,19 @@ public class Ticket {
         this.place = place;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "passenger_id")
     public Passenger getPassenger() {
         return passenger;
     }
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }

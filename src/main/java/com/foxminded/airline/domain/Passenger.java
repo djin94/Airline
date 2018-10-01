@@ -1,18 +1,29 @@
 package com.foxminded.airline.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Passenger")
 public class Passenger {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "passengerId", unique = true, nullable = false)
     private int id;
     private String lastName;
     private String firstName;
     private String patronym;
     private String passportNumber;
 
-    @Id
-    @Column(name = "passenger_id", unique = true, nullable = false)
+    @OneToOne(mappedBy = "user")
+    @Transient
+    private User user;
+
+    @OneToMany(mappedBy = "passenger")
+    private List<Ticket> tickets;
+
+
     public int getId() {
         return id;
     }
@@ -21,7 +32,6 @@ public class Passenger {
         this.id = id;
     }
 
-    @Column(name = "lastname", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -30,7 +40,6 @@ public class Passenger {
         this.lastName = lastName;
     }
 
-    @Column(name = "firstname", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -39,7 +48,6 @@ public class Passenger {
         this.firstName = firstName;
     }
 
-    @Column(name = "patronym", nullable = false)
     public String getPatronym() {
         return patronym;
     }
@@ -48,12 +56,19 @@ public class Passenger {
         this.patronym = patronym;
     }
 
-    @Column(name = "passportnumber", nullable = false)
     public String getPassportNumber() {
         return passportNumber;
     }
 
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

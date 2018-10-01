@@ -1,18 +1,24 @@
 package com.foxminded.airline.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Airport")
 public class Airport {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "airportId", unique = true, nullable = false)
     private int id;
     private String name;
 
-    @Id
-    @Column(name = "airport_id", unique = true, nullable = false)
+    @OneToMany(mappedBy = "departureAirport",cascade = CascadeType.ALL)
+    private List<Flight> departureFlights;
+
+    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.ALL)
+    private List<Flight> arrivalFlights;
+
     public int getId() {
         return id;
     }
@@ -21,7 +27,6 @@ public class Airport {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -30,5 +35,19 @@ public class Airport {
         this.name = name;
     }
 
+    public List<Flight> getDepartureFlights() {
+        return departureFlights;
+    }
 
+    public void setDepartureFlights(List<Flight> departureFlights) {
+        this.departureFlights = departureFlights;
+    }
+
+    public List<Flight> getArrivalFlights() {
+        return arrivalFlights;
+    }
+
+    public void setArrivalFlights(List<Flight> arrivalFlights) {
+        this.arrivalFlights = arrivalFlights;
+    }
 }

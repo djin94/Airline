@@ -3,17 +3,22 @@ package com.foxminded.airline.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "UserAirline")
+@Table(name = "userairline")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "userId", unique = true, nullable = false)
     private int id;
     private String login;
     private String password;
     private String email;
     private String phone;
+
+    @OneToOne
+    @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
-    @Id
-    @Column(name = "user_id", unique = true, nullable = false)
     public int getId() {
         return id;
     }
@@ -22,7 +27,6 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "login", nullable = false)
     public String getLogin() {
         return login;
     }
@@ -31,7 +35,6 @@ public class User {
         this.login = login;
     }
 
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -40,7 +43,6 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -49,7 +51,6 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "phone", nullable = false)
     public String getPhone() {
         return phone;
     }
@@ -58,8 +59,7 @@ public class User {
         this.phone = phone;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "passenger_id", nullable = false)
+
     public Passenger getPassenger() {
         return passenger;
     }

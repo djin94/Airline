@@ -3,15 +3,18 @@ package com.foxminded.airline.controller;
 import com.foxminded.airline.dao.FlightDAO;
 import com.foxminded.airline.domain.Flight;
 import com.foxminded.airline.dto.FlightDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +23,12 @@ import java.util.List;
 
 @Controller
 public class SearchFlightController {
+    @Autowired
+    DataSource dataSource;
+
+    @Autowired
+    FlightDAO flightDAO;
+
     private FlightDTO flightDTO;
 
     @RequestMapping(value = "/searchflight",
@@ -41,12 +50,13 @@ public class SearchFlightController {
         return "searchFlight";
     }
 
+    @Transactional
     @RequestMapping(value = "/searchflight",
             method = RequestMethod.POST)
     public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
         final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        FlightDAO flightDAO = new FlightDAO();
-        List<Flight> flights = flightDAO.getAll();
+
+        List<Flight> flights = (List) flightDAO.findAll();
         List<FlightDTO> flightDTOS = new ArrayList<>();
         flights.stream()
                 .filter(flight -> flight.getDepartureAirport().getName().toLowerCase().equals(flightDTO.getDepartureAirport().toLowerCase()) &&

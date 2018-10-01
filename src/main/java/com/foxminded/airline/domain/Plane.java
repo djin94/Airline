@@ -1,19 +1,25 @@
 package com.foxminded.airline.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Plane")
 public class Plane {
-    private int id;
-    private String name;
-    private int capacity;
 
     @Id
-    @Column(name = "plane_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "planeId", unique = true, nullable = false)
+    private int id;
+
+    private String name;
+
+    private int capacity;
+
+    @OneToMany(mappedBy = "plane")
+    @Transient
+    private List<Flight> flights;
+
     public int getId() {
         return id;
     }
@@ -22,7 +28,6 @@ public class Plane {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -31,12 +36,19 @@ public class Plane {
         this.name = name;
     }
 
-    @Column(name = "capacity", nullable = false)
     public int getCapacity() {
         return capacity;
     }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 }

@@ -6,12 +6,16 @@ import java.util.List;
 @Entity
 @Table(name = "Airline")
 public class Airline {
-    private int id;
-    private String name;
-    private List<Flight> flights;
 
     @Id
-    @Column(name = "airline_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "airlineId", unique = true, nullable = false)
+    private int id;
+    private String name;
+
+    @OneToMany(mappedBy = "airline")
+    private List<Flight> flights;
+
     public int getId() {
         return id;
     }
@@ -20,7 +24,6 @@ public class Airline {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -29,8 +32,6 @@ public class Airline {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "airline_id")
     public List<Flight> getFlights() {
         return flights;
     }
