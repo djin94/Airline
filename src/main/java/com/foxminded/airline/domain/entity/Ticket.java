@@ -1,30 +1,10 @@
-package com.foxminded.airline.domain;
+package com.foxminded.airline.domain.entity;
 
-import javax.persistence.*;
-
-@SuppressWarnings("JpaAttributeTypeInspection")
-@Entity
-@Table(name = "Ticket")
 public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "number", unique = true, nullable = false)
     private long number;
-
-    @ManyToOne
-    @JoinColumn(name = "flightpriceId")
     private FlightPrice flightPrice;
-
     private String place;
-
-    @ManyToOne
-    @JoinColumn(name = "passengerId")
     private Passenger passenger;
-
-    @ManyToOne
-    @JoinColumn(name = "flightId")
-    private Flight flight;
-
 
     public long getNumber() {
         return number;
@@ -56,13 +36,5 @@ public class Ticket {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
     }
 }

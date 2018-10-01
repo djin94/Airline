@@ -1,7 +1,7 @@
 package com.foxminded.airline.controller;
 
 import com.foxminded.airline.dao.AirportDAO;
-import com.foxminded.airline.domain.Airport;
+import com.foxminded.airline.domain.service.Airport;
 import com.foxminded.airline.dto.AirportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

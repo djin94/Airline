@@ -1,4 +1,4 @@
-package com.foxminded.airline.domain;
+package com.foxminded.airline.domain.service;
 
 import javax.persistence.*;
 import java.util.List;

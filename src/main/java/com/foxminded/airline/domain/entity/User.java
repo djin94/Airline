@@ -1,22 +1,11 @@
-package com.foxminded.airline.domain;
+package com.foxminded.airline.domain.entity;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "userairline")
 public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "userId", unique = true, nullable = false)
     private int id;
     private String login;
     private String password;
     private String email;
     private String phone;
-
-    @OneToOne
-    @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
     public int getId() {
@@ -58,7 +47,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
     public Passenger getPassenger() {
         return passenger;
