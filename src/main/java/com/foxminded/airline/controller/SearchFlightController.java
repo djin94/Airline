@@ -1,7 +1,9 @@
 package com.foxminded.airline.controller;
 
+import com.foxminded.airline.dao.AirportDAO;
 import com.foxminded.airline.dao.FlightDAO;
-import com.foxminded.airline.domain.service.Flight;
+import com.foxminded.airline.domain.entity.Airport;
+import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.dto.FlightDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,9 @@ public class SearchFlightController {
 
     @Autowired
     FlightDAO flightDAO;
+
+    @Autowired
+    AirportDAO airportDAO;
 
     private FlightDTO flightDTO;
 
@@ -54,19 +59,18 @@ public class SearchFlightController {
             method = RequestMethod.POST)
     public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
         final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        List<Flight> flights = (List) flightDAO.findAll();
+        Airport departureAirport = airportDAO.findByNameIgnoreCase(flightDTO.getDepartureAirport());
+        Airport arrivalAirport = airportDAO.findByNameIgnoreCase(flightDTO.getArrivalAirport());
+        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
+        List<Flight> flights = flightDAO.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
         List<FlightDTO> flightDTOS = new ArrayList<>();
         flights.stream()
-                .filter(flight -> flight.getDepartureAirport().getName().toLowerCase().equals(flightDTO.getDepartureAirport().toLowerCase()) &&
-                        flight.getArrivalAirport().getName().toLowerCase().equals(flightDTO.getArrivalAirport().toLowerCase()) &&
-                        flight.getDate().toLocalDate().equals(LocalDate.parse(flightDTO.getDateString(), dateFormat)))
                 .forEach(flight -> {
                     FlightDTO flightDTO = new FlightDTO();
                     flightDTO.setNumber(flight.getNumber());
                     flightDTO.setPlaneName(flight.getPlane().getName());
-                    flightDTO.setDateString(flight.getDate().toLocalDate().toString());
-                    flightDTO.setTimeString(flight.getDate().toLocalTime().toString());
+                    flightDTO.setDateString(flight.getDate().toString());
+                    flightDTO.setTimeString(flight.getDate().toString());
                     flightDTO.setDepartureAirport(flight.getDepartureAirport().getName());
                     flightDTO.setArrivalAirport(flight.getArrivalAirport().getName());
                     flightDTOS.add(flightDTO);

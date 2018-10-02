@@ -1,16 +1,55 @@
 package com.foxminded.airline.domain.entity;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "flight")
 public class Flight {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "flightId", unique = true)
+    private int id;
+
     private String number;
-    private LocalDateTime date;
+
+    private LocalDate date;
+
+    private LocalTime time;
+
+    @ManyToOne
+    @JoinColumn(name = "planeId")
     private Plane plane;
+
+    @ManyToOne
+    @JoinColumn(name = "departure_airport_id", insertable = false, updatable = false)
     private Airport departureAirport;
+
+    @ManyToOne
+    @JoinColumn(name = "arrival_airport_id", insertable = false, updatable = false)
     private Airport arrivalAirport;
-    private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "flight")
+    private List<Ticket> tickets = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "airlineId")
     private Airline airline;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNumber() {
         return number;
@@ -20,12 +59,20 @@ public class Flight {
         this.number = number;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public Plane getPlane() {
@@ -74,5 +121,26 @@ public class Flight {
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return id == flight.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "number='" + number + '\'' +
+                '}';
     }
 }

@@ -1,10 +1,30 @@
 package com.foxminded.airline.domain.entity;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "Airline")
 public class Airline {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "airlineId", unique = true, nullable = false)
+    private int id;
     private String name;
-    private List<Flight> flights;
+
+    @OneToMany(mappedBy = "airline")
+    private List<Flight> flights = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,5 +48,26 @@ public class Airline {
 
     public void remove(Flight flight) {
         flights.remove(flight);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airline airline = (Airline) o;
+        return id == airline.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Airline{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package com.foxminded.airline.dao;
 
-import com.foxminded.airline.domain.service.FlightPrice;
+import com.foxminded.airline.domain.entity.FlightPrice;
 import org.springframework.data.repository.CrudRepository;
 
 
