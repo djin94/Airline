@@ -1,3 +1,8 @@
+$(document).ready(function(){
+    // тут весь ваш код
+    loadFlights();
+    window.addEventListener('click')
+});
 function loadFlights() {
     $.ajax( {
         url: '/searchflight',
