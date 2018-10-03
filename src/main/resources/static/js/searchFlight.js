@@ -30,33 +30,45 @@ function printFlights(data) {
         table += "<tr id='tr"+i+"'>" + "<form method='get' action='buyticket'>"+
             "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
             "<td>" + data[i].departureAirport + "</td>" + "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName +
-            "</td>" + "<td><button class='btn btn-primary' type='submit' id = '"+"btn"+i+"'>"+"Купить</button></td>"+
+            "</td>" + "<td><button onclick='buyTicket(this)' class='btn btn-primary' type='submit' id = '"+i+"'>"+"Купить</button></td>"+
             "</form> </tr>";
     }
     table += "</table>";
     $('#flights').html(table);
 }
 
-    $(".btn btn-primary").click(function (){
-        $('#' + idMap[ this.id - 1 ]).show();
-    });
+function printFlightsDiv(data) {
+    var table = "<div class='table'>";
+    table+="<form method='get' action='buyticket'>";
+    table+=""
+    for (var i = 0; i != data.length; ++i) {
+        table+="";
+    }
+}
 
-function postBtn() {
+function getTrByButtonClick(btn) {
+    return document.getElementById("tr" + btn.id);
+}
+function buyTicket(btn) {
+    var tr = getTrByButtonClick(btn);
     $.ajax( {
-        url: '/searchflight',
+        url: '/buyticket',
         method: 'get',
+        contentType: "application/json",
+        dataType: 'json',
+        data: getJSONFromTr,
         cache: false,
         timeout: 600000,
-        success: function (data) {
-            if (jQuery.isEmptyObject(data)){
-                printNotFoundMessage();
-            }else {
-                printFlights(data);
-            }
-        },
         error:function (e) {
             alert("error");
         }
     });
-    window.location ="/buyticket";
+}
+
+function getJSONFromTr(tr) {
+    return JSON.stringify({
+        number: tr[0].innerHTML,
+        dateString:tr[1].innerHTML,
+        timeString:tr[2].innerHTML
+    })
 }

@@ -70,7 +70,7 @@ public class SearchFlightController {
                     flightDTO.setNumber(flight.getNumber());
                     flightDTO.setPlaneName(flight.getPlane().getName());
                     flightDTO.setDateString(flight.getDate().toString());
-                    flightDTO.setTimeString(flight.getDate().toString());
+                    flightDTO.setTimeString(flight.getTime().toString());
                     flightDTO.setDepartureAirport(flight.getDepartureAirport().getName());
                     flightDTO.setArrivalAirport(flight.getArrivalAirport().getName());
                     flightDTOS.add(flightDTO);
