@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TicketController {
     FlightDTO flightDTO;
+
     @RequestMapping(value = "/buyticket",
-            produces = MediaType.TEXT_HTML_VALUE,
-            params = {"number", "dateString", "timeString"},
-            method = RequestMethod.GET)
+            params = {"number", "dateString", "timeString"})
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
                              @RequestParam("timeString") String timeString) {
@@ -22,6 +21,11 @@ public class TicketController {
         flightDTO.setNumber(number);
         flightDTO.setDateString(dateString);
         flightDTO.setTimeString(timeString);
+        return "buyTicket";
+    }
+
+    @RequestMapping("/buyticket")
+    public String showAllTickets() {
         return "hello";
     }
 }
