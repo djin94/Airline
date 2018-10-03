@@ -51,18 +51,23 @@ function getTrByButtonClick(btn) {
 }
 function buyTicket(btn) {
     var tr = getTrByButtonClick(btn);
-    $.ajax( {
-        url: '/buyticket',
-        method: 'get',
-        contentType: "application/json",
-        dataType: 'json',
-        data: getJSONFromTr,
-        cache: false,
-        timeout: 600000,
-        error:function (e) {
-            alert("error");
-        }
-    });
+    // $.ajax( {
+    //     url: '/buyticket',
+    //     method: 'get',
+    //     contentType: 'application/json',
+    //     dataType: 'json',
+    //     data: JSON.stringify({
+    //         number: tr[0].innerHTML,
+    //         dateString:tr[1].innerHTML,
+    //         timeString:tr[2].innerHTML
+    //     }),
+    //     cache: false,
+    //     timeout: 600000,
+    //     error:function (e) {
+    //         alert("error");
+    //     }
+    // });
+    window.location.replace("/buyticket");
 }
 
 function getJSONFromTr(tr) {
