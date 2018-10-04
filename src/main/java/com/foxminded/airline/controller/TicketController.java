@@ -86,9 +86,7 @@ public class TicketController {
         ticket.setPassenger(passenger);
         ticket.setPlace(ticketDTO.getPlace());
         passenger.add(ticket);
-        passengerDAO.save(passenger);
-        flight.add(ticket);
-        flightDAO.save(flight);
+        ticketDAO.save(ticket);
     }
 
     @RequestMapping(value = "/buyticket/success")

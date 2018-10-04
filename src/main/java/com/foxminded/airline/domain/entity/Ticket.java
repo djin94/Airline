@@ -18,11 +18,11 @@ public class Ticket {
     private String place;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "passenger_id")
+    @JoinColumn(name = "passenger_id", insertable = false,updatable = true)
     private Passenger passenger;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "flight_id", insertable = false,updatable = false)
+    @JoinColumn(name = "flight_id", insertable = false,updatable = true)
     private Flight flight;
 
     public int getNumber() {
