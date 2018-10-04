@@ -16,18 +16,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class TicketController {
@@ -55,11 +50,6 @@ public class TicketController {
         return "buyTicket";
     }
 
-    @RequestMapping("/buyticket")
-    public String showAllTickets() {
-        return "hello";
-    }
-
     @RequestMapping(value = "/buyticket/flightprices",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
@@ -76,17 +66,22 @@ public class TicketController {
     }
 
     @RequestMapping(value = "/buyticket",
-            produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public void createTicket(@RequestBody TicketDTO ticketDTO) {
-        Passenger passenger = passengerDAO.findByPassportNumber(ticketDTO.getPassportNumber()).orElse(createPassengerFromTicketDTO(ticketDTO));
+    public @ResponseBody String createTicket(@RequestBody TicketDTO ticketDTO) {
+        Passenger passenger;
+        if(passengerDAO.findByPassportNumber(ticketDTO.getPassportNumber()).isPresent()){
+            passenger = passengerDAO.findByPassportNumber(ticketDTO.getPassportNumber()).get();
+        }else {
+            passenger=createPassengerFromTicketDTO(ticketDTO);
+            passengerDAO.save(passenger);
+        }
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);
         ticket.setFlightPrice(flightPriceDAO.findByFlightAndLevel(flight, ticketDTO.getFlightPrice().split(" - ")[0]));
         ticket.setPassenger(passenger);
         ticket.setPlace(ticketDTO.getPlace());
-        passenger.add(ticket);
         ticketDAO.save(ticket);
+        return "success";
     }
 
     @RequestMapping(value = "/buyticket/success")
@@ -100,7 +95,6 @@ public class TicketController {
         passenger.setLastName(ticketDTO.getLastName());
         passenger.setPatronym(ticketDTO.getPatronym());
         passenger.setPassportNumber(ticketDTO.getPassportNumber());
-        passengerDAO.save(passenger);
         return passenger;
     }
 }

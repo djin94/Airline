@@ -11,18 +11,18 @@ public class Ticket {
     @Column(name = "number", unique = true)
     private int number;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinColumn(name = "flightprice_id")
     private FlightPrice flightPrice;
 
     private String place;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "passenger_id", insertable = false,updatable = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+    @JoinColumn(name = "passenger_id")
     private Passenger passenger;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "flight_id", insertable = false,updatable = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+    @JoinColumn(name = "flight_id")
     private Flight flight;
 
     public int getNumber() {
@@ -75,7 +75,6 @@ public class Ticket {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(number);
     }
 

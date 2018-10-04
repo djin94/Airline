@@ -16,7 +16,7 @@ public class User {
     private String email;
     private String phone;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinColumn(name = "passengerId")
     private Passenger passenger;
 

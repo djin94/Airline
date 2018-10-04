@@ -18,10 +18,10 @@ public class FlightPrice {
 
     private int price;
 
-    @OneToMany(mappedBy = "flightPrice",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "flightPrice",fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinColumn(name = "flight_id")
     private Flight flight;
 

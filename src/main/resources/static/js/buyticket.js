@@ -45,8 +45,9 @@ function createTicket() {
             flightPrice: $('#flightPrice').val()
         }),
         dataType: 'json',
-        success: function () {
-            window.location.replace("/buyticket/success");
+        success:function (data) {
+            alert("Билет оформлен");
+            $('#ticketCreateStatus').html("<h3>Билет оформлен</h3>");
         }
     });
 }

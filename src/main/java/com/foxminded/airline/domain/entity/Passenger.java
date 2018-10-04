@@ -25,10 +25,10 @@ public class Passenger {
     @Column(name = "passportnumber", unique = true)
     private String passportNumber;
 
-    @OneToOne(mappedBy = "passenger")
+    @OneToOne(mappedBy = "passenger",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     private User user;
 
-    @OneToMany(mappedBy = "passenger",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "passenger",fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
 
