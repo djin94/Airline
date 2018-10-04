@@ -58,7 +58,7 @@ public class SearchFlightController {
     @RequestMapping(value = "/searchflight",
             method = RequestMethod.POST)
     public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
-        final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         Airport departureAirport = airportDAO.findByNameIgnoreCase(flightDTO.getDepartureAirport());
         Airport arrivalAirport = airportDAO.findByNameIgnoreCase(flightDTO.getArrivalAirport());
         LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);

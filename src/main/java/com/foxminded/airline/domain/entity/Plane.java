@@ -10,8 +10,8 @@ import java.util.Objects;
 public class Plane {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "planeId", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "planeId", unique = true, nullable = true)
     private int id;
 
     private String name;
@@ -19,7 +19,6 @@ public class Plane {
     private int capacity;
 
     @OneToMany(mappedBy = "plane")
-    @Transient
     private List<Flight> flights = new ArrayList<>();
 
     public int getId() {
@@ -52,6 +51,14 @@ public class Plane {
 
     public void setFlights(List<Flight> flights) {
         this.flights = flights;
+    }
+
+    public void add(Flight flight) {
+        flights.add(flight);
+    }
+
+    public void remove(Flight flight) {
+        flights.remove(flight);
     }
 
     @Override

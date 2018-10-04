@@ -65,7 +65,7 @@ function searchFlight() {
         data: JSON.stringify({name: $('#nameDepartureAirport').val()}),
         dataType: 'json',
         success: function (data) {
-            loadAirports(data, 'departureAirports', 'nameDepartureAirport');
+
         }
     });
 }

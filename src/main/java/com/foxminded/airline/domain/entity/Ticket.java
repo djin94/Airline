@@ -4,33 +4,32 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Ticket")
+@Table(name = "ticket")
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "number", unique = true, nullable = false)
-    private long number;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "number", unique = true)
+    private int number;
 
-    @ManyToOne
-    @JoinColumn(name = "flightpriceId")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "flightprice_id")
     private FlightPrice flightPrice;
 
     private String place;
 
-    @ManyToOne
-    @JoinColumn(name = "passengerId")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "passenger_id")
     private Passenger passenger;
 
-    @ManyToOne
-    @JoinColumn(name = "flightId")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "flight_id", insertable = false,updatable = false)
     private Flight flight;
 
-
-    public long getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

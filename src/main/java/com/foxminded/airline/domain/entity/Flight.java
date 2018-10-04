@@ -35,13 +35,15 @@ public class Flight {
     @JoinColumn(name = "arrival_airport_id", insertable = false, updatable = false)
     private Airport arrivalAirport;
 
-    @OneToMany(mappedBy = "flight")
+    @OneToMany(mappedBy = "flight",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "airlineId")
     private Airline airline;
 
+    @OneToMany(mappedBy = "flight")
+    private List<FlightPrice> flightPrices = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -121,6 +123,22 @@ public class Flight {
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    public List<FlightPrice> getFlightPrices() {
+        return flightPrices;
+    }
+
+    public void setFlightPrices(List<FlightPrice> flightPrices) {
+        this.flightPrices = flightPrices;
+    }
+
+    public void add(FlightPrice flightPrice){
+        flightPrices.add(flightPrice);
+    }
+
+    public void remove(FlightPrice flightPrice){
+        flightPrices.remove(flightPrice);
     }
 
     @Override

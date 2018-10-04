@@ -10,17 +10,20 @@ import java.util.Objects;
 public class FlightPrice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "flightpriceId", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "flightpriceId", unique = true, nullable = true)
     private int id;
 
     private String level;
 
     private int price;
 
-    @OneToMany(mappedBy = "flightPrice")
-    @Transient
+    @OneToMany(mappedBy = "flightPrice",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
 
     public int getId() {
         return id;
@@ -52,6 +55,22 @@ public class FlightPrice {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public void add(Ticket ticket){
+        tickets.add(ticket);
+    }
+
+    public void remove(Ticket ticket){
+        tickets.remove(ticket);
     }
 
     @Override

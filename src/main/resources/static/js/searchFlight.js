@@ -1,7 +1,5 @@
 $(document).ready(function(){
-    // тут весь ваш код
     loadFlights();
-    window.addEventListener('click')
 });
 function loadFlights() {
     $.ajax( {
@@ -35,50 +33,14 @@ function printFlights(data) {
         table += "<tr id='tr"+i+"'>" +
             "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
             "<td>" + data[i].departureAirport + "</td>" + "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName +
-            "</td>" + "<td><button onclick='buyTicket(this)' class='btn btn-primary' id = '"+i+"'>"+"Купить</button></td>"+
+            "</td>" + "<td><button onclick=\"buyTicket('"+ data[i].number+"', '"+data[i].dateString+"', '"+data[i].timeString+"')\" class='btn btn-primary' id = '"+i+"'>"+"Купить</button></td>"+
+
             "</tr>";
     }
     table += "</table>";
     $('#flights').html(table);
 }
 
-function printFlightsDiv(data) {
-    var table = "<div class='table'>";
-    table+="<form method='get' action='buyticket'>";
-    table+=""
-    for (var i = 0; i != data.length; ++i) {
-        table+="";
-    }
-}
-
-function getTrByButtonClick(btn) {
-    return document.getElementById("tr" + btn.id);
-}
-function buyTicket(btn) {
-    var tr = getTrByButtonClick(btn);
-    // $.ajax( {
-    //     url: '/buyticket',
-    //     method: 'get',
-    //     contentType: 'application/json',
-    //     dataType: 'json',
-    //     data: JSON.stringify({
-    //         number: tr[0].innerHTML,
-    //         dateString:tr[1].innerHTML,
-    //         timeString:tr[2].innerHTML
-    //     }),
-    //     cache: false,
-    //     timeout: 600000,
-    //     error:function (e) {
-    //         alert("error");
-    //     }
-    // });
-    window.location.replace("/buyticket?number="+tr[0].innerHTML+"&dateString="+tr[1].innerHTML+"&timeString="+tr[2].innerHTML);
-}
-
-function getJSONFromTr(tr) {
-    return JSON.stringify({
-        number: tr[0].innerHTML,
-        dateString:tr[1].innerHTML,
-        timeString:tr[2].innerHTML
-    })
+function buyTicket(number, dateString, timeString) {
+    window.location.replace("/buyticket?number="+number+"&dateString="+dateString+"&timeString="+timeString);
 }

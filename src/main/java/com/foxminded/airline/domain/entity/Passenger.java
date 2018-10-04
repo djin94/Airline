@@ -10,19 +10,25 @@ import java.util.Objects;
 public class Passenger {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "passengerId", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "passengerId", unique = true, nullable = true)
     private int id;
+
+    @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "firstname")
     private String firstName;
+
     private String patronym;
+
+    @Column(name = "passportnumber", unique = true)
     private String passportNumber;
 
-    @OneToOne(mappedBy = "user")
-    @Transient
+    @OneToOne(mappedBy = "passenger")
     private User user;
 
-    @OneToMany(mappedBy = "passenger")
+    @OneToMany(mappedBy = "passenger",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
 
@@ -72,6 +78,14 @@ public class Passenger {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void add(Ticket ticket) {
+        tickets.add(ticket);
+    }
+
+    public void removeTicket(Ticket ticket) {
+        tickets.remove(ticket);
     }
 
     @Override

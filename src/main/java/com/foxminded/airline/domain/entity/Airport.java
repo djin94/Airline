@@ -10,8 +10,8 @@ import java.util.Objects;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "airportId", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "airportId", unique = true, nullable = true)
     private int id;
     private String name;
 

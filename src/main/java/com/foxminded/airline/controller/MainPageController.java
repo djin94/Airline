@@ -33,8 +33,8 @@ public class MainPageController {
     }
 
     @Transactional
-    @RequestMapping(value = "/searchAirport", method = RequestMethod.POST, produces =
-            MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/searchAirport", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AirportDTO>> searchAirport(@RequestBody AirportDTO airportDTO) {
         List<Airport> suitableAirports = airportDAO.findByNameLikeIgnoreCase("%" + airportDTO.getName() + "%");
         List<AirportDTO> suitableAirportsDTO = new ArrayList<>();
