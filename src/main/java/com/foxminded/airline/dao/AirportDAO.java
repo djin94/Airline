@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface AirportDAO extends CrudRepository<Airport, Integer> {
     List<Airport> findByNameLikeIgnoreCase(String name);
+
     Airport findByNameIgnoreCase(String name);
 }

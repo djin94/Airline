@@ -1,8 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function () {
     loadFlightPrice();
 });
 function loadFlightPrice() {
-    $.ajax( {
+    $.ajax({
         url: '/buyticket/flightprices',
         method: 'get',
         dataType: 'json',
@@ -11,7 +11,7 @@ function loadFlightPrice() {
         success: function (data) {
             printFlightPrices(data);
         },
-        error:function (e) {
+        error: function (e) {
             alert("error");
         }
     });
@@ -19,7 +19,7 @@ function loadFlightPrice() {
 
 function printFlightPrices(data) {
     var select = "<label for='flightPrice'>Категория</label>";
-    select+="<select name='flightPrice' id='flightPrice' class='form-control'>";
+    select += "<select name='flightPrice' id='flightPrice' class='form-control'>";
     for (var i = 0; i != data.length; ++i) {
         select += "<option>" + data[i].level + " - " + data[i].price + " EUR</option>";
     }
@@ -28,7 +28,7 @@ function printFlightPrices(data) {
 }
 
 function buyTicket(number, dateString, timeString) {
-    window.location.replace("/buyticket?number="+number+"&dateString="+dateString+"&timeString="+timeString);
+    window.location.replace("/buyticket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
 }
 
 function createTicket() {
@@ -37,16 +37,17 @@ function createTicket() {
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({
-            lastName: $('#lastName').val(),
-            firstName: $('#firstName').val(),
-            patronym: $('#patronym').val(),
-            passportNumber: $('#passportNumber').val(),
+            passengerDTO: {
+                lastName: $('#lastName').val(),
+                firstName: $('#firstName').val(),
+                patronym: $('#patronym').val(),
+                passportNumber: $('#passportNumber').val()
+            },
             place: $('#place').val(),
             flightPrice: $('#flightPrice').val()
         }),
         dataType: 'json',
-        success:function (data) {
-            alert("Билет оформлен");
+        complete: function (data) {
             $('#ticketCreateStatus').html("<h3>Билет оформлен</h3>");
         }
     });

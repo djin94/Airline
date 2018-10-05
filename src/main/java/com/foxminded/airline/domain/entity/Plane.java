@@ -18,7 +18,7 @@ public class Plane {
 
     private int capacity;
 
-    @OneToMany(mappedBy = "plane",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+    @OneToMany(mappedBy = "plane", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Flight> flights = new ArrayList<>();
 
     public int getId() {

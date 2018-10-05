@@ -1,20 +1,20 @@
-$(document).ready(function(){
+$(document).ready(function () {
     loadFlights();
 });
 function loadFlights() {
-    $.ajax( {
+    $.ajax({
         url: '/searchflight',
         method: 'post',
         cache: false,
         timeout: 600000,
         success: function (data) {
-            if (jQuery.isEmptyObject(data)){
+            if (jQuery.isEmptyObject(data)) {
                 printNotFoundMessage();
-            }else {
+            } else {
                 printFlights(data);
             }
         },
-        error:function (e) {
+        error: function (e) {
             alert("error");
         }
     });
@@ -30,10 +30,10 @@ function printFlights(data) {
     table += "<tr><th>Номер рейса</th><th>Дата вылета</th><th>Время вылета</th><th>Аэропорт отправления</th>" +
         "<th>Аэропорт прибытия</th><th>Самолет</th><th>Купить билет</th></tr>";
     for (var i = 0; i != data.length; ++i) {
-        table += "<tr id='tr"+i+"'>" +
+        table += "<tr id='tr" + i + "'>" +
             "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
             "<td>" + data[i].departureAirport + "</td>" + "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName +
-            "</td>" + "<td><button onclick=\"buyTicket('"+ data[i].number+"', '"+data[i].dateString+"', '"+data[i].timeString+"')\" class='btn btn-primary' id = '"+i+"'>"+"Купить</button></td>"+
+            "</td>" + "<td><button onclick=\"buyTicket('" + data[i].number + "', '" + data[i].dateString + "', '" + data[i].timeString + "')\" class='btn btn-primary' id = '" + i + "'>" + "Купить</button></td>" +
 
             "</tr>";
     }
@@ -42,5 +42,5 @@ function printFlights(data) {
 }
 
 function buyTicket(number, dateString, timeString) {
-    window.location.replace("/buyticket?number="+number+"&dateString="+dateString+"&timeString="+timeString);
+    window.location.replace("/buyticket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
 }

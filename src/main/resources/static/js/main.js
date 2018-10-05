@@ -56,25 +56,3 @@ function writeNameAirportToInput(name, typeAirport, idInput) {
     var airport = document.getElementById(typeAirport);
     airport.getElementsByTagName('*')[0].hidden=true;
 }
-
-function searchFlight() {
-    $.ajax({
-        url: '/searchFlight',
-        method: 'post',
-        contentType: "application/json",
-        data: JSON.stringify({name: $('#nameDepartureAirport').val()}),
-        dataType: 'json',
-        success: function (data) {
-
-        }
-    });
-}
-
-function validate() {
-    var result = true;
-    if ($('#name').val() == '') {
-        $('#name').css('background-color', 'red');
-        result = false;
-    }
-    return result;
-}
