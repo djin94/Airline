@@ -112,7 +112,7 @@ public class Flight {
         tickets.add(ticket);
     }
 
-    public void removeTicket(Ticket ticket) {
+    public void remove(Ticket ticket) {
         tickets.remove(ticket);
     }
 

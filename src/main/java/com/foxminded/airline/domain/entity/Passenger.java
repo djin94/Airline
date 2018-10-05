@@ -80,14 +80,6 @@ public class Passenger {
         this.user = user;
     }
 
-    public void add(Ticket ticket) {
-        tickets.add(ticket);
-    }
-
-    public void removeTicket(Ticket ticket) {
-        tickets.remove(ticket);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

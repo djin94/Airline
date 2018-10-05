@@ -53,14 +53,6 @@ public class Plane {
         this.flights = flights;
     }
 
-    public void add(Flight flight) {
-        flights.add(flight);
-    }
-
-    public void remove(Flight flight) {
-        flights.remove(flight);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

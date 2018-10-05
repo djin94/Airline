@@ -65,14 +65,6 @@ public class FlightPrice {
         this.flight = flight;
     }
 
-    public void add(Ticket ticket) {
-        tickets.add(ticket);
-    }
-
-    public void remove(Ticket ticket) {
-        tickets.remove(ticket);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
