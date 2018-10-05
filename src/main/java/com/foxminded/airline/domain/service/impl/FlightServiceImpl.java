@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,11 @@ public class FlightServiceImpl implements FlightService {
 
     @Autowired
     FlightDAO flightDAO;
+
+    @Override
+    public Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time) {
+        return flightDAO.findByNumberAndDateAndTime(number, date, time);
+    }
 
     @Override
     public FlightDTO createFlightDTO(String nameDepartureAirport, String nameArrivalAirport, String date) {

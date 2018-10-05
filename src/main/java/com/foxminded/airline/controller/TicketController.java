@@ -8,6 +8,7 @@ import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Passenger;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.service.FlightPriceService;
+import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.domain.service.PassengerService;
 import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dto.FlightDTO;
@@ -28,26 +29,13 @@ import java.util.List;
 
 @Controller
 public class TicketController {
-    FlightDTO flightDTO;
     Flight flight;
 
     @Autowired
-    FlightDAO flightDAO;
-
-    @Autowired
-    FlightPriceDAO flightPriceDAO;
-
-    @Autowired
-    PassengerDAO passengerDAO;
-
-    @Autowired
-    TicketDAO ticketDAO;
+    FlightService flightService;
 
     @Autowired
     FlightPriceService flightPriceService;
-
-    @Autowired
-    PassengerService passengerService;
 
     @Autowired
     TicketService ticketService;
@@ -57,7 +45,7 @@ public class TicketController {
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
                              @RequestParam("timeString") String timeString) {
-        flight = flightDAO.findByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
         return "buyTicket";
     }
 
@@ -72,7 +60,7 @@ public class TicketController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketDAO.save(ticketService.createTicket(ticketDTO, flight));
+        ticketService.save(ticketService.createTicket(ticketDTO, flight));
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 }

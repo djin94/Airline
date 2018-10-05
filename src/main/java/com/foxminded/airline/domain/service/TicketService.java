@@ -6,4 +6,6 @@ import com.foxminded.airline.dto.TicketDTO;
 
 public interface TicketService {
     Ticket createTicket(TicketDTO ticketDTO, Flight flight);
+
+    void save(Ticket ticket);
 }

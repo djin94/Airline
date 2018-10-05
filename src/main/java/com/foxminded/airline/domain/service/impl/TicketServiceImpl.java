@@ -1,8 +1,11 @@
-package com.foxminded.airline.domain.service;
+package com.foxminded.airline.domain.service.impl;
 
 import com.foxminded.airline.dao.FlightPriceDAO;
+import com.foxminded.airline.dao.TicketDAO;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;
+import com.foxminded.airline.domain.service.PassengerService;
+import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dto.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,9 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     PassengerService passengerService;
 
+    @Autowired
+    TicketDAO ticketDAO;
+
     @Override
     public Ticket createTicket(TicketDTO ticketDTO, Flight flight) {
         Ticket ticket = new Ticket();
@@ -23,5 +29,10 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPassenger(passengerService.findOrCreatePassengerFromPassengerDTO(ticketDTO.getPassengerDTO()));
         ticket.setPlace(ticketDTO.getPlace());
         return ticket;
+    }
+
+    @Override
+    public void save(Ticket ticket) {
+        ticketDAO.save(ticket);
     }
 }
