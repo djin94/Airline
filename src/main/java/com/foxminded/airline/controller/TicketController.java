@@ -43,7 +43,7 @@ public class TicketController {
     @RequestMapping(value = "/buyticket/flightprices",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
-    public ResponseEntity<List<FlightPriceDTO>> getFlightPrice() throws IOException {
+    public ResponseEntity<List<FlightPriceDTO>> getFlightPrices() throws IOException {
         return new ResponseEntity<List<FlightPriceDTO>>(flightPriceService.createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
     }
 
