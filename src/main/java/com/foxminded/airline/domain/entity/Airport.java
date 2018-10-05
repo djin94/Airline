@@ -15,10 +15,10 @@ public class Airport {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "departureAirport", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "departureAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Flight> departureFlights = new ArrayList<>();
 
-    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "arrivalAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Flight> arrivalFlights = new ArrayList<>();
 
     public int getId() {
