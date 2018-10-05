@@ -1,19 +1,10 @@
 package com.foxminded.airline.controller;
 
-import com.foxminded.airline.dao.FlightDAO;
-import com.foxminded.airline.dao.FlightPriceDAO;
-import com.foxminded.airline.dao.PassengerDAO;
-import com.foxminded.airline.dao.TicketDAO;
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.domain.entity.Passenger;
-import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.service.FlightPriceService;
 import com.foxminded.airline.domain.service.FlightService;
-import com.foxminded.airline.domain.service.PassengerService;
 import com.foxminded.airline.domain.service.TicketService;
-import com.foxminded.airline.dto.FlightDTO;
 import com.foxminded.airline.dto.FlightPriceDTO;
-import com.foxminded.airline.dto.PassengerDTO;
 import com.foxminded.airline.dto.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -32,11 +32,6 @@ public class SearchFlightController {
         return "searchFlight";
     }
 
-    @RequestMapping("/searchflight")
-    public String showAllFlights() {
-        return "searchFlight";
-    }
-
     @RequestMapping(value = "/searchflight",
             method = RequestMethod.POST)
     public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
