@@ -10,10 +10,9 @@ import java.util.Objects;
 public class Airline {
 
     @Id
-    @SequenceGenerator(name = "airline_airline_id_seq", sequenceName = "airline_airline_id_seq",
-            initialValue = 5, allocationSize = 3)
-    @GeneratedValue(generator = "airline_airline_id_seq")
-    @Column(name = "airlineId", unique = true, nullable = true)
+    @SequenceGenerator(name = "airline_id_seq", sequenceName = "airline_id_seq", schema = "public", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "airline_id_seq")
+    @Column(name = "airlineId", unique = true)
     private int id;
 
     private String name;
