@@ -13,6 +13,7 @@ public class Airline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airlineId", unique = true, nullable = true)
     private int id;
+
     private String name;
 
     @OneToMany(mappedBy = "airline")

@@ -11,9 +11,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId", unique = true, nullable = true)
     private int id;
+
     private String login;
+
     private String password;
+
     private String email;
+
     private String phone;
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})

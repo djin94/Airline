@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface PassengerDAO extends CrudRepository<Passenger, Integer> {
+public interface PassengerRepository extends CrudRepository<Passenger, Integer> {
     Optional<Passenger> findByPassportNumber(String passportNumber);
 }

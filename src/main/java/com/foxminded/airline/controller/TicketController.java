@@ -1,11 +1,12 @@
 package com.foxminded.airline.controller;
 
+import com.foxminded.airline.dao.TicketRepository;
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.domain.service.FlightPriceService;
 import com.foxminded.airline.domain.service.FlightService;
-import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dto.FlightPriceDTO;
 import com.foxminded.airline.dto.TicketDTO;
+import com.foxminded.airline.utils.FlightPriceConverter;
+import com.foxminded.airline.utils.TicketConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,12 +27,9 @@ public class TicketController {
     FlightService flightService;
 
     @Autowired
-    FlightPriceService flightPriceService;
+    TicketRepository ticketRepository;
 
-    @Autowired
-    TicketService ticketService;
-
-    @RequestMapping(value = "/buyticket",
+    @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
@@ -40,18 +38,16 @@ public class TicketController {
         return "buyTicket";
     }
 
-    @RequestMapping(value = "/buyticket/flightprices",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.GET)
+    @GetMapping(value = "/buyticket/flightprices",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FlightPriceDTO>> getFlightPrices() throws IOException {
-        return new ResponseEntity<List<FlightPriceDTO>>(flightPriceService.createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
+        return new ResponseEntity<>(new FlightPriceConverter().createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/buyticket",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.POST)
+    @PostMapping(value = "/buyticket",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketService.save(ticketService.createTicket(ticketDTO, flight));
-        return new ResponseEntity<String>("success", HttpStatus.OK);
+        ticketRepository.save(new TicketConverter().createTicket(ticketDTO, flight));
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

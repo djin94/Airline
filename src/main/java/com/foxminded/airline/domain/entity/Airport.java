@@ -13,6 +13,7 @@ public class Airport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airportId", unique = true, nullable = true)
     private int id;
+
     private String name;
 
     @OneToMany(mappedBy = "departureAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})

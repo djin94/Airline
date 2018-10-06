@@ -1,16 +1,12 @@
-package com.foxminded.airline.domain.service.impl;
+package com.foxminded.airline.utils;
 
 import com.foxminded.airline.domain.entity.FlightPrice;
-import com.foxminded.airline.domain.service.FlightPriceService;
 import com.foxminded.airline.dto.FlightPriceDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("flightPriceService")
-public class FlightPriceServiceImpl implements FlightPriceService {
-    @Override
+public class FlightPriceConverter {
     public List<FlightPriceDTO> createDTOsForFlightPrices(List<FlightPrice> flightPrices) {
         List<FlightPriceDTO> flightPriceDTOS = new ArrayList<>();
         flightPrices.forEach(flightPrice -> {
