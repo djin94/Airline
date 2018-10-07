@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Qatar Airways</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/daterangepicker.css">
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/daterangepicker.js"></script>
+</head>
+<body>
+<form method="get" action="/admin/listflights">
+    <div class="container-fluid">
+        <div class="form-inline">
+            <div class="form-row">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" onkeyup="searchAirport()" id="nameAirport"
+                           name="nameAirport" placeholder="Аэропорт" width="90%" autocomplete="off" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="date" name="date" placeholder="Дата" autocomplete="off"
+                           required>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" type="submit">Найти</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3" id="airports">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

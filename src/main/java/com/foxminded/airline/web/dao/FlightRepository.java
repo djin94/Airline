@@ -13,4 +13,8 @@ public interface FlightRepository extends CrudRepository<Flight, Integer> {
     List<Flight> findByDepartureAirportAndArrivalAirportAndDate(Airport departureAirport, Airport arrivalAirport, LocalDate date);
 
     Optional<Flight> findByNumberAndDateAndTime(String number, LocalDate date, LocalTime time);
+
+    List<Flight> findByDepartureAirportAndDate(Airport departureAirport, LocalDate date);
+
+    List<Flight> findByArrivalAirportAndDate(Airport arrivalAirport, LocalDate date);
 }

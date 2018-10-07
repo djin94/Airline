@@ -37,9 +37,19 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<Flight> findFlightByFlightDTO(FlightDTO flightDTO) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
         Airport departureAirport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
         Airport arrivalAirport = airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport()).get();
-        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
         return flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
+    }
+
+    @Override
+    public List<Flight> findFlightsForAirportByDate(FlightDTO flightDTO) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
+        Airport airport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
+        List<Flight> flights = flightRepository.findByDepartureAirportAndDate(airport, dateFlight);
+        flights.addAll(flightRepository.findByArrivalAirportAndDate(airport, dateFlight));
+        return flights;
     }
 }

@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/daterangepicker.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script src="js/daterangepicker/moment.min.js"></script>
-    <script src="js/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="js/daterangepicker/daterangepicker.js"></script>
 </head>
 <body style="background-color: aliceblue">
 <div>
     <nav class="top-menu">
         <a class="navbar-logo" href=""><img src="images/Logo-Qatar-Airways.jpg" width="200" height="80"></a>
         <ul class="menu-main">
-            <li id="admin"><a href="">Администратор</a> </li>
+            <li id="admin"><a href="/admin">Администратор</a> </li>
             <li id="user"><a href="">Войти</a></li>
         </ul>
     </nav>
@@ -32,7 +32,6 @@
                 <div class="col-md-3">
                     <input type="text" class="form-control" onkeyup="searchArrivalAirport()" id="nameArrivalAirport"
                            name="nameArrivalAirport" placeholder="Куда" width="90%" autocomplete="off" required>
-
                 </div>
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="date" name="date" placeholder="Дата" autocomplete="off"

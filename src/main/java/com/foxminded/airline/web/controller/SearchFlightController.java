@@ -38,8 +38,7 @@ public class SearchFlightController {
     }
 
     @PostMapping("/searchflight")
-    public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
-        List<Flight> flights = flightService.findFlightByFlightDTO(flightDTO);
+    public ResponseEntity<List<FlightDTO>> searchFlight() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightByFlightDTO(flightDTO)), HttpStatus.OK);
     }
 }

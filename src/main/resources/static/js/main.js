@@ -7,21 +7,6 @@ $(document).ready(function () {
     });
 });
 
-function createUser() {
-    if (validate()) {
-        $('#name').css('background-color', '');
-        $.ajax('flight', {
-            method: 'post',
-            data: JSON.stringify({login: $('#name').val()}),
-            complete: function (data) {
-                loadFlights();
-            }
-        });
-    } else {
-        alert("Заполните поля!");
-    }
-}
-
 function searchDepartureAirport() {
     $.ajax({
         url: '/searchAirport',

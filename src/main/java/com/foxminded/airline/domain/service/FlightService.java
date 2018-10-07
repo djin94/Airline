@@ -1,5 +1,6 @@
 package com.foxminded.airline.domain.service;
 
+import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.dto.FlightDTO;
 
@@ -11,4 +12,6 @@ public interface FlightService {
     Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time);
 
     List<Flight> findFlightByFlightDTO(FlightDTO flightDTO);
+
+    List<Flight> findFlightsForAirportByDate(FlightDTO flightDTO);
 }
