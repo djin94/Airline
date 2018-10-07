@@ -1,5 +1,6 @@
-package com.foxminded.airline.controller;
+package com.foxminded.airline.web.controller;
 
+import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
 import com.foxminded.airline.dto.FlightDTO;
 import com.foxminded.airline.utils.FlightConverter;
@@ -18,6 +19,9 @@ public class SearchFlightController {
     @Autowired
     FlightServiceImpl flightService;
 
+    @Autowired
+    FlightConverter flightConverter;
+
     private FlightDTO flightDTO;
 
     @GetMapping(value = "/searchflight",
@@ -35,6 +39,7 @@ public class SearchFlightController {
 
     @PostMapping("/searchflight")
     public ResponseEntity<List<FlightDTO>> searchFlight() throws IOException {
-        return new ResponseEntity<>(new FlightConverter().createDTOsForFlights(flightService.findFlightByFlightDTO(flightDTO)), HttpStatus.OK);
+        List<Flight> flights = flightService.findFlightByFlightDTO(flightDTO);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightByFlightDTO(flightDTO)), HttpStatus.OK);
     }
 }

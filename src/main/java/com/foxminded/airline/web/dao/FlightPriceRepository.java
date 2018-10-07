@@ -1,4 +1,4 @@
-package com.foxminded.airline.dao;
+package com.foxminded.airline.web.dao;
 
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.FlightPrice;
@@ -8,5 +8,5 @@ import java.util.Optional;
 
 
 public interface FlightPriceRepository extends CrudRepository<FlightPrice, Integer> {
-    FlightPrice findByFlightAndLevel(Flight flight, String level);
+    Optional<FlightPrice> findByFlightAndLevel(Flight flight, String level);
 }

@@ -1,7 +1,7 @@
 package com.foxminded.airline.domain.service.impl;
 
-import com.foxminded.airline.dao.AirportRepository;
-import com.foxminded.airline.dao.FlightRepository;
+import com.foxminded.airline.web.dao.AirportRepository;
+import com.foxminded.airline.web.dao.FlightRepository;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.service.FlightService;
@@ -30,17 +30,16 @@ public class FlightServiceImpl implements FlightService {
     @Transactional
     @Override
     public Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time) {
-        return flightRepository.findByNumberAndDateAndTime(number, date, time);
+        return flightRepository.findByNumberAndDateAndTime(number, date, time).get();
     }
 
     @Transactional
     @Override
     public List<Flight> findFlightByFlightDTO(FlightDTO flightDTO) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        Airport departureAirport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport());
-        Airport arrivalAirport = airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport());
+        Airport departureAirport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
+        Airport arrivalAirport = airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport()).get();
         LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
-        List<Flight> flights = flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
-        return flights;
+        return flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
     }
 }

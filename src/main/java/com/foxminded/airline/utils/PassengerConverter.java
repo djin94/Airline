@@ -2,7 +2,9 @@ package com.foxminded.airline.utils;
 
 import com.foxminded.airline.domain.entity.Passenger;
 import com.foxminded.airline.dto.PassengerDTO;
+import org.springframework.stereotype.Component;
 
+@Component("passengerConverter")
 public class PassengerConverter {
     public Passenger createPassengerFromPassengerDTO(PassengerDTO passengerDTO) {
         Passenger passenger = new Passenger();

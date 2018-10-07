@@ -1,5 +1,7 @@
 package com.foxminded.airline.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +12,19 @@ import java.util.Objects;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "airportId", unique = true, nullable = true)
+    @SequenceGenerator(name = "airport_id_seq", sequenceName = "airport_airport_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "airport_id_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "airportId", unique = true)
     private int id;
 
     private String name;
 
     @OneToMany(mappedBy = "departureAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JsonIgnore
     private List<Flight> departureFlights = new ArrayList<>();
 
     @OneToMany(mappedBy = "arrivalAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JsonIgnore
     private List<Flight> arrivalFlights = new ArrayList<>();
 
     public int getId() {

@@ -1,6 +1,6 @@
-package com.foxminded.airline.controller;
+package com.foxminded.airline.web.controller;
 
-import com.foxminded.airline.dao.AirportRepository;
+import com.foxminded.airline.web.dao.AirportRepository;
 import com.foxminded.airline.domain.entity.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +23,6 @@ public class MainPageController {
 
     @PostMapping("/searchAirport")
     public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
-        return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase(airport.getName()), HttpStatus.OK);
+        return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase("%" + airport.getName() + "%"), HttpStatus.OK);
     }
 }

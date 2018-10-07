@@ -2,10 +2,12 @@ package com.foxminded.airline.utils;
 
 import com.foxminded.airline.domain.entity.FlightPrice;
 import com.foxminded.airline.dto.FlightPriceDTO;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("flightPriceConverter")
 public class FlightPriceConverter {
     public List<FlightPriceDTO> createDTOsForFlightPrices(List<FlightPrice> flightPrices) {
         List<FlightPriceDTO> flightPriceDTOS = new ArrayList<>();

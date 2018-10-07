@@ -1,5 +1,7 @@
 package com.foxminded.airline.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,9 @@ import java.util.Objects;
 public class FlightPrice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flightpriceId", unique = true, nullable = true)
+    @SequenceGenerator(name = "flightprice_id_seq", sequenceName = "flightprice_flightprice_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "flightprice_id_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "flightpriceId", unique = true)
     private int id;
 
     private String level;
@@ -19,10 +22,12 @@ public class FlightPrice {
     private int price;
 
     @OneToMany(mappedBy = "flightPrice", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JsonIgnore
     private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "flight_id")
+    @JsonIgnore
     private Flight flight;
 
     public int getId() {

@@ -1,3 +1,12 @@
+$(document).ready(function () {
+    $('#date').daterangepicker({
+        singleDatePicker: true,
+        locale: {
+            format: 'DD.MM.YYYY'
+        }
+    });
+});
+
 function createUser() {
     if (validate()) {
         $('#name').css('background-color', '');

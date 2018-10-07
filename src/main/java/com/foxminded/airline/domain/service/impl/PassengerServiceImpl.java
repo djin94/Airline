@@ -1,6 +1,6 @@
 package com.foxminded.airline.domain.service.impl;
 
-import com.foxminded.airline.dao.PassengerRepository;
+import com.foxminded.airline.web.dao.PassengerRepository;
 import com.foxminded.airline.domain.entity.Passenger;
 import com.foxminded.airline.domain.service.PassengerService;
 import com.foxminded.airline.dto.PassengerDTO;
@@ -13,15 +13,12 @@ public class PassengerServiceImpl implements PassengerService {
     @Autowired
     PassengerRepository passengerRepository;
 
+    @Autowired
+    PassengerConverter passengerConverter;
+
     @Override
     public Passenger findOrCreatePassengerFromPassengerDTO(PassengerDTO passengerDTO) {
-        Passenger passenger;
-        if (passengerRepository.findByPassportNumber(passengerDTO.getPassportNumber()).isPresent()) {
-            passenger = passengerRepository.findByPassportNumber(passengerDTO.getPassportNumber()).get();
-        } else {
-            passenger = new PassengerConverter().createPassengerFromPassengerDTO(passengerDTO);
-            passengerRepository.save(passenger);
-        }
-        return passenger;
+        return passengerRepository.findByPassportNumber(passengerDTO.getPassportNumber())
+                .orElseGet(() -> passengerConverter.createPassengerFromPassengerDTO(passengerDTO));
     }
 }

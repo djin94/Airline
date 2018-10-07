@@ -2,10 +2,12 @@ package com.foxminded.airline.utils;
 
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.dto.FlightDTO;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("flightConverter")
 public class FlightConverter {
     public List<FlightDTO> createDTOsForFlights(List<Flight> flights) {
         List<FlightDTO> flightDTOS = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.foxminded.airline.dao;
+package com.foxminded.airline.web.dao;
 
 import com.foxminded.airline.domain.entity.Ticket;
 import org.springframework.data.repository.CrudRepository;

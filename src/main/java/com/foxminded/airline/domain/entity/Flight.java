@@ -12,7 +12,8 @@ import java.util.Objects;
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "flight_id_seq", sequenceName = "flight_flight_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "flight_id_seq", strategy = GenerationType.SEQUENCE)
     @Column(name = "flightId", unique = true)
     private int id;
 
