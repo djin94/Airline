@@ -48,7 +48,7 @@ public class AdminController {
         return "admin/listFlights";
     }
 
-    @PostMapping("/searchflight")
+    @PostMapping("/admin/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlight() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO)), HttpStatus.OK);
     }
