@@ -1,11 +1,13 @@
 package com.foxminded.airline.web.controller;
 
-import com.foxminded.airline.domain.entity.Ticket;
+import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.PassengerService;
+import com.foxminded.airline.domain.service.SitService;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.web.dao.FlightPriceRepository;
+import com.foxminded.airline.web.dao.LevelTicketRepository;
+import com.foxminded.airline.web.dao.SitRepository;
 import com.foxminded.airline.web.dao.TicketRepository;
-import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.dto.FlightPriceDTO;
 import com.foxminded.airline.dto.TicketDTO;
@@ -42,6 +44,12 @@ public class TicketController {
     @Autowired
     FlightPriceConverter flightPriceConverter;
 
+    @Autowired
+    LevelTicketRepository levelTicketRepository;
+
+    @Autowired
+    SitService sitService;
+
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
     public String showTicket(@RequestParam("number") String number,
@@ -57,10 +65,20 @@ public class TicketController {
         return new ResponseEntity<>(flightPriceConverter.createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/buyticket/sits",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Sit>> getSits(@RequestBody LevelTicket levelTicket) throws IOException {
+        if (levelTicket.getLevel() == null)
+            levelTicket = levelTicketRepository.findById(1).get();
+        else
+            levelTicket = levelTicketRepository.findByLevel(levelTicket.getLevel().split(" - ")[0]);
+        return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, levelTicket), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/buyticket",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketRepository.save(ticketConverter.createTicket(ticketDTO,flight));
+        ticketRepository.save(ticketConverter.createTicket(ticketDTO, flight));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

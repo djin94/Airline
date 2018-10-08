@@ -25,6 +25,10 @@ public class Plane {
     @JsonIgnore
     private List<Flight> flights = new ArrayList<>();
 
+    @OneToMany(mappedBy = "plane", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JsonIgnore
+    private List<Sit> sits = new ArrayList<>();
+
     public int getId() {
         return id;
     }

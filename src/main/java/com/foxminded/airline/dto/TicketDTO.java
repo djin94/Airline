@@ -1,24 +1,15 @@
 package com.foxminded.airline.dto;
 
 public class TicketDTO {
-    private String place;
-    private String flightPrice;
+    private String sit;
     private PassengerDTO passengerDTO;
 
-    public String getPlace() {
-        return place;
+    public String getSit() {
+        return sit;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getFlightPrice() {
-        return flightPrice;
-    }
-
-    public void setFlightPrice(String flightPrice) {
-        this.flightPrice = flightPrice;
+    public void setSit(String sit) {
+        this.sit = sit;
     }
 
     public PassengerDTO getPassengerDTO() {

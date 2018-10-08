@@ -15,10 +15,8 @@ public class Ticket {
     private int number;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "flightprice_id")
-    private FlightPrice flightPrice;
-
-    private String place;
+    @JoinColumn(name = "sit_id")
+    private Sit sit;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "passenger_id")
@@ -37,20 +35,12 @@ public class Ticket {
         this.number = number;
     }
 
-    public FlightPrice getFlightPrice() {
-        return flightPrice;
+    public Sit getSit() {
+        return sit;
     }
 
-    public void setFlightPrice(FlightPrice flightPrice) {
-        this.flightPrice = flightPrice;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
+    public void setSit(Sit sit) {
+        this.sit = sit;
     }
 
     public Passenger getPassenger() {

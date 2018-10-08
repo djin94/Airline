@@ -17,13 +17,11 @@ public class FlightPrice {
     @Column(name = "flightpriceId", unique = true)
     private int id;
 
-    private String level;
-
     private int price;
 
-    @OneToMany(mappedBy = "flightPrice", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JsonIgnore
-    private List<Ticket> tickets = new ArrayList<>();
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JoinColumn(name = "levelticket_id")
+    private LevelTicket levelTicket;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "flight_id")
@@ -38,14 +36,6 @@ public class FlightPrice {
         this.id = id;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
     public int getPrice() {
         return price;
     }
@@ -54,20 +44,20 @@ public class FlightPrice {
         this.price = price;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
     public Flight getFlight() {
         return flight;
     }
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    public LevelTicket getLevelTicket() {
+        return levelTicket;
+    }
+
+    public void setLevelTicket(LevelTicket levelTicket) {
+        this.levelTicket = levelTicket;
     }
 
     @Override
@@ -80,15 +70,13 @@ public class FlightPrice {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "FlightPrice{" +
-                "level='" + level + '\'' +
-                ", price=" + price +
+                ", price=" + price/100 +
                 '}';
     }
 }
