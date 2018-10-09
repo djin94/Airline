@@ -12,11 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component("ticketConverter")
+@Component
 public class TicketConverter {
-    @Autowired
-    DataSource dataSource;
-
     @Autowired
     FlightPriceRepository flightPriceRepository;
 

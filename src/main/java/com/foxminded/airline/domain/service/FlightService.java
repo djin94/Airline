@@ -10,7 +10,7 @@ import java.util.List;
 public interface FlightService {
     Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time);
 
-    List<Flight> findFlightByFlightDTO(FlightDTO flightDTO);
+    List<Flight> findFlightsByFlightDTO(FlightDTO flightDTO);
 
     List<Flight> findFlightsForAirportByDate(FlightDTO flightDTO);
 }

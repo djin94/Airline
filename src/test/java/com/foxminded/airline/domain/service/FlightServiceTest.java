@@ -4,40 +4,37 @@ import com.foxminded.airline.domain.entity.Airline;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Plane;
-import com.foxminded.airline.web.dao.AirlineRepository;
-import com.foxminded.airline.web.dao.AirportRepository;
-import com.foxminded.airline.web.dao.FlightRepository;
-import com.foxminded.airline.web.dao.PlaneRepository;
+import com.foxminded.airline.dto.FlightDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.*;
-@RunWith(SpringRunner.class)
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ComponentScan("com.foxminded.airline.domain.service.impl")
 public class FlightServiceTest {
     @Autowired
-    FlightRepository flightRepository;
+    private TestEntityManager entityManager;
 
     @Autowired
-    AirportRepository airportRepository;
-
-    @Autowired
-    AirlineRepository airlineRepository;
-
-    @Autowired
-    PlaneRepository planeRepository;
-
-    @Autowired
-    FlightService flightService;
+    private FlightService flightService;
 
     private Flight flight;
     private LocalDate date;
@@ -47,10 +44,11 @@ public class FlightServiceTest {
     private Airport arrivalAirport;
     private Airline airline;
     private String number;
+    private FlightDTO flightDTO;
 
     @Before
     public void setUp() {
-        airline=new Airline();
+        airline = new Airline();
         airline.setName("Qatar Airways");
 
         arrivalAirport = new Airport();
@@ -65,7 +63,7 @@ public class FlightServiceTest {
         time = LocalTime.of(7, 45);
         date = LocalDate.of(2018, 10, 15);
 
-        number="7845";
+        number = "7845";
 
         flight = new Flight();
         flight.setAirline(airline);
@@ -75,27 +73,47 @@ public class FlightServiceTest {
         flight.setTime(time);
         flight.setNumber(number);
 
-        airlineRepository.save(airline);
-        airportRepository.save(departureAirport);
-        airportRepository.save(arrivalAirport);
-        planeRepository.save(plane);
-        flightRepository.save(flight);
+        flightDTO = new FlightDTO();
+        flightDTO.setNumber(number);
+        flightDTO.setArrivalAirport(arrivalAirport.getName());
+        flightDTO.setDepartureAirport(departureAirport.getName());
+        flightDTO.setDateString("15.10.2018");
+
+        entityManager.persist(airline);
+        entityManager.persist(departureAirport);
+        entityManager.persist(arrivalAirport);
+        entityManager.persist(plane);
+        entityManager.persist(flight);
     }
 
     @After
     public void tearDown() {
-        airlineRepository.delete(airline);
-        airportRepository.delete(departureAirport);
-        airportRepository.delete(arrivalAirport);
-        planeRepository.delete(plane);
-        flightRepository.delete(flight);
+        entityManager.remove(flight);
+        entityManager.remove(airline);
+        entityManager.remove(departureAirport);
+        entityManager.remove(arrivalAirport);
+        entityManager.remove(plane);
     }
 
     @Test
-    public void whenFindFlightByNumberAndDateAndTime_thenReturnFlight(){
+    public void whenFindFlightByNumberAndDateAndTime_thenReturnFlight() {
         Flight expectedFlight = flight;
         Flight actualFlight = flightService.findFlightByNumberAndDateAndTime(number, date, time);
 
-        assertEquals(expectedFlight,actualFlight);
+        assertEquals(expectedFlight, actualFlight);
+    }
+
+    @Test
+    public void whenFindFlightsByFlightDTO_thenReturnFlights(){
+        List<Flight> actualFlights = flightService.findFlightsByFlightDTO(flightDTO);
+
+        assertThat(actualFlights, hasItems(flight));
+    }
+
+    @Test
+    public void whenFindFlightsForAirportByDate_thenFindFlightsForAirportByDate(){
+        List<Flight> actualFlights = flightService.findFlightsForAirportByDate(flightDTO);
+
+        assertThat(actualFlights,hasItems(flight));
     }
 }

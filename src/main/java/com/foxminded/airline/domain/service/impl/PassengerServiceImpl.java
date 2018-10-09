@@ -6,9 +6,13 @@ import com.foxminded.airline.domain.service.PassengerService;
 import com.foxminded.airline.dto.PassengerDTO;
 import com.foxminded.airline.utils.PassengerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-@Service("passengerService")
+import javax.sql.DataSource;
+
+@Service
+@ComponentScan("com.foxminded.airline.utils")
 public class PassengerServiceImpl implements PassengerService {
     @Autowired
     PassengerRepository passengerRepository;

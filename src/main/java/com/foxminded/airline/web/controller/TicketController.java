@@ -30,9 +30,6 @@ public class TicketController {
     Flight flight;
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
     FlightService flightService;
 
     @Autowired

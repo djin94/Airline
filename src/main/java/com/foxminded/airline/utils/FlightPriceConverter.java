@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("flightPriceConverter")
+@Component
 public class FlightPriceConverter {
     public List<FlightPriceDTO> createDTOsForFlightPrices(List<FlightPrice> flightPrices) {
         List<FlightPriceDTO> flightPriceDTOS = new ArrayList<>();

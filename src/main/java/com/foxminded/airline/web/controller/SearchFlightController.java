@@ -1,6 +1,5 @@
 package com.foxminded.airline.web.controller;
 
-import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
 import com.foxminded.airline.dto.FlightDTO;
 import com.foxminded.airline.utils.FlightConverter;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -39,6 +37,6 @@ public class SearchFlightController {
 
     @PostMapping("/searchflight")
     public ResponseEntity<List<FlightDTO>> searchFlight() {
-        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightByFlightDTO(flightDTO)), HttpStatus.OK);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByFlightDTO(flightDTO)), HttpStatus.OK);
     }
 }

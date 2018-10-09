@@ -10,32 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Service("flightService")
+@Service
 public class FlightServiceImpl implements FlightService {
-    @Autowired
-    DataSource dataSource;
-
     @Autowired
     AirportRepository airportRepository;
 
     @Autowired
     FlightRepository flightRepository;
 
-    @Transactional
     @Override
     public Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time) {
         return flightRepository.findByNumberAndDateAndTime(number, date, time).get();
     }
 
-    @Transactional
     @Override
-    public List<Flight> findFlightByFlightDTO(FlightDTO flightDTO) {
+    public List<Flight> findFlightsByFlightDTO(FlightDTO flightDTO) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
         Airport departureAirport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
