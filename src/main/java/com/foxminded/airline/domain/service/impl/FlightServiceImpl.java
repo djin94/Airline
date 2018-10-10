@@ -8,11 +8,10 @@ import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.dto.FlightDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,17 +29,17 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> findFlightsByFlightDTO(FlightDTO flightDTO) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
+        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString());
         Airport departureAirport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
         Airport arrivalAirport = airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport()).get();
+        List<Flight> flights =new ArrayList<>();
+        flights.addAll(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight));
         return flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
     }
 
     @Override
     public List<Flight> findFlightsForAirportByDate(FlightDTO flightDTO) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString(), dateFormat);
+        LocalDate dateFlight = LocalDate.parse(flightDTO.getDateString());
         Airport airport = airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport()).get();
         List<Flight> flights = flightRepository.findByDepartureAirportAndDate(airport, dateFlight);
         flights.addAll(flightRepository.findByArrivalAirportAndDate(airport, dateFlight));

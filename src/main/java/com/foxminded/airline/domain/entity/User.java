@@ -25,6 +25,10 @@ public class User {
     @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     public int getId() {
         return id;
     }
@@ -71,6 +75,14 @@ public class User {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

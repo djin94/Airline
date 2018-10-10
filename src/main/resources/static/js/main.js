@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('#date').daterangepicker({
         singleDatePicker: true,
         locale: {
-            format: 'DD.MM.YYYY'
+            format: 'YYYY-MM-DD'
         }
     });
 });
