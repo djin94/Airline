@@ -86,11 +86,11 @@ public class FlightServiceTest {
         flightDTO.setDepartureAirport(departureAirport.getName());
         flightDTO.setDateString("2018-10-15");
 
-        entityManager.persist(airline);
-        entityManager.persist(departureAirport);
-        entityManager.persist(arrivalAirport);
-        entityManager.persist(plane);
-        entityManager.persist(flight);
+        entityManager.persistAndFlush(airline);
+        entityManager.persistAndFlush(departureAirport);
+        entityManager.persistAndFlush(arrivalAirport);
+        entityManager.persistAndFlush(plane);
+        entityManager.persistAndFlush(flight);
     }
 
     @After
@@ -115,7 +115,6 @@ public class FlightServiceTest {
     public void whenFindFlightsByFlightDTO_thenReturnFlights() {
         List<Flight> actualFlights = flightService.findFlightsByFlightDTO(flightDTO);
 
-        List<Flight> flights = (List)flightRepository.findAll();
         assertThat(actualFlights, hasItems(flight));
     }
 

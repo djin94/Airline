@@ -5,7 +5,6 @@ import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,11 +28,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User " + login + " was not found in the database");
         }
         // [ROLE_USER, ROLE_ADMIN,..]
+        List<GrantedAuthority> grantedAuthorities=new ArrayList<>();
         GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getRole().getName());
+//
+//        UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(appUser.getLogin(), //
+//                appUser.getPassword(),authority);
 
-        UserDetails userDetails = (UserDetails) new User(appUser.getLogin(), //
-                appUser.getPassword());
-
-        return userDetails;
+        return null;
     }
 }
