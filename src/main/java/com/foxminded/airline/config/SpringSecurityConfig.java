@@ -24,7 +24,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("select login, password, email, phone from userairline where login=?")
+    @Value("select login, password, enabled from userairline where login=?")
     private String usersQuery;
 
     @Value("select u.login, r.name from userairline u inner join role r on(u.role_id=r.role_id) where u.login=?")
@@ -48,12 +48,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/searchflight/**").permitAll()
+                .antMatchers("/buyticket/**").permitAll()
+                .antMatchers("/searchAirport").permitAll()
+                .antMatchers("/admin/**").hasAuthority("admin")
+                .antMatchers("/user/**").hasAuthority("user")
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin")
+                .defaultSuccessUrl("/")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .and().logout()
@@ -66,6 +69,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 
 }
