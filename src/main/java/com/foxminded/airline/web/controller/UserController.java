@@ -25,36 +25,17 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping("/login")
-    public String authenticateUser(){
+    public String authenticateUser() {
         return "login";
     }
 
     @GetMapping("/registration")
-    public String registerUser(){
+    public String registerUser() {
         return "registration";
     }
 
-//    @PostMapping(value = "/login",
-//            params = {"login", "password"})
-//    public ModelAndView authorizeUser(@Valid User user, BindingResult bindingResult) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        Optional<User> userExists = userRepository.findByLogin(user.getLogin());
-//        if (!userExists.isPresent()) {
-//            bindingResult
-//                    .rejectValue("login", "error.user",
-//                            "There is already a user registered with the login provided");
-//        }
-//        if (bindingResult.hasErrors()) {
-//            modelAndView.setViewName("login");
-//        } else {
-//            modelAndView.addObject("user", new User());
-//            modelAndView.setViewName("login");
-//        }
-//        return modelAndView;
-//    }
-
     @PostMapping(value = "/registration",
-            params = {"login", "password","email", "phone"})
+            params = {"login", "password", "email", "phone"})
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         Optional<User> userExists = userRepository.findByLogin(user.getLogin());
@@ -69,7 +50,7 @@ public class UserController {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("index");
         }
         return modelAndView;
     }
