@@ -8,7 +8,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_user_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "user_id_seq", sequenceName = "userairline_user_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
     @Column(name = "userId", unique = true, nullable = true)
     private int id;
@@ -25,7 +25,7 @@ public class User {
     @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "role_id")
     private Role role;
 

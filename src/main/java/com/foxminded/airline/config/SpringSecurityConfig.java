@@ -1,5 +1,6 @@
 package com.foxminded.airline.config;
 
+import com.foxminded.airline.utils.SuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private SuccessHandler successHandler;
 
     @Value("select login, password, enabled from userairline where login=?")
     private String usersQuery;
@@ -48,15 +52,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/searchflight").permitAll()
                 .antMatchers("/searchflight/**").permitAll()
-                .antMatchers("/buyticket/**").permitAll()
+                .antMatchers("/buyticket").permitAll()
                 .antMatchers("/searchAirport").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/css").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("admin")
-                .antMatchers("/user/**").hasAuthority("user")
+                .antMatchers("/user/**").hasAnyAuthority("user","admin")
+                .antMatchers("/user/userlogin").hasAnyAuthority("user","admin")
+                .antMatchers("/user/js/user/**").hasAnyAuthority("user","admin")
                 .anyRequest().authenticated()
-                .and().csrf().disable().formLogin()
+                .and().csrf().disable()
+                .formLogin()
+                .successHandler(successHandler)
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .and().logout()
@@ -64,6 +76,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/403");
     }
+
+    //                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/static/**").permitAll()
+//                .antMatchers("/resources/static/user/js/**").permitAll()
+//                .antMatchers("/resources/static/js/**").permitAll()
+//                .antMatchers("/resources/static/css/**").permitAll()
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -75,7 +93,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "webjars/**","/static/**", "/css/**", "/js/**", "/images/**", "/resources/static/css/**","/user/js/user/**");
     }
 
 }

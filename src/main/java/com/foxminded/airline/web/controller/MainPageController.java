@@ -17,7 +17,7 @@ public class MainPageController {
     AirportRepository airportRepository;
 
     @GetMapping(value = "/")
-    public String show() {
+    public String showMainPage() {
         return "index";
     }
 
