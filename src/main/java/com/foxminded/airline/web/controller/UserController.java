@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
-    @GetMapping("/user")
+    @GetMapping(value = "/user",produces = MediaType.TEXT_HTML_VALUE)
     public String showMainPage() {
         return "user/userindex";
     }
 
-    @PostMapping(name = "/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<UserDTO> getUserName() {
+    @GetMapping(name = "/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> getUserName() {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("kool");
         if (SecurityContextHolder.getContext().getAuthentication() != null) {

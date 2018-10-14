@@ -37,11 +37,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 }
             }
             else {
-                try {
-                    redirectStrategy.sendRedirect(request, response, "/");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                throw new IllegalStateException();
             }
         });
     }

@@ -11,7 +11,8 @@ $(document).ready(function () {
 function getUserName() {
     $.ajax({
         url: '/userlogin',
-        method: 'post',
+        method: 'get',
+        contentType:'application/json',
         dataType:'json',
         cache: false,
         timeout: 600000,

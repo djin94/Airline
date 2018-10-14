@@ -6,6 +6,7 @@ function loadFlightPrice() {
     $.ajax({
         url: '/buyticket/flightprices',
         method: 'get',
+        contentType: "application/json",
         dataType: 'json',
         cache: false,
         timeout: 600000,
