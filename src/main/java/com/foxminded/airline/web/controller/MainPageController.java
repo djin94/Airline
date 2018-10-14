@@ -23,6 +23,7 @@ public class MainPageController {
     }
 
     @RequestMapping(name="/searchAirport", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
         return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase("%" + airport.getName() + "%"), HttpStatus.OK);
     }
