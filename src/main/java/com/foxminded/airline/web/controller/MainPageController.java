@@ -16,12 +16,12 @@ public class MainPageController {
     @Autowired
     AirportRepository airportRepository;
 
-    @GetMapping(value = "/")
+    @GetMapping(path = "/")
     public String showMainPage() {
         return "index";
     }
 
-    @PostMapping("/searchAirport")
+    @PostMapping(path="/searchAirport")
     public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
         return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase("%" + airport.getName() + "%"), HttpStatus.OK);
     }

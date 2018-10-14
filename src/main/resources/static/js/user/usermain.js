@@ -10,8 +10,8 @@ $(document).ready(function () {
 
 function getUserName() {
     $.ajax({
-        url: '/user/userlogin',
-        method: 'get',
+        url: '/userlogin',
+        method: 'post',
         dataType:'json',
         cache: false,
         timeout: 600000,

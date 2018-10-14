@@ -19,24 +19,29 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse arg1, Authentication authentication)
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         List<GrantedAuthority> authorities = (List) authentication.getAuthorities();
         authorities.forEach(authority -> {
             if (authority.getAuthority().equals("user")) {
                 try {
-                    redirectStrategy.sendRedirect(arg0, arg1, "/user");
+                    redirectStrategy.sendRedirect(request, response, "/user");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (authority.getAuthority().equals("admin")) {
                 try {
-                    redirectStrategy.sendRedirect(arg0, arg1, "/admin");
+                    redirectStrategy.sendRedirect(request, response, "/admin");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                throw new IllegalStateException();
+            }
+            else {
+                try {
+                    redirectStrategy.sendRedirect(request, response, "/");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

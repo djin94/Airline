@@ -16,8 +16,8 @@ public class UserController {
         return "user/userindex";
     }
 
-    @GetMapping(name = "user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> getUserName() {
+    @PostMapping(name = "/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<UserDTO> getUserName() {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("kool");
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
