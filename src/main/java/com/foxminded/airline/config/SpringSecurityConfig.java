@@ -60,9 +60,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
                 .antMatchers("/css/**").permitAll().anyRequest().permitAll()
                 .antMatchers("/js/**").permitAll().anyRequest().permitAll()
-                .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
-                .antMatchers("/user/**").hasRole("user")
-                .antMatchers("/user").hasRole("user")
+                .antMatchers("/webjars/**").permitAll().anyRequest().permitAll()
+                .antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated()
+                .antMatchers("/user/**").hasAuthority("user").anyRequest().authenticated()
+                .antMatchers("/user").hasAuthority("user").anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .successHandler(successHandler)
@@ -95,19 +96,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").anyRequest();
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/webjars/**").anyRequest();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("djin94").password("123456").roles("user");
     }
 }

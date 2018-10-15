@@ -17,12 +17,12 @@ public class MainPageController {
     @Autowired
     AirportRepository airportRepository;
 
-    @RequestMapping(name = "/",produces = MediaType.TEXT_HTML_VALUE,headers={"Accept=text/plain"})
+    @RequestMapping(name = "/")
     public String showMainPage() {
-        return "index";
+        return "/index";
     }
 
-    @RequestMapping(name="/searchAirport", method = RequestMethod.POST)
+    @RequestMapping(name = "/searchAirport", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
         return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase("%" + airport.getName() + "%"), HttpStatus.OK);
