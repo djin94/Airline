@@ -58,8 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/searchAirport").permitAll()
                 .antMatchers("/userlogin").permitAll()
                 .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/js/**").permitAll()
+                .antMatchers("/css/**").permitAll().anyRequest().permitAll()
+                .antMatchers("/js/**").permitAll().anyRequest().permitAll()
                 .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
                 .antMatchers("/user/**").hasRole("user")
                 .antMatchers("/user").hasRole("user")
@@ -104,4 +104,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("djin94").password("123456").roles("user");
+    }
 }

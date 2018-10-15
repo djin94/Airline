@@ -18,10 +18,11 @@ import java.util.List;
 public class WebMVCConfig implements WebMvcConfigurer {
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/static/css/");
         registry.addResourceHandler( "/js/**").addResourceLocations("/js/");
         registry.addResourceHandler( "/images/**").addResourceLocations("/images/");
         registry.addResourceHandler("/user/js/**").addResourceLocations("/user/js/");
+        registry.setOrder(-1);
 //        registry.addResourceHandler("/resources/**","/static/**","/css/**", "/js/**", "/images/**","/**","/user/js/**").addResourceLocations("/resources/");
     }
 }
