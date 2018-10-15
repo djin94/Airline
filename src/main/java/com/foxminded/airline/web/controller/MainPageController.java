@@ -17,7 +17,7 @@ public class MainPageController {
     @Autowired
     AirportRepository airportRepository;
 
-    @RequestMapping(name = "/",produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(name = "/",produces = MediaType.TEXT_HTML_VALUE,headers={"Accept=text/plain"})
     public String showMainPage() {
         return "index";
     }

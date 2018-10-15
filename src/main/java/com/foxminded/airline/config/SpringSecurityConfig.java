@@ -57,13 +57,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/buyticket").permitAll()
                 .antMatchers("/searchAirport").permitAll()
                 .antMatchers("/userlogin").permitAll()
-                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated()
-                .antMatchers("/user/**").hasAuthority("user").anyRequest().authenticated()
-
-                .anyRequest().authenticated()
+                .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
+                .antMatchers("/user/**").hasRole("user")
+                .antMatchers("/user").hasRole("user")
                 .and().csrf().disable()
                 .formLogin()
                 .successHandler(successHandler)
@@ -74,7 +73,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/403");
-
     }
 
     //                .antMatchers("/resources/**").permitAll()
@@ -97,7 +95,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").anyRequest();
     }
 
     @Bean
