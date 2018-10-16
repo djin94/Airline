@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 function getUserName() {
     $.ajax({
-        url: '/userlogin',
+        url: '/user/userlogin',
         method: 'get',
         contentType:'application/json',
         dataType:'json',

@@ -6,7 +6,7 @@ import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.web.dao.RoleRepository;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,14 +20,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName("user");
-        user.setRole(userRole);
-        userRepository.save(user);
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        Role userRole = roleRepository.findByName("user");
+//        user.setRole(userRole);
+//        userRepository.save(user);
     }
 }

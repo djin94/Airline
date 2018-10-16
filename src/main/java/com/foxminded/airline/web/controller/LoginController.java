@@ -21,12 +21,12 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping("/login")
+    @GetMapping(value = "/login")
     public String authenticateUser() {
         return "login";
     }
 
-    @GetMapping("/registration")
+    @GetMapping(value = "/registration",consumes = "text/plain")
     public String registerUser() {
         return "registration";
     }
