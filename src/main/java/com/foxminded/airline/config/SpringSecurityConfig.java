@@ -48,19 +48,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/searchflight").permitAll()
                 .antMatchers("/buyticket").permitAll()
                 .antMatchers("/searchAirport").permitAll()
-                .antMatchers("/userlogin").permitAll()
-                .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
-                .antMatchers("/css/**").permitAll().anyRequest().permitAll()
-                .antMatchers("/js/**").permitAll().anyRequest().permitAll()
-                .antMatchers("/webjars/**").permitAll().anyRequest().permitAll()
+//                .antMatchers("/user/userlogin").permitAll()
+                .antMatchers("/resources/**").anonymous().anyRequest().permitAll()
+//                .antMatchers("/css/**").anonymous().anyRequest().permitAll()
+//                .antMatchers("/js/**").anonymous().anyRequest().permitAll()
+//                .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated()
                 .antMatchers("/user/**").hasAuthority("user").anyRequest().authenticated()
                 .antMatchers("/user").hasAuthority("user").anyRequest().authenticated()
@@ -72,7 +72,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
+                .logoutSuccessUrl("/")
+                .and().exceptionHandling()
                 .accessDeniedPage("/403");
     }
 
@@ -96,7 +97,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/webjars/**").anyRequest();
+//                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").anyRequest();
+                .antMatchers("/resources/**").anyRequest();
     }
 
     @Bean

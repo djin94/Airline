@@ -10,24 +10,25 @@ import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
-@Configuration
-@EnableWebMvc
-@ComponentScan("com.foxminded.airline")
-public class WebMVCConfig implements WebMvcConfigurer {
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan("com.foxminded.airline")
+public class WebMVCConfig  {
+
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-//        registry.addResourceHandler("/static/**").addResourceLocations("/resources/static/");
-//        registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
+//        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+//        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
 //        registry.addResourceHandler( "/js/**").addResourceLocations("/js/");
 //        registry.addResourceHandler( "/images/**").addResourceLocations("/images/");
 //        registry.addResourceHandler("/user/js/**").addResourceLocations("/user/js/");
-//        registry.addResourceHandler("/webjars**").addResourceLocations("/webjars/");
+//        registry.addResourceHandler("/webjars**").addResourceLocations("classpath:META-INF/resources/webjars/");
 //        registry.setOrder(-1);
 //        registry.addResourceHandler("/resources/**","/static/**","/css/**", "/js/**", "/images/**","/**","/user/js/**").addResourceLocations("/resources/");
     }
 
-    @Override
-    public void configureContentNegotiation (ContentNegotiationConfigurer configurer) {
-        configurer.defaultContentType(MediaType.TEXT_HTML);
-    }
+//    @Override
+//    public void configureContentNegotiation (ContentNegotiationConfigurer configurer) {
+//        configurer.defaultContentType(MediaType.TEXT_HTML);
+//    }
 }

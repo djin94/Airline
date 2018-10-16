@@ -16,8 +16,7 @@ public class UserController {
         return "user/userindex";
     }
 
-    @GetMapping(name = "/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
+    @GetMapping(value = "/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getUserName() {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("kool");

@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-
-@Controller
 @SpringBootApplication
 @EnableJpaAuditing
 public class Application {

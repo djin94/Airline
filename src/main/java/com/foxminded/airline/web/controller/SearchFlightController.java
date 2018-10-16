@@ -23,7 +23,6 @@ public class SearchFlightController {
     private FlightDTO flightDTO;
 
     @GetMapping(value = "/searchflight",
-            produces = MediaType.TEXT_HTML_VALUE,
             params = {"nameDepartureAirport", "nameArrivalAirport", "date"})
     public String showBuyTicket(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
                                 @RequestParam("nameArrivalAirport") String nameArrivalAirport,
@@ -35,7 +34,7 @@ public class SearchFlightController {
         return "searchFlight";
     }
 
-    @PostMapping("/searchflight")
+    @PostMapping(value = "/searchflight")
     public ResponseEntity<List<FlightDTO>> searchFlight() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByFlightDTO(flightDTO)), HttpStatus.OK);
     }
