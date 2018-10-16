@@ -5,10 +5,7 @@ import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -21,6 +18,7 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
+//    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
     @GetMapping(value = "/login")
     public String authenticateUser() {
         return "login";

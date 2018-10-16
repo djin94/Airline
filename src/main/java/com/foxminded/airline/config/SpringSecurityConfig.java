@@ -51,7 +51,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/searchflight").permitAll()
                 .antMatchers("/buyticket").permitAll()
@@ -67,14 +66,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .formLogin()
                 .successHandler(successHandler)
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/login")
                 .usernameParameter("login")
-                .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .and().exceptionHandling()
-                .accessDeniedPage("/403");
+                .passwordParameter("password");
+//                .and().logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .and().exceptionHandling()
+//                .accessDeniedPage("/403");
     }
 
     //                .antMatchers("/resources/**").permitAll()
