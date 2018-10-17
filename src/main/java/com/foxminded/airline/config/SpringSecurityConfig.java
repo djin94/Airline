@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -55,48 +54,31 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/searchflight").permitAll()
                 .antMatchers("/buyticket").permitAll()
                 .antMatchers("/searchAirport").permitAll()
-//                .antMatchers("/user/userlogin").permitAll()
-                .antMatchers("/resources/**").anonymous().anyRequest().permitAll()
-//                .antMatchers("/css/**").anonymous().anyRequest().permitAll()
-//                .antMatchers("/js/**").anonymous().anyRequest().permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated()
-                .antMatchers("/user/**").hasAuthority("user").anyRequest().authenticated()
-                .antMatchers("/user").hasAuthority("user").anyRequest().authenticated()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
+                .antMatchers("/user/**").hasRole("user").anyRequest().authenticated()
+                .antMatchers("/user").hasRole("user").anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
+                .loginPage("/login").permitAll()
+                .loginProcessingUrl("/login")
                 .successHandler(successHandler)
-                .loginPage("/login")
-                .usernameParameter("login")
-                .passwordParameter("password");
-//                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .and().exceptionHandling()
-//                .accessDeniedPage("/403");
+                .failureUrl("/")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().exceptionHandling()
+                .accessDeniedPage("/403")
+                .and()
+                .httpBasic();
     }
-
-    //                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/static/**").permitAll()
-//                .antMatchers("/resources/static/user/js/**").permitAll()
-//                .antMatchers("/resources/static/js/**").permitAll()
-//                .antMatchers("/resources/static/css/**").permitAll()
-
-//                .antMatchers(HttpMethod.GET, "/css/**", "/js/**","/fonts/**","/**/favicon.ico", "/about","user/js/user/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/css/**", "/js/**","/fonts/**","/**/favicon.ico", "/about","user/js/user/**").permitAll()
-
-    //                .antMatchers("/css/**").permitAll()
-//                .antMatchers("/css").permitAll()
-//                .antMatchers("/js/**").permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-    //                .antMatchers("/user/userlogin").hasAnyAuthority("user","admin")
-//                .antMatchers("/user/js/user/**").hasAnyAuthority("user","admin")
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-//                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").anyRequest();
-                .antMatchers("/resources/**").anyRequest();
+                .antMatchers("/resources/**");
     }
 
     @Bean

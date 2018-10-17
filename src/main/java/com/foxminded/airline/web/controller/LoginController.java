@@ -4,6 +4,7 @@ import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,12 +20,12 @@ public class LoginController {
     UserRepository userRepository;
 
 //    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    @GetMapping(value = "/login")
-    public String authenticateUser() {
+    @GetMapping(value = "/login",produces = MediaType.TEXT_HTML_VALUE)
+    public String getLoginPage() {
         return "login";
     }
 
-    @GetMapping(value = "/registration",consumes = "text/plain")
+    @GetMapping(value = "/registration")
     public String registerUser() {
         return "registration";
     }

@@ -19,7 +19,7 @@ public class MainPageController {
 
     @GetMapping(value = "/")
     public String showMainPage() {
-        return "/mainpage";
+        return "index";
     }
 
     @PostMapping(value = "/searchAirport", produces = MediaType.APPLICATION_JSON_VALUE)
