@@ -38,10 +38,6 @@ public class Flight {
     @OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "airlineId")
-    private Airline airline;
-
     @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<FlightPrice> flightPrices = new ArrayList<>();
 
@@ -115,14 +111,6 @@ public class Flight {
 
     public void remove(Ticket ticket) {
         tickets.remove(ticket);
-    }
-
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
     }
 
     public List<FlightPrice> getFlightPrices() {
