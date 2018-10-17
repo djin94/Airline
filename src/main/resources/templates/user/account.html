@@ -1,0 +1,53 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Qatar Airways</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/daterangepicker.css">
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/user/usermain.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/daterangepicker.js"></script>
+</head>
+<body style="background-color: aliceblue">
+<div>
+    <nav class="top-menu">
+        <a class="navbar-logo" href=""><img src="../images/Logo-Qatar-Airways.jpg" width="200" height="80"></a>
+        <ul class="menu-main">
+            <li><p id="userName"></p></li>
+            <li><p><a href="/user">Главная</a></p></li>
+        </ul>
+    </nav>
+</div>
+<form method="get" action="/searchflight">
+    <div class="container-fluid">
+        <div class="form-inline">
+            <div class="form-row">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" onkeyup="searchDepartureAirport()" id="nameDepartureAirport"
+                           name="nameDepartureAirport" placeholder="Откуда" width="90%" autocomplete="off" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" onkeyup="searchArrivalAirport()" id="nameArrivalAirport"
+                           name="nameArrivalAirport" placeholder="Куда" width="90%" autocomplete="off" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="date" name="date" placeholder="Дата" autocomplete="off"
+                           required>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" type="submit">Найти</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3" id="departureAirports">
+                </div>
+                <div class="col-md-3" id="arrivalAirports">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -12,12 +12,12 @@ function getUserName() {
     $.ajax({
         url: '/user/userlogin',
         method: 'get',
-        contentType:'application/json',
-        dataType:'json',
+        contentType: 'application/json',
+        dataType: 'json',
         cache: false,
         timeout: 600000,
         success: function (data) {
-            $('#userName').html(data.login);
+            $('#userName').html("<a href='/account'>" + data.login + "</a>");
         },
         error: function (e) {
             alert("error");
@@ -66,5 +66,5 @@ function loadAirports(data, typeAirport, idInput) {
 function writeNameAirportToInput(name, typeAirport, idInput) {
     document.getElementById(idInput).value = name;
     var airport = document.getElementById(typeAirport);
-    airport.getElementsByTagName('*')[0].hidden=true;
+    airport.getElementsByTagName('*')[0].hidden = true;
 }
