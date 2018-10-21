@@ -5,10 +5,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/daterangepicker.css">
-    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../js/user/usermain.js"></script>
-    <script type="text/javascript" src="../js/daterangepicker/moment.min.js"></script>
-    <script type="text/javascript" src="../js/daterangepicker/daterangepicker.js"></script>
 </head>
 <body style="background-color: aliceblue">
 <div>
@@ -20,34 +16,11 @@
         </ul>
     </nav>
 </div>
-<form method="get" action="/searchflight">
-    <div class="container-fluid">
-        <div class="form-inline">
-            <div class="form-row">
-                <div class="col-md-3">
-                    <input type="text" class="form-control" onkeyup="searchDepartureAirport()" id="nameDepartureAirport"
-                           name="nameDepartureAirport" placeholder="Откуда" width="90%" autocomplete="off" required>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" onkeyup="searchArrivalAirport()" id="nameArrivalAirport"
-                           name="nameArrivalAirport" placeholder="Куда" width="90%" autocomplete="off" required>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="date" name="date" placeholder="Дата" autocomplete="off"
-                           required>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" type="submit">Найти</button>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-3" id="departureAirports">
-                </div>
-                <div class="col-md-3" id="arrivalAirports">
-                </div>
-            </div>
-        </div>
+<div class="container-fluid">
+    <div class="list-group">
+        <a href="/user/history" class='list-group-item list-group-item-action'>Заказы</a>
+        <a href="/user/passenger" class='list-group-item list-group-item-action'>Пасспортные данные</a>
     </div>
-</form>
+</div>
 </body>
 </html>

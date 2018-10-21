@@ -25,4 +25,9 @@ public class UserController {
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/user/account")
+    public String showAccount() {
+        return "user/account";
+    }
 }

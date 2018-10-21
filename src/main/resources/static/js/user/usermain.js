@@ -17,7 +17,7 @@ function getUserName() {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            $('#userName').html("<a href='/account'>" + data.login + "</a>");
+            $('#userName').html("<a href='/user/account'>" + data.login + "</a>");
         },
         error: function (e) {
             alert("error");

@@ -20,7 +20,7 @@ public class LoginController {
     UserRepository userRepository;
 
 //    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    @GetMapping(value = "/login",produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/login")
     public String getLoginPage() {
         return "login";
     }

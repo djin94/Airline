@@ -55,6 +55,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/buyticket").permitAll()
                 .antMatchers("/searchAirport").permitAll()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
                 .antMatchers("/user/**").hasRole("user").anyRequest().authenticated()
                 .antMatchers("/user").hasRole("user").anyRequest().authenticated()
@@ -69,16 +72,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().exceptionHandling()
-                .accessDeniedPage("/403")
-                .and()
-                .httpBasic();
+                .accessDeniedPage("/403");
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**");
+                .antMatchers("/resources/**", "/css", "/js","/static/**");
     }
 
     @Bean

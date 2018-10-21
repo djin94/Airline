@@ -47,14 +47,11 @@ public class FlightServiceTest {
     private Plane plane;
     private Airport departureAirport;
     private Airport arrivalAirport;
-    private Airline airline;
     private String number;
     private FlightDTO flightDTO;
 
     @Before
     public void setUp() {
-        airline = new Airline();
-        airline.setName("Qatar Airways");
 
         arrivalAirport = new Airport();
         arrivalAirport.setName("London");
@@ -71,7 +68,6 @@ public class FlightServiceTest {
         number = "7845";
 
         flight = new Flight();
-        flight.setAirline(airline);
         flight.setArrivalAirport(arrivalAirport);
         flight.setDepartureAirport(departureAirport);
         flight.setDate(date);
@@ -84,7 +80,6 @@ public class FlightServiceTest {
         flightDTO.setDepartureAirport(departureAirport.getName());
         flightDTO.setDateString("2018-10-15");
 
-        entityManager.persistAndFlush(airline);
         entityManager.persistAndFlush(departureAirport);
         entityManager.persistAndFlush(arrivalAirport);
         entityManager.persistAndFlush(plane);
@@ -94,7 +89,6 @@ public class FlightServiceTest {
     @After
     public void tearDown() {
         entityManager.remove(flight);
-        entityManager.remove(airline);
         entityManager.remove(departureAirport);
         entityManager.remove(arrivalAirport);
         entityManager.remove(plane);
