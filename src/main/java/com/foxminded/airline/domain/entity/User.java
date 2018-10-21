@@ -25,9 +25,7 @@ public class User {
     @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "role_id")
-    private Role role;
+    private String  role;
 
     public int getId() {
         return id;
@@ -77,11 +75,11 @@ public class User {
         this.passenger = passenger;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

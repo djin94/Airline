@@ -31,7 +31,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("select login, password, enabled from userairline where login=?")
     private String usersQuery;
 
-    @Value("select u.login, r.name from userairline u inner join role r on(u.role_id=r.role_id) where u.login=?")
+    @Value("select login, role from userairline where login=?")
     private String rolesQuery;
 
     @Override
@@ -53,6 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/searchflight").permitAll()
                 .antMatchers("/buyticket").permitAll()
+                .antMatchers("/buyticket/**").permitAll()
                 .antMatchers("/searchAirport").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/css/**").permitAll()

@@ -19,9 +19,8 @@ public class FlightPrice {
 
     private int price;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "levelticket_id")
-    private LevelTicket levelTicket;
+    @Column(name = "levelticket")
+    private String levelTicket;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "flight_id")
@@ -52,11 +51,11 @@ public class FlightPrice {
         this.flight = flight;
     }
 
-    public LevelTicket getLevelTicket() {
+    public String getLevelTicket() {
         return levelTicket;
     }
 
-    public void setLevelTicket(LevelTicket levelTicket) {
+    public void setLevelTicket(String levelTicket) {
         this.levelTicket = levelTicket;
     }
 

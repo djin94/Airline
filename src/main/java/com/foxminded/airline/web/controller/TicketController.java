@@ -1,12 +1,8 @@
 package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.*;
-import com.foxminded.airline.domain.service.PassengerService;
 import com.foxminded.airline.domain.service.SitService;
 import com.foxminded.airline.utils.TicketConverter;
-import com.foxminded.airline.web.dao.FlightPriceRepository;
-import com.foxminded.airline.web.dao.LevelTicketRepository;
-import com.foxminded.airline.web.dao.SitRepository;
 import com.foxminded.airline.web.dao.TicketRepository;
 import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.dto.FlightPriceDTO;
@@ -19,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -42,9 +37,6 @@ public class TicketController {
     FlightPriceConverter flightPriceConverter;
 
     @Autowired
-    LevelTicketRepository levelTicketRepository;
-
-    @Autowired
     SitService sitService;
 
     @GetMapping(value = "/buyticket",
@@ -64,11 +56,12 @@ public class TicketController {
 
     @PostMapping(value = "/buyticket/sits",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sit>> getSits(@RequestBody LevelTicket levelTicket) throws IOException {
-        if (levelTicket.getLevel() == null)
-            levelTicket = levelTicketRepository.findById(1).get();
+    public ResponseEntity<List<Sit>> getSits(@RequestBody Sit sit) throws IOException {
+        String levelTicket;
+        if (sit.getLevelTicket() == null)
+            levelTicket = LevelTicket.ECONOM.getLevelTicket();
         else
-            levelTicket = levelTicketRepository.findByLevel(levelTicket.getLevel().split(" - ")[0]);
+            levelTicket = sit.getLevelTicket().split(" - ")[0];
         return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, levelTicket), HttpStatus.OK);
     }
 

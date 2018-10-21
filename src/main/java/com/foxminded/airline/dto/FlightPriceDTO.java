@@ -4,15 +4,15 @@ package com.foxminded.airline.dto;
  * Created by Кабатов on 04.10.2018.
  */
 public class FlightPriceDTO {
-    private String level;
+    private String levelTicket;
     private String price;
 
-    public String getLevel() {
-        return level;
+    public String getLevelTicket() {
+        return levelTicket;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setLevelTicket(String levelTicket) {
+        this.levelTicket = levelTicket;
     }
 
     public String getPrice() {

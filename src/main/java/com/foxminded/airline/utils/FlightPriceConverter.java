@@ -13,7 +13,7 @@ public class FlightPriceConverter {
         List<FlightPriceDTO> flightPriceDTOS = new ArrayList<>();
         flightPrices.forEach(flightPrice -> {
             FlightPriceDTO flightPriceDTO = new FlightPriceDTO();
-            flightPriceDTO.setLevel(flightPrice.getLevelTicket().getLevel());
+            flightPriceDTO.setLevelTicket(flightPrice.getLevelTicket());
             flightPriceDTO.setPrice(String.valueOf((float) flightPrice.getPrice() / 100));
             flightPriceDTOS.add(flightPriceDTO);
         });

@@ -19,9 +19,8 @@ public class Sit {
     @JoinColumn(name = "plane_id")
     private Plane plane;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "levelticket_id")
-    private LevelTicket levelTicket;
+    @Column(name = "levelticket")
+    private String levelTicket;
 
     private String place;
 
@@ -45,11 +44,11 @@ public class Sit {
         this.plane = plane;
     }
 
-    public LevelTicket getLevelTicket() {
+    public String getLevelTicket() {
         return levelTicket;
     }
 
-    public void setLevelTicket(LevelTicket levelTicket) {
+    public void setLevelTicket(String levelTicket) {
         this.levelTicket = levelTicket;
     }
 
