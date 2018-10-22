@@ -30,4 +30,14 @@ public class UserController {
     public String showAccount() {
         return "user/account";
     }
+
+    @GetMapping(value = "/user/history")
+    public String showHistory(){
+        return "user/history";
+    }
+
+    @GetMapping(value = "/user/passenger")
+    public String showEditPassenger(){
+        return "user/passenger";
+    }
 }
