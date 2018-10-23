@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Qatar Airways</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/daterangepicker.css">
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/user/usermain.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../js/daterangepicker/daterangepicker.js"></script>
 </head>
 <body>
-
+<div>
+    <nav class="top-menu">
+        <a class="navbar-logo" href=""><img src="../images/Logo-Qatar-Airways.jpg" width="200" height="80"></a>
+        <ul class="menu-main">
+            <li id="userName"></li>
+        </ul>
+    </nav>
+</div>
+<div id="passengerEditStatus" class="center">
+<div class="center">
+    <div class="center col-md-3">
+        <label for="lastName">Фамилия</label>
+        <input type="text" class="form-control" name="lastName" id="lastName"/>
+    </div>
+    <div class=" center col-md-3">
+        <label for="firstName">Имя</label>
+        <input type="text" class="form-control" name="firstName" id="firstName"/>
+    </div>
+    <div class="center col-md-3">
+        <label for="patronym">Отчество</label>
+        <input type="text" class="form-control" name="patronym" id="patronym"/>
+    </div>
+    <div class="center col-md-3">
+        <label for="passportNumber">Пасспорт</label>
+        <input type="text" class="form-control" name="passportNumber" id="passportNumber"/>
+    </div>
+    <div class="center col-md-3" style="text-align: right;">
+        <input type="button" class="btn btn-primary" value="Сохранить" onclick="editPassenger()">
+    </div>
+</div>
 </body>
 </html>

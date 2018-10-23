@@ -15,3 +15,10 @@ ALTER TABLE flightprice DROP COLUMN levelticket_id;
 
 DROP TABLE levelticket;
 DROP TABLE role;
+
+ALTER TABLE userairline ADD COLUMN LASTNAME VARCHAR(50);
+ALTER TABLE userairline ADD COLUMN FIRSTNAME VARCHAR(50);
+ALTER TABLE userairline ADD COLUMN PATRONYM VARCHAR(50);
+ALTER TABLE userairline ADD COLUMN PASSPORTNUMBER VARCHAR(50);
+
+UPDATE userairline SET LASTNAME=p.lastname FROM (SELECT * FROM passenger pas inner join userairline u on(pas.passenger_id=u.passenger_id)) as p ;

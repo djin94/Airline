@@ -68,3 +68,21 @@ function writeNameAirportToInput(name, typeAirport, idInput) {
     var airport = document.getElementById(typeAirport);
     airport.getElementsByTagName('*')[0].hidden = true;
 }
+
+function editPassenger() {
+    $.ajax({
+        url: '/user/passenger',
+        method: 'post',
+        contentType: "application/json",
+        data: JSON.stringify({
+            lastName: $('#lastName').val(),
+            firstName: $('#firstName').val(),
+            patronym: $('#patronym').val(),
+            passportNumber: $('#passportNumber').val()
+        }),
+        dataType: 'json',
+        complete: function (data) {
+            $('#passengerEditStatus').html("<h3>Пасспортные данные изменены</h3>");
+        }
+    });
+}
