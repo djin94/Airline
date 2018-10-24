@@ -20,7 +20,7 @@ public class Ticket {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "passenger_id")
-    private Passenger passenger;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "flight_id")
@@ -43,12 +43,12 @@ public class Ticket {
         this.sit = sit;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public User getUser() {
+        return user;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Flight getFlight() {

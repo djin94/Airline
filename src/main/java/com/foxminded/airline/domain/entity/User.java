@@ -21,9 +21,16 @@ public class User {
 
     private String phone;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "passengerId")
-    private Passenger passenger;
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "firstname")
+    private String firstName;
+
+    private String patronym;
+
+    @Column(name = "passportnumber", unique = true)
+    private String passportNumber;
 
     private String  role;
 
@@ -67,20 +74,44 @@ public class User {
         this.phone = phone;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPatronym() {
+        return patronym;
+    }
+
+    public void setPatronym(String patronym) {
+        this.patronym = patronym;
+    }
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
     }
 
     @Override

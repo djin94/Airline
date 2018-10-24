@@ -69,20 +69,23 @@ function writeNameAirportToInput(name, typeAirport, idInput) {
     airport.getElementsByTagName('*')[0].hidden = true;
 }
 
-function editPassenger() {
+function getFlights() {
     $.ajax({
-        url: '/user/passenger',
-        method: 'post',
-        contentType: "application/json",
-        data: JSON.stringify({
-            lastName: $('#lastName').val(),
-            firstName: $('#firstName').val(),
-            patronym: $('#patronym').val(),
-            passportNumber: $('#passportNumber').val()
-        }),
+        url: '/user/flights',
+        method: 'get',
+        contentType: 'application/json',
         dataType: 'json',
-        complete: function (data) {
-            $('#passengerEditStatus').html("<h3>Пасспортные данные изменены</h3>");
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            printFlights(data);
+        },
+        error: function (e) {
+            alert("error");
         }
     });
+}
+
+function printFlights(data) {
+
 }

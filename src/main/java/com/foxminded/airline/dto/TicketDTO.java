@@ -2,7 +2,7 @@ package com.foxminded.airline.dto;
 
 public class TicketDTO {
     private String sit;
-    private PassengerDTO passengerDTO;
+    private UserDTO userDTO;
 
     public String getSit() {
         return sit;
@@ -12,11 +12,11 @@ public class TicketDTO {
         this.sit = sit;
     }
 
-    public PassengerDTO getPassengerDTO() {
-        return passengerDTO;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setPassengerDTO(PassengerDTO passengerDTO) {
-        this.passengerDTO = passengerDTO;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }
