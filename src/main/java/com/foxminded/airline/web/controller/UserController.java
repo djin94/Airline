@@ -2,6 +2,7 @@ package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
+import com.foxminded.airline.dto.FlightDTO;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.utils.UserConverter;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -40,6 +43,7 @@ public class UserController {
         userDTO = new UserDTO();
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             userDTO.setLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+            user = userRepository.findByLogin(this.userDTO.getLogin()).get();
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
@@ -49,27 +53,30 @@ public class UserController {
         return "user/account";
     }
 
-    @GetMapping(value = "/user/history")
-    public String showHistory(){
-        return "user/history";
-    }
-
     @GetMapping(value = "/user/passenger")
-    public String showEditPassenger(){
+    public String showEditPassenger() {
         return "user/passenger";
     }
 
     @GetMapping(value = "/user/passenger/currentdata", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> getPassengerData(){
-        user = userRepository.findByLogin(userDTO.getLogin()).get();
+    public ResponseEntity<UserDTO> getPassengerData() {
         return new ResponseEntity<>(userConverter.createUserDTOFromUser(user), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user/passenger")
-    public ResponseEntity<String> editPassenger(@RequestBody UserDTO userDTO){
-        User user = userRepository.findByLogin(this.userDTO.getLogin()).get();
+    @PostMapping(value = "/user/passenger/edit")
+    public ResponseEntity<String> editPassenger(@RequestBody UserDTO userDTO) {
         userService.editPassportData(user, userDTO);
         userRepository.save(user);
         return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/history")
+    public String showHistory() {
+        return "user/history";
+    }
+
+    @GetMapping(value = "/user/history/currenthistory")
+    public ResponseEntity<List<FlightDTO>> getFlights(){
+        return null;
     }
 }

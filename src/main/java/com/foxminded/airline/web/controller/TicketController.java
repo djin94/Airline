@@ -68,7 +68,7 @@ public class TicketController {
     @PostMapping(value = "/buyticket",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketRepository.save(ticketConverter.createTicket(ticketDTO, flight));
+        ticketRepository.save(ticketConverter.createTicketFromDTO(ticketDTO, flight));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

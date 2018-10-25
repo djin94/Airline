@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    getUserName();
     getCurrentUserData();
 });
 
@@ -21,7 +22,7 @@ function getUserName() {
 
 function editPassenger() {
     $.ajax({
-        url: '/user/passenger',
+        url: '/user/passenger/edit',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({

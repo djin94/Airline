@@ -12,15 +12,20 @@ public class FlightConverter {
     public List<FlightDTO> createDTOsForFlights(List<Flight> flights) {
         List<FlightDTO> flightDTOS = new ArrayList<>();
         flights.forEach(flight -> {
-            FlightDTO flightDTO = new FlightDTO();
-            flightDTO.setNumber(flight.getNumber());
-            flightDTO.setPlaneName(flight.getPlane().getName());
-            flightDTO.setDateString(flight.getDate().toString());
-            flightDTO.setTimeString(flight.getTime().toString());
-            flightDTO.setDepartureAirport(flight.getDepartureAirport().getName());
-            flightDTO.setArrivalAirport(flight.getArrivalAirport().getName());
+            FlightDTO flightDTO = createFlightDTOFromFlight(flight);
             flightDTOS.add(flightDTO);
         });
         return flightDTOS;
+    }
+
+    public FlightDTO createFlightDTOFromFlight(Flight flight){
+        FlightDTO flightDTO = new FlightDTO();
+        flightDTO.setNumber(flight.getNumber());
+        flightDTO.setPlaneName(flight.getPlane().getName());
+        flightDTO.setDateString(flight.getDate().toString());
+        flightDTO.setTimeString(flight.getTime().toString());
+        flightDTO.setDepartureAirport(flight.getDepartureAirport().getName());
+        flightDTO.setArrivalAirport(flight.getArrivalAirport().getName());
+        return flightDTO;
     }
 }

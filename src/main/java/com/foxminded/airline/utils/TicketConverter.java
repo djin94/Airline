@@ -9,6 +9,9 @@ import com.foxminded.airline.web.dao.SitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class TicketConverter {
     @Autowired
@@ -20,11 +23,28 @@ public class TicketConverter {
     @Autowired
     SitRepository sitRepository;
 
-    public Ticket createTicket(TicketDTO ticketDTO, Flight flight){
+    @Autowired
+    UserConverter userConverter;
+
+    @Autowired
+    FlightConverter flightConverter;
+
+    public Ticket createTicketFromDTO(TicketDTO ticketDTO, Flight flight){
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);
         ticket.setUser(userService.findOrCreateUserFromUserDTO(ticketDTO.getUserDTO()));
         ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(),ticketDTO.getSit()));
         return ticket;
+    }
+
+    public List<TicketDTO> createTicketDTOsFromTickets(List<Ticket> tickets){
+        List<TicketDTO> ticketDTOs = new ArrayList<>();
+        tickets.forEach(ticket -> {
+            TicketDTO ticketDTO = new TicketDTO();
+            ticketDTO.setSit(ticket.getSit().getPlace());
+            ticketDTO.setUserDTO(userConverter.createUserDTOFromUser(ticket.getUser()));
+            ticketDTO.setFlightDTO(flightConverter.createFlightDTOFromFlight(ticket.getFlight()));
+        });
+        return ticketDTOs;
     }
 }
