@@ -1,11 +1,14 @@
 package com.foxminded.airline.web.controller;
 
+import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.FlightDTO;
+import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.utils.UserConverter;
+import com.foxminded.airline.web.dao.TicketRepository;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TicketRepository ticketRepository;
+
+    @Autowired
+    TicketConverter ticketConverter;
+
     UserDTO userDTO;
 
     User user;
@@ -41,10 +50,8 @@ public class UserController {
     @GetMapping(value = "/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getUserName() {
         userDTO = new UserDTO();
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            userDTO.setLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-            user = userRepository.findByLogin(this.userDTO.getLogin()).get();
-        }
+        user = userService.getCurrentUser();
+        userDTO.setLogin(user.getLogin());
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
@@ -76,7 +83,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/history/currenthistory")
-    public ResponseEntity<List<FlightDTO>> getFlights(){
-        return null;
+    public ResponseEntity<List<TicketDTO>> getFlights() {
+        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByUser(user)),HttpStatus.OK);
     }
 }

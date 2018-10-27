@@ -9,4 +9,6 @@ public interface UserService {
     User findOrCreateUserFromUserDTO(UserDTO userDTO);
 
     void editPassportData(User user, UserDTO userDTO);
+
+    User getCurrentUser();
 }

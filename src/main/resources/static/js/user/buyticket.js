@@ -54,16 +54,10 @@ function printSits(data) {
 
 function createTicket() {
     $.ajax({
-        url: '/buyticket',
+        url: '/user/buyticket',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({
-            userDTO: {
-                lastName: $('#lastName').val(),
-                firstName: $('#firstName').val(),
-                patronym: $('#patronym').val(),
-                passportNumber: $('#passportNumber').val()
-            },
             sit: $('#sit').val()
         }),
         dataType: 'json',

@@ -8,6 +8,7 @@ import com.foxminded.airline.utils.UserConverter;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,13 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setPatronym(userDTO.getPatronym());
         user.setPassportNumber(userDTO.getPassportNumber());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        }
+        return null;
     }
 }

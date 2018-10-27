@@ -34,8 +34,20 @@ public class SearchFlightController {
         return "searchFlight";
     }
 
-    @PostMapping(value = "/searchflight")
+    @PostMapping(value = {"/searchflight", "/user/searchflight"})
     public ResponseEntity<List<FlightDTO>> searchFlight() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByFlightDTO(flightDTO)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/searchflight",
+            params = {"nameDepartureAirport", "nameArrivalAirport", "date"})
+    public String showBuyTicketForUser(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
+                                @RequestParam("nameArrivalAirport") String nameArrivalAirport,
+                                @RequestParam("date") String date) {
+        flightDTO = new FlightDTO();
+        flightDTO.setDepartureAirport(nameDepartureAirport);
+        flightDTO.setArrivalAirport(nameArrivalAirport);
+        flightDTO.setDateString(date);
+        return "/user/searchFlight";
     }
 }

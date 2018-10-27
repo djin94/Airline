@@ -2,6 +2,7 @@ package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.SitService;
+import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.web.dao.TicketRepository;
 import com.foxminded.airline.domain.service.FlightService;
@@ -39,6 +40,9 @@ public class TicketController {
     @Autowired
     SitService sitService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
     public String showTicket(@RequestParam("number") String number,
@@ -69,6 +73,23 @@ public class TicketController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
         ticketRepository.save(ticketConverter.createTicketFromDTO(ticketDTO, flight));
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/buyticket",
+            params = {"number", "dateString", "timeString"})
+    public String showTicketForUser(@RequestParam("number") String number,
+                                    @RequestParam("dateString") String dateString,
+                                    @RequestParam("timeString") String timeString) {
+        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        return "user/buyTicket";
+    }
+
+    @PostMapping(value = "/user/buyticket",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createTicketForUser(@RequestBody TicketDTO ticketDTO) {
+        Ticket ticket = ticketConverter.createTicketFromDTOForUser(ticketDTO, flight, userService.getCurrentUser());
+        ticketRepository.save(ticket);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }
