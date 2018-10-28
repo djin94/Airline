@@ -81,6 +81,6 @@ public class UserController {
 
     @GetMapping(value = "/user/history/currenthistory")
     public ResponseEntity<List<TicketDTO>> getFlights() {
-        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByUser(user)),HttpStatus.OK);
+        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByUser(user)), HttpStatus.OK);
     }
 }
