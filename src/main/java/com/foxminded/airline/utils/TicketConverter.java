@@ -53,6 +53,7 @@ public class TicketConverter {
             ticketDTO.setSit(ticket.getSit().getPlace());
             ticketDTO.setUserDTO(userConverter.createUserDTOFromUser(ticket.getUser()));
             ticketDTO.setFlightDTO(flightConverter.createFlightDTOFromFlight(ticket.getFlight()));
+            ticketDTOs.add(ticketDTO);
         });
         return ticketDTOs;
     }

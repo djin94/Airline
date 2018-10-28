@@ -24,7 +24,7 @@ public class Sit {
 
     private String place;
 
-    @OneToMany(mappedBy = "sit", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "sit", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JsonIgnore
     private List<Ticket> tickets;
 

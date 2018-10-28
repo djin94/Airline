@@ -35,7 +35,7 @@ public class Flight {
     @JoinColumn(name = "arrival_airport_id", insertable = false, updatable = false)
     private Airport arrivalAirport;
 
-    @OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
     @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})

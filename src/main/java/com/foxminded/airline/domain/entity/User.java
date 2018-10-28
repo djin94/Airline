@@ -1,6 +1,9 @@
 package com.foxminded.airline.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +13,7 @@ public class User {
     @Id
     @SequenceGenerator(name = "user_id_seq", sequenceName = "userairline_user_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "userId", unique = true, nullable = true)
+    @Column(name = "userId", unique = true)
     private int id;
 
     private String login;
@@ -32,7 +35,11 @@ public class User {
     @Column(name = "passportnumber", unique = true)
     private String passportNumber;
 
-    private String  role;
+    private String role;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JsonIgnore
+    private List<Ticket> tickets;
 
     public int getId() {
         return id;

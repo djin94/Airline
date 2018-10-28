@@ -1,9 +1,7 @@
 package com.foxminded.airline.web.controller;
 
-import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
-import com.foxminded.airline.dto.FlightDTO;
 import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.TicketConverter;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
