@@ -1,11 +1,13 @@
 package com.foxminded.airline.web.controller;
 
+import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.utils.UserConverter;
+import com.foxminded.airline.web.dao.FlightRepository;
 import com.foxminded.airline.web.dao.TicketRepository;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -35,12 +38,16 @@ public class UserController {
     @Autowired
     TicketConverter ticketConverter;
 
+    @Autowired
+    FlightRepository flightRepository;
+
     UserDTO userDTO;
 
     User user;
 
     @GetMapping(value = "/user")
     public String showMainPage() {
+        List<Flight> flights = flightRepository.findByDateTime(LocalDate.parse("2018-10-01"));
         return "user/userindex";
     }
 

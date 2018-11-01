@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +22,7 @@ public interface FlightRepository extends CrudRepository<Flight, Integer> {
     List<Flight> findByDepartureAirportAndDate(Airport departureAirport, LocalDate date);
 
     List<Flight> findByArrivalAirportAndDate(Airport arrivalAirport, LocalDate date);
+
+    @Query(value = "SELECT f FROM Flight f WHERE f.dateTime BETWEEN :dateFlight AND :dateFlight+")
+    List<Flight> findByDateTime(LocalDateTime dateFlight);
 }

@@ -2,6 +2,7 @@ package com.foxminded.airline.domain.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Flight {
     private LocalDate date;
 
     private LocalTime time;
+
+    private LocalDateTime dateTime;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "planeId")
@@ -127,6 +130,14 @@ public class Flight {
 
     public void remove(FlightPrice flightPrice) {
         flightPrices.remove(flightPrice);
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
