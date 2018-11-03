@@ -24,6 +24,7 @@ public class Flight {
 
     private LocalTime time;
 
+    @Column(name = "datetime")
     private LocalDateTime dateTime;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})

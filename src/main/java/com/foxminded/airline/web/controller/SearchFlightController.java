@@ -42,8 +42,8 @@ public class SearchFlightController {
     @GetMapping(value = "/user/searchflight",
             params = {"nameDepartureAirport", "nameArrivalAirport", "date"})
     public String showBuyTicketForUser(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
-                                @RequestParam("nameArrivalAirport") String nameArrivalAirport,
-                                @RequestParam("date") String date) {
+                                       @RequestParam("nameArrivalAirport") String nameArrivalAirport,
+                                       @RequestParam("date") String date) {
         flightDTO = new FlightDTO();
         flightDTO.setDepartureAirport(nameDepartureAirport);
         flightDTO.setArrivalAirport(nameArrivalAirport);

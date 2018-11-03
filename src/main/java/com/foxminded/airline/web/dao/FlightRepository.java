@@ -23,6 +23,6 @@ public interface FlightRepository extends CrudRepository<Flight, Integer> {
 
     List<Flight> findByArrivalAirportAndDate(Airport arrivalAirport, LocalDate date);
 
-    @Query(value = "SELECT f FROM Flight f WHERE f.dateTime BETWEEN :dateFlight AND :dateFlight+")
-    List<Flight> findByDateTime(LocalDateTime dateFlight);
+//    @Query(value = "SELECT f FROM Flight f WHERE f.dateTime BETWEEN :dateFlight AND :dateFlight+")
+//    List<Flight> findByDateTime(LocalDateTime dateFlight);
 }

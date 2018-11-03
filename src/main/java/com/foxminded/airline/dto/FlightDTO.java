@@ -7,6 +7,7 @@ public class FlightDTO {
     private String planeName;
     private String departureAirport;
     private String arrivalAirport;
+    private boolean enabled;
 
     public String getNumber() {
         return number;
@@ -54,5 +55,13 @@ public class FlightDTO {
 
     public void setArrivalAirport(String arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

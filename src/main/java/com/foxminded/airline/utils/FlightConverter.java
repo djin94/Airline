@@ -4,6 +4,8 @@ import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.dto.FlightDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class FlightConverter {
         return flightDTOS;
     }
 
-    public FlightDTO createFlightDTOFromFlight(Flight flight){
+    public FlightDTO createFlightDTOFromFlight(Flight flight) {
         FlightDTO flightDTO = new FlightDTO();
         flightDTO.setNumber(flight.getNumber());
         flightDTO.setPlaneName(flight.getPlane().getName());
@@ -26,6 +28,22 @@ public class FlightConverter {
         flightDTO.setTimeString(flight.getTime().toString());
         flightDTO.setDepartureAirport(flight.getDepartureAirport().getName());
         flightDTO.setArrivalAirport(flight.getArrivalAirport().getName());
+        flightDTO.setEnabled(isFlightEnabled(flight));
         return flightDTO;
+    }
+
+    private boolean isFlightEnabled(Flight flight) {
+        int compareDate = flight.getDate().compareTo(LocalDate.now());
+        if (compareDate < 0) {
+            return false;
+        }
+        if (compareDate == 0) {
+            int closingSaleTime = 2;
+            int differentHours = flight.getTime().getHour() - LocalTime.now().getHour();
+            if (differentHours > closingSaleTime) {
+                return true;
+            }
+        }
+        return true;
     }
 }
