@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.access.vote.RoleVoter;
-
 import javax.sql.DataSource;
 
 @Configuration
@@ -60,10 +58,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/images/**").permitAll()
-                .antMatchers("/admin/**").hasRole("admin").anyRequest().authenticated()
-                .antMatchers("/admin").hasRole("admin").anyRequest().authenticated()
-                .antMatchers("/user/**").hasRole("user").anyRequest().authenticated()
-                .antMatchers("/user").hasRole("user").anyRequest().authenticated()
+                .antMatchers("/admin/**").hasAuthority("admin").anyRequest().authenticated()
+                .antMatchers("/admin").hasAuthority("admin").anyRequest().authenticated()
+                .antMatchers("/user/**").hasAuthority("user").anyRequest().authenticated()
+                .antMatchers("/user").hasAuthority("user").anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login").permitAll()
