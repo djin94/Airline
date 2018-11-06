@@ -43,5 +43,5 @@ function printNotFoundMessage() {
 }
 
 function showListTicket(number, dateString, timeString) {
-    window.location.replace("/admin/showTicket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
+    window.location.replace("/admin/listtickets?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
 }

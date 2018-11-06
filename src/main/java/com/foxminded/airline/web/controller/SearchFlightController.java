@@ -50,4 +50,21 @@ public class SearchFlightController {
         flightDTO.setDateString(date);
         return "/user/searchFlight";
     }
+
+    @GetMapping(value = "/admin/listflights",
+            produces = MediaType.TEXT_HTML_VALUE,
+            params = {"nameAirport", "date"})
+    public String showListFlights(@RequestParam("nameAirport") String nameAirport,
+                                  @RequestParam("date") String date) {
+        flightDTO = new FlightDTO();
+        flightDTO.setDepartureAirport(nameAirport);
+        flightDTO.setArrivalAirport("");
+        flightDTO.setDateString(date);
+        return "admin/listFlights";
+    }
+
+    @PostMapping(value = "/admin/listflights")
+    public ResponseEntity<List<FlightDTO>> searchFlightForAirport() {
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO)), HttpStatus.OK);
+    }
 }

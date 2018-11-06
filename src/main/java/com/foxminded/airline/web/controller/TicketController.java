@@ -92,4 +92,18 @@ public class TicketController {
         ticketRepository.save(ticket);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+    @GetMapping(value = "/admin/listtickets",
+            params = {"number", "dateString", "timeString"})
+    public String showPurchasedTickets(@RequestParam("number") String number,
+                                       @RequestParam("dateString") String dateString,
+                                       @RequestParam("timeString") String timeString) {
+        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        return "admin/listTickets";
+    }
+
+    @PostMapping(value = "/admin/listtickets")
+    public ResponseEntity<List<TicketDTO>> getListTickets() {
+        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByFlight(flight)), HttpStatus.OK);
+    }
 }
