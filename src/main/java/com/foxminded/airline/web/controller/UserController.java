@@ -47,7 +47,6 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String showMainPage() {
-//        List<Flight> flights = flightRepository.findByDateTime(LocalDate.parse("2018-10-01"));
         return "user/userindex";
     }
 
