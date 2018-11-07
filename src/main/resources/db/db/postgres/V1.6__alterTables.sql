@@ -1,0 +1,3 @@
+ALTER TABLE FLIGHT DROP COLUMN airline_id;
+
+DROP TABLE airline;

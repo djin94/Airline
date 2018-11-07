@@ -24,9 +24,6 @@ public class Flight {
 
     private LocalTime time;
 
-    @Column(name = "datetime")
-    private LocalDateTime dateTime;
-
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "planeId")
     private Plane plane;
@@ -42,7 +39,7 @@ public class Flight {
     @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<FlightPrice> flightPrices = new ArrayList<>();
 
     public int getId() {
@@ -131,14 +128,6 @@ public class Flight {
 
     public void remove(FlightPrice flightPrice) {
         flightPrices.remove(flightPrice);
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     @Override

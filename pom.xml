@@ -109,11 +109,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.4</version>
         </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>postgresql</groupId>-->
+            <!--<artifactId>postgresql</artifactId>-->
+            <!--<version>9.1-901-1.jdbc4</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -132,8 +132,8 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.196</version>
-            <scope>test</scope>
+            <version>1.4.194</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
