@@ -33,7 +33,7 @@ public class TicketConverter {
     public Ticket createTicketFromDTO(TicketDTO ticketDTO, Flight flight){
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);
-        ticket.setUser(userService.findOrCreateUserFromUserDTO(ticketDTO.getUserDTO()));
+        ticket.setUser(userConverter.createUserFromUserDTO(ticketDTO.getUserDTO()));
         ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(),ticketDTO.getSit()));
         return ticket;
     }

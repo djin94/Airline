@@ -6,7 +6,6 @@ import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.UserConverter;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.security.core.Authentication;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,40 +41,59 @@ public class UserServiceTest {
     private UserDTO userDTO;
     private String login;
     private String password;
-    private String passportNumber;
+
+    private String cryptedPassword;
 
     @Before
     public void setUp() throws Exception {
         login = "djin94";
         password = "123456";
-        passportNumber = "464687123";
-        String lastName = "Kabatov";
-        String firstName = "Evgeny";
-        String patronym = "Nikolaevich";
+        String passportNumberKabatov = "464687123";
+        String lastNameKabatov = "Kabatov";
+        String firstNameKabatov = "Evgeny";
+        String patronymKabatov = "Nikolaevich";
         String phone = "897943133";
-        String role = Role.USER.getRole();
 
         user = new User();
         user.setLogin(login);
         user.setPassword(password);
-        user.setPassportNumber(passportNumber);
-        user.setLastName(lastName);
-        user.setFirstName(firstName);
-        user.setPatronym(patronym);
+        user.setPassportNumber(passportNumberKabatov);
+        user.setLastName(lastNameKabatov);
+        user.setFirstName(firstNameKabatov);
+        user.setPatronym(patronymKabatov);
         user.setPhone(phone);
-        user.setRole(role);
 
+        String lastNameDrozdov = "Drozdov";
+        String firstNameDrozdov = "Denis";
+        String patronymDrozdov = "Alekseevich";
+        String passportNumberDrozdov = "456468713";
         userDTO = new UserDTO();
         userDTO.setLogin(login);
-        userDTO.setLastName(lastName);
-        userDTO.setFirstName(firstName);
-        userDTO.setPatronym(patronym);
-        userDTO.setPassportNumber(passportNumber);
+        userDTO.setLastName(lastNameDrozdov);
+        userDTO.setFirstName(firstNameDrozdov);
+        userDTO.setPatronym(patronymDrozdov);
+        userDTO.setPassportNumber(passportNumberDrozdov);
+
+        cryptedPassword = new StringBuilder(password).reverse().toString();
     }
 
     @Test
-    @Ignore
     public void whenSaveUser_thenCryptPasswordAndSetRoleAndSaveUser(){
-        User expectedUser = user;
+        when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn(cryptedPassword);
+
+        userService.save(user);
+        User actualUser = user;
+
+        assertEquals(actualUser.getPassword(),cryptedPassword);
+        assertEquals(actualUser.getRole(), Role.USER.getRole());
+    }
+
+    @Test
+    public void whenEditPassportData_thenEditPassportData(){
+        userService.editPassportData(user, userDTO);
+        assertEquals(user.getFirstName(),userDTO.getFirstName());
+        assertEquals(user.getLastName(),userDTO.getLastName());
+        assertEquals(user.getPatronym(),userDTO.getPatronym());
+        assertEquals(user.getPassportNumber(), userDTO.getPassportNumber());
     }
 }

@@ -30,12 +30,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findOrCreateUserFromUserDTO(UserDTO userDTO) {
-        return userRepository.findByPassportNumber(userDTO.getPassportNumber())
-                .orElseGet(() -> userConverter.createUserFromUserDTO(userDTO));
-    }
-
-    @Override
     public void editPassportData(User user, UserDTO userDTO) {
         user.setLastName(userDTO.getLastName());
         user.setFirstName(userDTO.getFirstName());
