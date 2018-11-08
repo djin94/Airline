@@ -1,5 +1,7 @@
 package com.foxminded.airline.dto;
 
+import java.util.Objects;
+
 public class TicketDTO {
     private String sit;
 
@@ -29,5 +31,21 @@ public class TicketDTO {
 
     public void setFlightDTO(FlightDTO flightDTO) {
         this.flightDTO = flightDTO;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TicketDTO ticketDTO = (TicketDTO) o;
+        return Objects.equals(sit, ticketDTO.sit) &&
+                Objects.equals(userDTO, ticketDTO.userDTO) &&
+                Objects.equals(flightDTO, ticketDTO.flightDTO);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(sit, userDTO, flightDTO);
     }
 }

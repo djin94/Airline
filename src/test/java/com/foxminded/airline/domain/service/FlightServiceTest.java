@@ -87,10 +87,6 @@ public class FlightServiceTest {
         flightDTO.setDateString("2018-10-15");
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void whenFindFlightByNumberAndDateAndTime_thenReturnFlight() {
         when(flightRepository.findByNumberAndDateAndTime(number, date, time)).thenReturn(Optional.of(flight));

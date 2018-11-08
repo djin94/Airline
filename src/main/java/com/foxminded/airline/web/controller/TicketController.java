@@ -4,6 +4,7 @@ import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.SitService;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.utils.TicketConverter;
+import com.foxminded.airline.web.dao.FlightPriceRepository;
 import com.foxminded.airline.web.dao.TicketRepository;
 import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.dto.FlightPriceDTO;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Controller
+@Transactional
 public class TicketController {
     Flight flight;
 
@@ -30,6 +33,9 @@ public class TicketController {
 
     @Autowired
     TicketRepository ticketRepository;
+
+    @Autowired
+    FlightPriceRepository flightPriceRepository;
 
     @Autowired
     TicketConverter ticketConverter;
@@ -45,6 +51,7 @@ public class TicketController {
 
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
+    @Transactional
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
                              @RequestParam("timeString") String timeString) {
@@ -78,6 +85,7 @@ public class TicketController {
 
     @GetMapping(value = "/user/buyticket",
             params = {"number", "dateString", "timeString"})
+    @Transactional
     public String showTicketForUser(@RequestParam("number") String number,
                                     @RequestParam("dateString") String dateString,
                                     @RequestParam("timeString") String timeString) {

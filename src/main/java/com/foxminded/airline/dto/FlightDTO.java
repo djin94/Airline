@@ -1,5 +1,7 @@
 package com.foxminded.airline.dto;
 
+import java.util.Objects;
+
 public class FlightDTO {
     private String number;
     private String dateString;
@@ -63,5 +65,25 @@ public class FlightDTO {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlightDTO flightDTO = (FlightDTO) o;
+        return enabled == flightDTO.enabled &&
+                Objects.equals(number, flightDTO.number) &&
+                Objects.equals(dateString, flightDTO.dateString) &&
+                Objects.equals(timeString, flightDTO.timeString) &&
+                Objects.equals(planeName, flightDTO.planeName) &&
+                Objects.equals(departureAirport, flightDTO.departureAirport) &&
+                Objects.equals(arrivalAirport, flightDTO.arrivalAirport);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(number, dateString, timeString, planeName, departureAirport, arrivalAirport, enabled);
     }
 }

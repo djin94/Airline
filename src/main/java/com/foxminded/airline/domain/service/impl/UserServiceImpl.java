@@ -7,7 +7,6 @@ import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.UserConverter;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    UserConverter userConverter = new UserConverter();
+    private UserConverter userConverter;
 
     @Override
     public void save(User user) {

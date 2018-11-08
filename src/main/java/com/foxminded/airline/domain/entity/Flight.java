@@ -1,6 +1,7 @@
 package com.foxminded.airline.domain.entity;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,10 +37,10 @@ public class Flight {
     @JoinColumn(name = "arrival_airport_id", insertable = false, updatable = false)
     private Airport arrivalAirport;
 
-    @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<FlightPrice> flightPrices = new ArrayList<>();
 
     public int getId() {
