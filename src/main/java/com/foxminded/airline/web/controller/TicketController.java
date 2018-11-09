@@ -1,22 +1,28 @@
 package com.foxminded.airline.web.controller;
 
-import com.foxminded.airline.domain.entity.*;
+import com.foxminded.airline.domain.entity.Flight;
+import com.foxminded.airline.domain.entity.LevelTicket;
+import com.foxminded.airline.domain.entity.Sit;
+import com.foxminded.airline.domain.entity.Ticket;
+import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.domain.service.SitService;
 import com.foxminded.airline.domain.service.UserService;
-import com.foxminded.airline.utils.TicketConverter;
-import com.foxminded.airline.web.dao.FlightPriceRepository;
-import com.foxminded.airline.web.dao.TicketRepository;
-import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.dto.FlightPriceDTO;
 import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.utils.FlightPriceConverter;
+import com.foxminded.airline.utils.TicketConverter;
+import com.foxminded.airline.web.dao.FlightPriceRepository;
+import com.foxminded.airline.web.dao.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.time.LocalDate;

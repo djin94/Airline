@@ -1,9 +1,7 @@
 package com.foxminded.airline.domain.entity;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;

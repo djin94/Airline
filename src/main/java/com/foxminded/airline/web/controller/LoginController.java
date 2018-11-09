@@ -4,9 +4,10 @@ import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-//    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+    //    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
     @GetMapping(value = "/login")
     public String getLoginPage() {
         return "login";
@@ -33,9 +34,9 @@ public class LoginController {
     @PostMapping(value = "/registration",
             params = {"login", "password", "email", "phone"})
     public String createNewUser(@RequestParam("login") String login,
-                                      @RequestParam("password") String password,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("phone") String phone) {
+                                @RequestParam("password") String password,
+                                @RequestParam("email") String email,
+                                @RequestParam("phone") String phone) {
         ModelAndView modelAndView = new ModelAndView();
         Optional<User> userExists = userRepository.findByLogin(login);
         if (userExists.isPresent()) {

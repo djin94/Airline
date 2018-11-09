@@ -30,23 +30,23 @@ public class TicketConverter {
     @Autowired
     FlightConverter flightConverter;
 
-    public Ticket createTicketFromDTO(TicketDTO ticketDTO, Flight flight){
+    public Ticket createTicketFromDTO(TicketDTO ticketDTO, Flight flight) {
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);
         ticket.setUser(userConverter.createUserFromUserDTO(ticketDTO.getUserDTO()));
-        ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(),ticketDTO.getSit()));
+        ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(), ticketDTO.getSit()));
         return ticket;
     }
 
-    public Ticket createTicketFromDTOForUser(TicketDTO ticketDTO, Flight flight, User user){
+    public Ticket createTicketFromDTOForUser(TicketDTO ticketDTO, Flight flight, User user) {
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);
         ticket.setUser(user);
-        ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(),ticketDTO.getSit()));
+        ticket.setSit(sitRepository.findByPlaneAndPlace(flight.getPlane(), ticketDTO.getSit()));
         return ticket;
     }
 
-    public List<TicketDTO> createTicketDTOsFromTickets(List<Ticket> tickets){
+    public List<TicketDTO> createTicketDTOsFromTickets(List<Ticket> tickets) {
         List<TicketDTO> ticketDTOs = new ArrayList<>();
         tickets.forEach(ticket -> {
             TicketDTO ticketDTO = new TicketDTO();

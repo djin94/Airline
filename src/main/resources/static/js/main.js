@@ -48,5 +48,5 @@ function loadAirports(data, typeAirport, idInput) {
 function writeNameAirportToInput(name, typeAirport, idInput) {
     document.getElementById(idInput).value = name;
     var airport = document.getElementById(typeAirport);
-    airport.getElementsByTagName('*')[0].hidden=true;
+    airport.getElementsByTagName('*')[0].hidden = true;
 }

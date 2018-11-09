@@ -3,8 +3,6 @@ package com.foxminded.airline.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -75,7 +73,7 @@ public class FlightPrice {
     @Override
     public String toString() {
         return "FlightPrice{" +
-                ", price=" + price/100 +
+                ", price=" + price / 100 +
                 '}';
     }
 }

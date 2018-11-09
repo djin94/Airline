@@ -15,12 +15,12 @@ public class AdminController {
     FlightConverter flightConverter;
 
     @GetMapping(value = "/admin")
-    public String showAdminPage(){
+    public String showAdminPage() {
         return "admin/admin";
     }
 
     @GetMapping(value = "/admin/searchflights")
-    public String showSearchFlights(){
+    public String showSearchFlights() {
         return "admin/searchFlights";
     }
 }

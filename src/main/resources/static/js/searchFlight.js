@@ -1,6 +1,7 @@
 $(document).ready(function () {
     loadFlights();
 });
+
 function loadFlights() {
     $.ajax({
         url: '/searchflight',
@@ -33,10 +34,10 @@ function printFlights(data) {
         table += "<tr id='tr" + i + "'>" +
             "<td>" + data[i].number + "</td>" + "<td>" + data[i].dateString + "</td>" + "<td>" + data[i].timeString + "</td>" +
             "<td>" + data[i].departureAirport + "</td>" + "<td>" + data[i].arrivalAirport + "</td>" + "<td>" + data[i].planeName + "</td>";
-            if(data[i].enabled==true) {
-                table+="<td><button onclick=\"buyTicket('" + data[i].number + "', '" + data[i].dateString + "', '" + data[i].timeString + "')\" class='btn btn-primary' id = '" + i + "'>" + "Купить</button></td>";
-            }
-            table+="</tr>";
+        if (data[i].enabled == true) {
+            table += "<td><button onclick=\"buyTicket('" + data[i].number + "', '" + data[i].dateString + "', '" + data[i].timeString + "')\" class='btn btn-primary' id = '" + i + "'>" + "Купить</button></td>";
+        }
+        table += "</tr>";
     }
     table += "</table>";
     $('#flights').html(table);

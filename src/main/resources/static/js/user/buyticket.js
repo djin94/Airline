@@ -2,6 +2,7 @@ $(document).ready(function () {
     loadFlightPrice();
     loadSits();
 });
+
 function loadFlightPrice() {
     $.ajax({
         url: '/buyticket/flightprices',

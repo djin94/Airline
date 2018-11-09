@@ -3,7 +3,6 @@ package com.foxminded.airline.domain.service;
 import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.dto.UserDTO;
-import com.foxminded.airline.utils.UserConverter;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.security.core.Authentication;
+
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -32,10 +35,10 @@ public class UserServiceTest {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @MockBean
-    private UserConverter userConverters;
+    private Authentication authentication;
 
     @MockBean
-    private Authentication authentication;
+    private SecurityContext securityContext;
 
     private User user;
     private UserDTO userDTO;
@@ -78,22 +81,35 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenSaveUser_thenCryptPasswordAndSetRoleAndSaveUser(){
+    public void whenSaveUser_thenCryptPasswordAndSetRoleAndSaveUser() {
         when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn(cryptedPassword);
 
         userService.save(user);
         User actualUser = user;
 
-        assertEquals(actualUser.getPassword(),cryptedPassword);
+        assertEquals(actualUser.getPassword(), cryptedPassword);
         assertEquals(actualUser.getRole(), Role.USER.getRole());
     }
 
     @Test
-    public void whenEditPassportData_thenEditPassportData(){
+    public void whenEditPassportData_thenEditPassportData() {
         userService.editPassportData(user, userDTO);
-        assertEquals(user.getFirstName(),userDTO.getFirstName());
-        assertEquals(user.getLastName(),userDTO.getLastName());
-        assertEquals(user.getPatronym(),userDTO.getPatronym());
+        assertEquals(user.getFirstName(), userDTO.getFirstName());
+        assertEquals(user.getLastName(), userDTO.getLastName());
+        assertEquals(user.getPatronym(), userDTO.getPatronym());
         assertEquals(user.getPassportNumber(), userDTO.getPassportNumber());
+    }
+
+    @Test
+    public void whenGetCurrentUser_thenGetCurrentUser() {
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn(login);
+        when(userRepository.findByLogin(login)).thenReturn(Optional.of(user));
+
+        User expectedUser = user;
+        User actualUser = userService.getCurrentUser();
+
+        assertEquals(expectedUser, actualUser);
     }
 }
