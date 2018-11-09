@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -41,4 +43,11 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() {
         return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
     }
+
+    @Override
+    public Optional<User> findUserByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.Airport;
-import com.foxminded.airline.web.dao.AirportRepository;
+import com.foxminded.airline.domain.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +17,7 @@ import java.util.List;
 public class MainPageController {
 
     @Autowired
-    AirportRepository airportRepository;
+    private AirportService airportService;
 
     @GetMapping(value = "/")
     public String showMainPage() {
@@ -26,6 +26,6 @@ public class MainPageController {
 
     @PostMapping(value = "/searchAirport", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
-        return new ResponseEntity<>(airportRepository.findByNameLikeIgnoreCase("%" + airport.getName() + "%"), HttpStatus.OK);
+        return new ResponseEntity<>(airportService.findAirportsByNamePart(airport.getName()), HttpStatus.OK);
     }
 }

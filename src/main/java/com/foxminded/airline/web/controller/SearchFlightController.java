@@ -50,7 +50,7 @@ public class SearchFlightController {
         flightDTO.setDepartureAirport(nameDepartureAirport);
         flightDTO.setArrivalAirport(nameArrivalAirport);
         flightDTO.setDateString(date);
-        return "/user/searchFlight";
+        return "user/searchFlight";
     }
 
     @GetMapping(value = "/admin/listflights",

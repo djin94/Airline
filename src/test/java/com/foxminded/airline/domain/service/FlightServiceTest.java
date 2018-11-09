@@ -9,7 +9,6 @@ import com.foxminded.airline.web.dao.FlightRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,7 +37,6 @@ public class FlightServiceTest {
     @MockBean
     private AirportRepository airportRepository;
 
-    @Mock
     private Flight flight;
     private LocalDate date;
     private LocalTime time;

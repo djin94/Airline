@@ -6,6 +6,7 @@ import com.foxminded.airline.domain.entity.Sit;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.domain.service.SitService;
+import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.FlightPriceDTO;
 import com.foxminded.airline.dto.TicketDTO;
@@ -32,28 +33,28 @@ import java.util.List;
 @Controller
 @Transactional
 public class TicketController {
-    Flight flight;
+    private Flight flight;
 
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
 
     @Autowired
-    TicketRepository ticketRepository;
+    private TicketService ticketService;
 
     @Autowired
-    FlightPriceRepository flightPriceRepository;
+    private FlightPriceRepository flightPriceRepository;
 
     @Autowired
-    TicketConverter ticketConverter;
+    private TicketConverter ticketConverter;
 
     @Autowired
-    FlightPriceConverter flightPriceConverter;
+    private FlightPriceConverter flightPriceConverter;
 
     @Autowired
-    SitService sitService;
+    private SitService sitService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
@@ -85,7 +86,7 @@ public class TicketController {
     @PostMapping(value = "/buyticket",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketRepository.save(ticketConverter.createTicketFromDTO(ticketDTO, flight));
+        ticketService.save(ticketConverter.createTicketFromDTO(ticketDTO, flight));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -103,7 +104,7 @@ public class TicketController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicketForUser(@RequestBody TicketDTO ticketDTO) {
         Ticket ticket = ticketConverter.createTicketFromDTOForUser(ticketDTO, flight, userService.getCurrentUser());
-        ticketRepository.save(ticket);
+        ticketService.save(ticket);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -118,6 +119,6 @@ public class TicketController {
 
     @PostMapping(value = "/admin/listtickets")
     public ResponseEntity<List<TicketDTO>> getListTickets() {
-        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByFlight(flight)), HttpStatus.OK);
+        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketService.findTicketsByFlight(flight)), HttpStatus.OK);
     }
 }
