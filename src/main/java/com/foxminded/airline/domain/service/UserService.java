@@ -6,7 +6,8 @@ import com.foxminded.airline.dto.UserDTO;
 import java.util.Optional;
 
 public interface UserService {
-    void save(User user);
+    String cryptPassword(String password);
+    User save(User user);
 
     void editPassportData(User user, UserDTO userDTO);
 

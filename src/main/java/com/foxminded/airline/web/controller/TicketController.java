@@ -1,7 +1,6 @@
 package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.domain.entity.LevelTicket;
 import com.foxminded.airline.domain.entity.Sit;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.service.FlightService;
@@ -12,14 +11,11 @@ import com.foxminded.airline.dto.FlightPriceDTO;
 import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.utils.FlightPriceConverter;
 import com.foxminded.airline.utils.TicketConverter;
-import com.foxminded.airline.web.dao.FlightPriceRepository;
-import com.foxminded.airline.web.dao.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +27,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Controller
-@Transactional
 public class TicketController {
     private Flight flight;
 
@@ -40,9 +35,6 @@ public class TicketController {
 
     @Autowired
     private TicketService ticketService;
-
-    @Autowired
-    private FlightPriceRepository flightPriceRepository;
 
     @Autowired
     private TicketConverter ticketConverter;
@@ -58,7 +50,6 @@ public class TicketController {
 
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
-    @Transactional
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
                              @RequestParam("timeString") String timeString) {
@@ -75,12 +66,7 @@ public class TicketController {
     @PostMapping(value = "/buyticket/sits",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sit>> getSits(@RequestBody Sit sit) throws IOException {
-        String levelTicket;
-        if (sit.getLevelTicket() == null)
-            levelTicket = LevelTicket.ECONOM.getLevelTicket();
-        else
-            levelTicket = sit.getLevelTicket().split(" - ")[0];
-        return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, levelTicket), HttpStatus.OK);
+        return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, ticketService.getLevelTicketFromSitOrDefault(sit)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/buyticket",
@@ -92,7 +78,6 @@ public class TicketController {
 
     @GetMapping(value = "/user/buyticket",
             params = {"number", "dateString", "timeString"})
-    @Transactional
     public String showTicketForUser(@RequestParam("number") String number,
                                     @RequestParam("dateString") String dateString,
                                     @RequestParam("timeString") String timeString) {

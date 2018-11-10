@@ -1,14 +1,12 @@
 package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.entity.User;
+import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.TicketDTO;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.utils.TicketConverter;
 import com.foxminded.airline.utils.UserConverter;
-import com.foxminded.airline.web.dao.FlightRepository;
-import com.foxminded.airline.web.dao.TicketRepository;
-import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,26 +22,18 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserConverter userConverter;
 
     @Autowired
-    UserConverter userConverter;
+    private UserService userService;
 
     @Autowired
-    UserService userService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketRepository ticketRepository;
+    private TicketConverter ticketConverter;
 
-    @Autowired
-    TicketConverter ticketConverter;
-
-    @Autowired
-    FlightRepository flightRepository;
-
-    UserDTO userDTO;
-
-    User user;
+    private User user;
 
     @GetMapping(value = "/user")
     public String showMainPage() {
@@ -52,7 +42,7 @@ public class UserController {
 
     @GetMapping(value = "/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getUserName() {
-        userDTO = new UserDTO();
+        UserDTO userDTO = new UserDTO();
         user = userService.getCurrentUser();
         userDTO.setLogin(user.getLogin());
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -76,7 +66,7 @@ public class UserController {
     @PostMapping(value = "/user/passenger/edit")
     public ResponseEntity<String> editPassenger(@RequestBody UserDTO userDTO) {
         userService.editPassportData(user, userDTO);
-        userRepository.save(user);
+        userService.save(user);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -87,6 +77,6 @@ public class UserController {
 
     @GetMapping(value = "/user/history/currenthistory")
     public ResponseEntity<List<TicketDTO>> getFlights() {
-        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketRepository.findByUser(user)), HttpStatus.OK);
+        return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketService.findTicketsByUser(user)), HttpStatus.OK);
     }
 }

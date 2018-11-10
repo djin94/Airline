@@ -25,10 +25,14 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
 
     @Override
-    public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    public String cryptPassword(String password) {
+        return bCryptPasswordEncoder.encode(password);
+    }
+
+    @Override
+    public User save(User user) {
         user.setRole(Role.USER.getRole());
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
