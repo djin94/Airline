@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -32,10 +31,8 @@ public class LoginController {
                                 @RequestParam("password") String password,
                                 @RequestParam("email") String email,
                                 @RequestParam("phone") String phone) {
-        ModelAndView modelAndView = new ModelAndView();
         Optional<User> userExists = userService.findUserByLogin(login);
         if (userExists.isPresent()) {
-//            modelAndView.setViewName("registration");
             return "redirect:/registration";
         } else {
             User user = new User();
@@ -44,9 +41,6 @@ public class LoginController {
             user.setEmail(email);
             user.setPhone(phone);
             userService.save(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("userindex");
         }
         return "redirect:/";
     }

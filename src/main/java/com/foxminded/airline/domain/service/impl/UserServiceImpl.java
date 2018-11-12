@@ -4,7 +4,6 @@ import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.UserDTO;
-import com.foxminded.airline.utils.UserConverter;
 import com.foxminded.airline.web.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private UserConverter userConverter;
 
     @Override
     public String cryptPassword(String password) {

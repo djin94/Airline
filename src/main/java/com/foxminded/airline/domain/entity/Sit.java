@@ -78,7 +78,8 @@ public class Sit {
     @Override
     public String toString() {
         return "Sit{" +
-                "place='" + place + '\'' +
+                "id=" + id +
+                ", plane=" + plane +
                 '}';
     }
 }

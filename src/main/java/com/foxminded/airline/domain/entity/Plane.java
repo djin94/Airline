@@ -78,7 +78,8 @@ public class Plane {
     @Override
     public String toString() {
         return "Plane{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

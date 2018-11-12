@@ -73,7 +73,9 @@ public class FlightPrice {
     @Override
     public String toString() {
         return "FlightPrice{" +
-                ", price=" + price / 100 +
+                "id=" + id +
+                ", price=" + price +
+                ", levelTicket='" + levelTicket + '\'' +
                 '}';
     }
 }
