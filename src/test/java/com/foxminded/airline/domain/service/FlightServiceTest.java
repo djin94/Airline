@@ -93,7 +93,7 @@ public class FlightServiceTest {
         when(airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport())).thenReturn(Optional.of(arrivalAirport));
         when(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, date)).thenReturn(Arrays.asList(flight));
 
-        List<Flight> actualFlights = flightService.findFlightsByFlightDTO(flightDTO);
+        List<Flight> actualFlights = flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport());
 
         assertThat(actualFlights, hasItems(flight));
     }
@@ -103,7 +103,7 @@ public class FlightServiceTest {
         when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
         when(flightRepository.findByDepartureAirportAndDate(departureAirport, date)).thenReturn(Arrays.asList(flight));
 
-        List<Flight> actualFlights = flightService.findFlightsForAirportByDate(flightDTO);
+        List<Flight> actualFlights = flightService.findFlightsForAirportByDate(flightDTO.getDateString(),flightDTO.getDepartureAirport());
 
         assertThat(actualFlights, hasItems(flight));
     }

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminController {
     @Autowired
-    FlightServiceImpl flightService;
+    private FlightServiceImpl flightService;
 
     @Autowired
-    FlightConverter flightConverter;
+    private FlightConverter flightConverter;
 
     @GetMapping(value = "/admin")
     public String showAdminPage() {

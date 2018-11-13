@@ -17,10 +17,10 @@ import java.util.List;
 @Controller
 public class SearchFlightController {
     @Autowired
-    FlightServiceImpl flightService;
+    private FlightServiceImpl flightService;
 
     @Autowired
-    FlightConverter flightConverter;
+    private FlightConverter flightConverter;
 
     private FlightDTO flightDTO;
 
@@ -38,7 +38,7 @@ public class SearchFlightController {
 
     @PostMapping(value = {"/searchflight", "/user/searchflight"})
     public ResponseEntity<List<FlightDTO>> searchFlight() {
-        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByFlightDTO(flightDTO)), HttpStatus.OK);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(),flightDTO.getDepartureAirport(),flightDTO.getArrivalAirport())), HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/searchflight",
@@ -67,6 +67,6 @@ public class SearchFlightController {
 
     @PostMapping(value = "/admin/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlightForAirport() {
-        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO)), HttpStatus.OK);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO.getDateString(),flightDTO.getDepartureAirport())), HttpStatus.OK);
     }
 }

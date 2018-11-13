@@ -53,7 +53,7 @@ public class TicketController {
     public String showTicket(@RequestParam("number") String number,
                              @RequestParam("dateString") String dateString,
                              @RequestParam("timeString") String timeString) {
-        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "buyTicket";
     }
 
@@ -81,7 +81,7 @@ public class TicketController {
     public String showTicketForUser(@RequestParam("number") String number,
                                     @RequestParam("dateString") String dateString,
                                     @RequestParam("timeString") String timeString) {
-        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "user/buyTicket";
     }
 
@@ -98,7 +98,7 @@ public class TicketController {
     public String showPurchasedTickets(@RequestParam("number") String number,
                                        @RequestParam("dateString") String dateString,
                                        @RequestParam("timeString") String timeString) {
-        flight = flightService.findFlightByNumberAndDateAndTime(number, LocalDate.parse(dateString), LocalTime.parse(timeString));
+        flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "admin/listTickets";
     }
 

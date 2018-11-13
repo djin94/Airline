@@ -13,7 +13,7 @@ import java.util.Optional;
 @Controller
 public class LoginController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping(value = "/login")
     public String getLoginPage() {
@@ -37,7 +37,7 @@ public class LoginController {
         } else {
             User user = new User();
             user.setLogin(login);
-            user.setPassword(password);
+            user.setPassword(userService.cryptPassword(password));
             user.setEmail(email);
             user.setPhone(phone);
             userService.save(user);

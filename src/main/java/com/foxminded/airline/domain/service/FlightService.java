@@ -1,16 +1,13 @@
 package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.dto.FlightDTO;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface FlightService {
-    Flight findFlightByNumberAndDateAndTime(String number, LocalDate date, LocalTime time);
+    Flight findFlightByNumberAndDateAndTime(String number, String dateString, String timeString);
 
-    List<Flight> findFlightsByFlightDTO(FlightDTO flightDTO);
+    List<Flight> findFlightsByDepartureAirportAndArrivalAirportAndDate(String dateString, String departureAirportName, String arrivalAirportName);
 
-    List<Flight> findFlightsForAirportByDate(FlightDTO flightDTO);
+    List<Flight> findFlightsForAirportByDate(String dateString, String airportName);
 }
