@@ -4,7 +4,7 @@ import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.UserDTO;
-import com.foxminded.airline.web.dao.UserRepository;
+import com.foxminded.airline.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

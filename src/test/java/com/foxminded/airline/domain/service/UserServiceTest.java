@@ -3,7 +3,7 @@ package com.foxminded.airline.domain.service;
 import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.dto.UserDTO;
-import com.foxminded.airline.web.dao.UserRepository;
+import com.foxminded.airline.web.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

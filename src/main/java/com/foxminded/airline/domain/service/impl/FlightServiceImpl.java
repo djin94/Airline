@@ -3,8 +3,8 @@ package com.foxminded.airline.domain.service.impl;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.service.FlightService;
-import com.foxminded.airline.web.dao.AirportRepository;
-import com.foxminded.airline.web.dao.FlightRepository;
+import com.foxminded.airline.web.repository.AirportRepository;
+import com.foxminded.airline.web.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
