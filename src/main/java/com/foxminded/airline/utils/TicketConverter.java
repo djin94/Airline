@@ -16,16 +16,13 @@ import java.util.List;
 public class TicketConverter {
 
     @Autowired
-    UserService userService;
+    private SitRepository sitRepository;
 
     @Autowired
-    SitRepository sitRepository;
+    private UserConverter userConverter;
 
     @Autowired
-    UserConverter userConverter;
-
-    @Autowired
-    FlightConverter flightConverter;
+    private FlightConverter flightConverter;
 
     public Ticket createTicketFromDTO(TicketDTO ticketDTO, Flight flight) {
         Ticket ticket = new Ticket();
