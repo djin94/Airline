@@ -36,7 +36,7 @@ public class SearchFlightController {
         return "searchFlight";
     }
 
-    @PostMapping(value = {"/searchflight", "/user/searchflight"})
+    @GetMapping(value = "/searchflight/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlight() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(),flightDTO.getDepartureAirport(),flightDTO.getArrivalAirport())), HttpStatus.OK);
     }

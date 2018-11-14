@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class UserController {
         return new ResponseEntity<>(userConverter.createUserDTOFromUser(user), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user/passenger/edit")
+    @PutMapping(value = "/user/passenger")
     public ResponseEntity<String> editPassenger(@RequestBody UserDTO userDTO) {
         userService.editPassportData(user, userDTO);
         userService.save(user);

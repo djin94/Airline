@@ -4,8 +4,8 @@ $(document).ready(function () {
 
 function loadFlights() {
     $.ajax({
-        url: '/searchflight',
-        method: 'post',
+        url: '/searchflight/listflights',
+        method: 'get',
         cache: false,
         timeout: 600000,
         success: function (data) {

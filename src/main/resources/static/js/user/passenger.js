@@ -22,8 +22,8 @@ function getUserName() {
 
 function editPassenger() {
     $.ajax({
-        url: '/user/passenger/edit',
-        method: 'post',
+        url: '/user/passenger',
+        method: 'put',
         contentType: "application/json",
         data: JSON.stringify({
             lastName: $('#lastName').val(),
