@@ -12,9 +12,8 @@ import java.util.Objects;
 public class Plane {
 
     @Id
-    @SequenceGenerator(name = "plane_id_seq", sequenceName = "plane_plane_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "plane_id_seq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "planeId", unique = true, nullable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "planeId", unique = true)
     private int id;
 
     private String name;

@@ -82,7 +82,7 @@ public class FlightServiceTest {
         when(flightRepository.findByNumberAndDateAndTime(number, date, time)).thenReturn(Optional.of(flight));
 
         Flight expectedFlight = flight;
-        Flight actualFlight = flightService.findFlightByNumberAndDateAndTime(number, date, time);
+        Flight actualFlight = flightService.findFlightByNumberAndDateAndTime(number, date.toString(), time.toString());
 
         assertEquals(expectedFlight, actualFlight);
     }

@@ -5,7 +5,6 @@ import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.dto.TicketDTO;
-import com.foxminded.airline.web.repository.FlightPriceRepository;
 import com.foxminded.airline.web.repository.SitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +14,6 @@ import java.util.List;
 
 @Component
 public class TicketConverter {
-    @Autowired
-    FlightPriceRepository flightPriceRepository;
 
     @Autowired
     UserService userService;

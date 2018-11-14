@@ -11,8 +11,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "user_id_seq", sequenceName = "userairline_user_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId", unique = true)
     private int id;
 

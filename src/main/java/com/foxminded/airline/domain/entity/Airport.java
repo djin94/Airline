@@ -12,8 +12,7 @@ import java.util.Objects;
 public class Airport {
 
     @Id
-    @SequenceGenerator(name = "airport_id_seq", sequenceName = "airport_airport_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "airport_id_seq", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airportId", unique = true)
     private int id;
 

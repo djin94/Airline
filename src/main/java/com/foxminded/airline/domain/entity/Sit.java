@@ -10,8 +10,7 @@ import java.util.List;
 public class Sit {
 
     @Id
-    @SequenceGenerator(name = "sit_id_seq", sequenceName = "sit_sit_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "sit_id_seq", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sitId", unique = true)
     private int id;
 

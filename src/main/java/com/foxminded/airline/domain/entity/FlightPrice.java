@@ -10,8 +10,7 @@ import java.util.Objects;
 public class FlightPrice {
 
     @Id
-    @SequenceGenerator(name = "flightprice_id_seq", sequenceName = "flightprice_flightprice_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "flightprice_id_seq", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flightpriceId", unique = true)
     private int id;
 
