@@ -2,11 +2,15 @@ package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
+import com.foxminded.airline.domain.service.impl.UserServiceImpl;
 import com.foxminded.airline.dto.UserDTO;
 import com.foxminded.airline.web.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,25 +23,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceTest {
 
-    @Autowired
-    private UserService userService;
+    @InjectMocks
+    private UserServiceImpl userService;
 
-    @MockBean
+    @Mock
     private UserRepository userRepository;
 
-    @MockBean
+    @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @MockBean
+    @Mock
     private Authentication authentication;
 
-    @MockBean
+    @Mock
     private SecurityContext securityContext;
 
     private User user;
@@ -78,16 +82,25 @@ public class UserServiceTest {
         userDTO.setPassportNumber(passportNumberDrozdov);
 
         cryptedPassword = new StringBuilder(password).reverse().toString();
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void whenSaveUser_thenCryptPasswordAndSetRoleAndSaveUser() {
-        when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn(cryptedPassword);
+    public void whenCryptPassword_thenCryptPassword(){
+        when(bCryptPasswordEncoder.encode(password)).thenReturn(cryptedPassword);
 
+        String expectedString = cryptedPassword;
+        String actualString = userService.cryptPassword(password);
+
+        assertEquals(expectedString,actualString);
+    }
+
+    @Test
+    public void whenSaveUser_thenSetRoleAndSaveUser() {
         userService.save(user);
         User actualUser = user;
 
-        assertEquals(actualUser.getPassword(), cryptedPassword);
         assertEquals(actualUser.getRole(), Role.USER.getRole());
     }
 

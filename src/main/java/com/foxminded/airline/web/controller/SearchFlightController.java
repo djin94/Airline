@@ -38,7 +38,7 @@ public class SearchFlightController {
 
     @GetMapping(value = "/searchflight/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlight() {
-        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(),flightDTO.getDepartureAirport(),flightDTO.getArrivalAirport())), HttpStatus.OK);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport())), HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/searchflight",
@@ -67,6 +67,6 @@ public class SearchFlightController {
 
     @PostMapping(value = "/admin/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlightForAirport() {
-        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO.getDateString(),flightDTO.getDepartureAirport())), HttpStatus.OK);
+        return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())), HttpStatus.OK);
     }
 }
