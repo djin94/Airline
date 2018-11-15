@@ -25,14 +25,6 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public String getLevelTicketFromSitOrDefault(Sit sit) {
-        if (sit.getLevelTicket() == null)
-            return LevelTicket.ECONOM.getLevelTicket();
-        else
-            return sit.getLevelTicket().split(" - ")[0];
-    }
-
-    @Override
     public List<Ticket> findTicketsByUser(User user) {
         return ticketRepository.findByUser(user);
     }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SitService {
     List<Sit> findAvailableSitsForFlightAndLevelTicket(Flight flight, String levelTicket);
+
+    String getLevelTicketFromSitOrDefault(Sit sit);
 }

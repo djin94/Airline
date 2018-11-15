@@ -12,7 +12,5 @@ public interface TicketService {
 
     List<Ticket> findTicketsByFlight(Flight flight);
 
-    String getLevelTicketFromSitOrDefault(Sit sit);
-
     List<Ticket> findTicketsByUser(User user);
 }

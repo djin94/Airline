@@ -66,7 +66,7 @@ public class TicketController {
     @PostMapping(value = "/buyticket/sits",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sit>> getSits(@RequestBody Sit sit) throws IOException {
-        return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, ticketService.getLevelTicketFromSitOrDefault(sit)), HttpStatus.OK);
+        return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, sitService.getLevelTicketFromSitOrDefault(sit)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/buyticket",

@@ -1,6 +1,7 @@
-package com.foxminded.airline.domain.service.impl;
+package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.*;
+import com.foxminded.airline.domain.service.impl.SitServiceImpl;
 import com.foxminded.airline.web.repository.SitRepository;
 import com.foxminded.airline.web.repository.TicketRepository;
 import org.junit.Before;
@@ -33,6 +34,8 @@ public class SitServiceTest {
     private Ticket ticket;
     private List<Sit> planeSits;
     private List<Sit> availablePlaneSits;
+    private Sit sitWithNullLevelTicket;
+    private Sit sitWithBusinessLevelticket;
 
     @Before
 
@@ -63,6 +66,10 @@ public class SitServiceTest {
         ticket.setFlight(flight);
         ticket.setSit(busySit);
 
+        sitWithNullLevelTicket = new Sit();
+        sitWithBusinessLevelticket = new Sit();
+        sitWithBusinessLevelticket.setLevelTicket(LevelTicket.BUSINESS.getLevelTicket());
+
         MockitoAnnotations.initMocks(this);
     }
 
@@ -75,5 +82,21 @@ public class SitServiceTest {
         List<Sit> actualSits = sitService.findAvailableSitsForFlightAndLevelTicket(flight, LevelTicket.ECONOM.getLevelTicket());
 
         assertEquals(expectedSits, actualSits);
+    }
+
+    @Test
+    public void whenLevelTicketInSitIsNull_thenReturnDefaultLevelTicket() {
+        String expectedLevelTicket = LevelTicket.ECONOM.getLevelTicket();
+        String actualLevelTicket = sitService.getLevelTicketFromSitOrDefault(sitWithNullLevelTicket);
+
+        assertEquals(expectedLevelTicket, actualLevelTicket);
+    }
+
+    @Test
+    public void whenLevelTicketInSitIsBusiness_thenReturnBusinessLevelTicket(){
+        String expectedLevelTicket = LevelTicket.BUSINESS.getLevelTicket();
+        String actualLevelTicket = sitService.getLevelTicketFromSitOrDefault(sitWithBusinessLevelticket);
+
+        assertEquals(expectedLevelTicket, actualLevelTicket);
     }
 }

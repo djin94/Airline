@@ -89,7 +89,7 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void whenFindFlightsByFlightDTO_thenReturnFlights() {
+    public void whenFindFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlights() {
         when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
         when(airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport())).thenReturn(Optional.of(arrivalAirport));
         when(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, date)).thenReturn(Arrays.asList(flight));

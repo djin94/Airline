@@ -109,7 +109,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenGetCurrentUser_thenGetCurrentUser() {
+    public void whenGetCurrentUser_thenReturnCurrentUser() {
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn(login);
