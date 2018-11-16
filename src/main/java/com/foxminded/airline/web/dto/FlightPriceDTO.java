@@ -1,4 +1,4 @@
-package com.foxminded.airline.dto;
+package com.foxminded.airline.web.dto;
 
 import java.util.Objects;
 

@@ -7,10 +7,10 @@ import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.domain.service.SitService;
 import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.domain.service.UserService;
-import com.foxminded.airline.dto.FlightPriceDTO;
-import com.foxminded.airline.dto.TicketDTO;
-import com.foxminded.airline.utils.FlightPriceConverter;
-import com.foxminded.airline.utils.TicketConverter;
+import com.foxminded.airline.web.dto.FlightPriceDTO;
+import com.foxminded.airline.web.dto.TicketDTO;
+import com.foxminded.airline.domain.service.utils.FlightPriceConverter;
+import com.foxminded.airline.domain.service.utils.TicketConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Controller

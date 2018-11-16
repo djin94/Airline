@@ -1,7 +1,7 @@
-package com.foxminded.airline.utils;
+package com.foxminded.airline.domain.service.utils;
 
 import com.foxminded.airline.domain.entity.FlightPrice;
-import com.foxminded.airline.dto.FlightPriceDTO;
+import com.foxminded.airline.web.dto.FlightPriceDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

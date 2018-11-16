@@ -1,7 +1,7 @@
-package com.foxminded.airline.utils;
+package com.foxminded.airline.domain.service.utils;
 
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.dto.FlightDTO;
+import com.foxminded.airline.web.dto.FlightDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

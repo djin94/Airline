@@ -1,7 +1,7 @@
 package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.User;
-import com.foxminded.airline.dto.UserDTO;
+import com.foxminded.airline.web.dto.UserDTO;
 
 import java.util.Optional;
 

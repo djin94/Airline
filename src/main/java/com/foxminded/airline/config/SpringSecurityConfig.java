@@ -1,6 +1,6 @@
 package com.foxminded.airline.config;
 
-import com.foxminded.airline.utils.SuccessHandler;
+import com.foxminded.airline.domain.service.utils.SuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

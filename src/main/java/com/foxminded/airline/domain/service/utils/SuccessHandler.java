@@ -1,4 +1,4 @@
-package com.foxminded.airline.utils;
+package com.foxminded.airline.domain.service.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

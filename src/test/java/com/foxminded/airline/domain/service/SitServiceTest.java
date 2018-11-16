@@ -2,8 +2,8 @@ package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.impl.SitServiceImpl;
-import com.foxminded.airline.web.repository.SitRepository;
-import com.foxminded.airline.web.repository.TicketRepository;
+import com.foxminded.airline.dao.repository.SitRepository;
+import com.foxminded.airline.dao.repository.TicketRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

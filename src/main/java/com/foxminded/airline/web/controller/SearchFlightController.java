@@ -1,8 +1,8 @@
 package com.foxminded.airline.web.controller;
 
 import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
-import com.foxminded.airline.dto.FlightDTO;
-import com.foxminded.airline.utils.FlightConverter;
+import com.foxminded.airline.web.dto.FlightDTO;
+import com.foxminded.airline.domain.service.utils.FlightConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

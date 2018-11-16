@@ -2,7 +2,7 @@ package com.foxminded.airline.domain.service.impl;
 
 import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.TicketService;
-import com.foxminded.airline.web.repository.TicketRepository;
+import com.foxminded.airline.dao.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

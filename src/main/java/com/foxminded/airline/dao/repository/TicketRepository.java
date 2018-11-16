@@ -1,4 +1,4 @@
-package com.foxminded.airline.web.repository;
+package com.foxminded.airline.dao.repository;
 
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;

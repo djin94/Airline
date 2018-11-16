@@ -2,7 +2,7 @@ package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.service.impl.AirportServiceImpl;
-import com.foxminded.airline.web.repository.AirportRepository;
+import com.foxminded.airline.dao.repository.AirportRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
