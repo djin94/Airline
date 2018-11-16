@@ -1,12 +1,12 @@
 package com.foxminded.airline.domain.service;
 
+import com.foxminded.airline.dao.repository.AirportRepository;
+import com.foxminded.airline.dao.repository.FlightRepository;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Plane;
 import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
 import com.foxminded.airline.web.dto.FlightDTO;
-import com.foxminded.airline.dao.repository.AirportRepository;
-import com.foxminded.airline.dao.repository.FlightRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

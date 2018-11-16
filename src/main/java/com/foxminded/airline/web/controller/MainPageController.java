@@ -25,7 +25,7 @@ public class MainPageController {
     }
 
     @PostMapping(value = "/searchAirport", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Airport>> searchAirport(@RequestBody Airport airport) {
+    public ResponseEntity<List<Airport>> searchAirports(@RequestBody Airport airport) {
         return new ResponseEntity<>(airportService.findAirportsByNamePart(airport.getName()), HttpStatus.OK);
     }
 }
