@@ -12,7 +12,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin/searchflights")
-    public String showSearchFlights() {
+    public String showSearchFlightsPage() {
         return "admin/searchFlights";
     }
 }

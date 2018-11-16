@@ -17,7 +17,7 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping(value = "/login")
-    public String getLoginPage() {
+    public String showLoginPage() {
         return "login";
     }
 

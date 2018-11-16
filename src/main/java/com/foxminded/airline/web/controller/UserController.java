@@ -49,12 +49,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/account")
-    public String showAccount() {
+    public String showAccountPage() {
         return "user/account";
     }
 
     @GetMapping(value = "/user/passenger")
-    public String showEditPassenger() {
+    public String showEditPassengerPage() {
         return "user/passenger";
     }
 
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/history")
-    public String showHistory() {
+    public String showHistoryPage() {
         return "user/history";
     }
 
