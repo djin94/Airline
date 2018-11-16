@@ -73,7 +73,7 @@ public class MainPageControllerTest {
     }
 
     @Test
-    public void whenSearchAirportByNamePart_thenReturnListAirports() throws Exception {
+    public void whenSearchAirportByNamePart_thenReturnListAirportsIfExist() throws Exception {
         when(airportService.findAirportsByNamePart(airportNamePart)).thenReturn(airports);
 
         MockHttpServletResponse response = mvc.perform(
@@ -82,8 +82,21 @@ public class MainPageControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
-
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         assertEquals(mapper.writeValueAsString(airports), response.getContentAsString());
+    }
+
+    @Test
+    public void whenSearchAirportByNamePart_thenReturnEmptyListAirportsIfNotExist()throws Exception{
+        when(airportService.findAirportsByNamePart(notExistAirportNamePart)).thenReturn(emptyListAirports);
+
+        MockHttpServletResponse response = mvc.perform(
+                post("/searchAirport")
+                        .content(mapper.writeValueAsString(notExistAirportWithNamePart))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(mapper.writeValueAsString(emptyListAirports), response.getContentAsString());
     }
 }

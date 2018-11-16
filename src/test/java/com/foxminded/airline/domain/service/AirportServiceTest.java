@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -28,6 +29,8 @@ public class AirportServiceTest {
 
     private Airport airportHeathrow;
     private String airportNamePart;
+    private List<Airport> emptyListAirports;
+    private String notExistAirportNamePart;
 
     @Before
     public void setUp() throws Exception {
@@ -36,15 +39,26 @@ public class AirportServiceTest {
 
         airportNamePart = "London";
 
+        notExistAirportNamePart = "Berlin";
+
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void whenFindAirportsByNamePart_thenReturnAirports() {
+    public void whenFindAirportsByNamePart_thenReturnAirportsIfExist() {
         when(airportRepository.findByNameLikeIgnoreCase("%" + airportNamePart + "%")).thenReturn(Arrays.asList(airportHeathrow));
 
         List<Airport> actualAirports = airportService.findAirportsByNamePart(airportNamePart);
 
         assertThat(actualAirports, hasItems(airportHeathrow));
+    }
+
+    @Test
+    public void whenFindAirportsByNamePart_thenReturnEmptyListAirportsIfNotExist() {
+        when(airportRepository.findByNameLikeIgnoreCase("%" + notExistAirportNamePart + "%")).thenReturn(Collections.emptyList());
+
+        List<Airport> actualAirports = airportService.findAirportsByNamePart(notExistAirportNamePart);
+
+        assertEquals(actualAirports.size(), 0);
     }
 }
