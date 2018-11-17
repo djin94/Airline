@@ -49,7 +49,7 @@ public class MainPageControllerTest {
     @Before
     public void setUp() throws Exception {
         airport = new Airport();
-        airport.setName("London, airportHeathrow Heathrow");
+        airport.setName("London, airport Heathrow");
 
         airportNamePart = "London";
         notExistAirportNamePart = "Berlin";

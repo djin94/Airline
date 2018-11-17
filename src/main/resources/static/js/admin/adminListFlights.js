@@ -4,8 +4,8 @@ $(document).ready(function () {
 
 function loadFlights() {
     $.ajax({
-        url: '/admin/listflights',
-        method: 'post',
+        url: '/admin/listflights/flights',
+        method: 'get',
         cache: false,
         timeout: 600000,
         success: function (data) {
