@@ -38,7 +38,6 @@ public class MainPageControllerTest {
     @Mock
     private AirportService airportService;
 
-    private Airport airport;
     private List<Airport> airports;
     private String airportNamePart;
     private String notExistAirportNamePart;
@@ -48,7 +47,7 @@ public class MainPageControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        airport = new Airport();
+        Airport airport = new Airport();
         airport.setName("London, airport Heathrow");
 
         airportNamePart = "London";

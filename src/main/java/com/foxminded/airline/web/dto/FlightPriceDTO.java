@@ -2,9 +2,6 @@ package com.foxminded.airline.web.dto;
 
 import java.util.Objects;
 
-/**
- * Created by Кабатов on 04.10.2018.
- */
 public class FlightPriceDTO {
     private String levelTicket;
     private String price;
