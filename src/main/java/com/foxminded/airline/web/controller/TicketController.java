@@ -49,8 +49,8 @@ public class TicketController {
     @GetMapping(value = "/buyticket",
             params = {"number", "dateString", "timeString"})
     public String showBuyTicketPage(@RequestParam("number") String number,
-                             @RequestParam("dateString") String dateString,
-                             @RequestParam("timeString") String timeString) {
+                                    @RequestParam("dateString") String dateString,
+                                    @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "buyTicket";
     }
@@ -61,7 +61,7 @@ public class TicketController {
         return new ResponseEntity<>(flightPriceConverter.createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/buyticket/sits",
+    @GetMapping(value = "/buyticket/sits",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sit>> getSits(@RequestBody Sit sit) throws IOException {
         return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, sitService.getLevelTicketFromSitOrDefault(sit)), HttpStatus.OK);
@@ -77,8 +77,8 @@ public class TicketController {
     @GetMapping(value = "/user/buyticket",
             params = {"number", "dateString", "timeString"})
     public String showBuyTicketForUser(@RequestParam("number") String number,
-                                    @RequestParam("dateString") String dateString,
-                                    @RequestParam("timeString") String timeString) {
+                                       @RequestParam("dateString") String dateString,
+                                       @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "user/buyTicket";
     }

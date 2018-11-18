@@ -33,7 +33,7 @@ function printFlightPrices(data) {
 function loadSits() {
     $.ajax({
         url: '/buyticket/sits',
-        method: 'post',
+        method: 'get',
         contentType: "application/json",
         data: JSON.stringify({levelTicket: $('#flightPrice').val()}),
         dataType: 'json',
