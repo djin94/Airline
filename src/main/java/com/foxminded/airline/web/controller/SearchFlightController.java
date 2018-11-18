@@ -68,7 +68,7 @@ public class SearchFlightController {
         return "admin/listFlights";
     }
 
-    @PostMapping(value = "/admin/listflights/flights")
+    @GetMapping(value = "/admin/listflights/flights")
     public ResponseEntity<List<FlightDTO>> searchFlightsForAirport() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())), HttpStatus.OK);
     }

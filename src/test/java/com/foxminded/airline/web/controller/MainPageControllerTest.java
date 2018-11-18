@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -39,7 +40,6 @@ public class MainPageControllerTest {
 
     private Airport airport;
     private List<Airport> airports;
-    private List<Airport> emptyListAirports;
     private String airportNamePart;
     private String notExistAirportNamePart;
     private Airport airportWithNamePart;
@@ -62,8 +62,6 @@ public class MainPageControllerTest {
 
         airports = new ArrayList<>();
         airports.add(airport);
-
-        emptyListAirports = new ArrayList<>();
 
         mapper = new ObjectMapper();
 
@@ -88,7 +86,7 @@ public class MainPageControllerTest {
 
     @Test
     public void whenSearchAirportByNamePart_thenReturnEmptyListAirportsIfNotExist()throws Exception{
-        when(airportService.findAirportsByNamePart(notExistAirportNamePart)).thenReturn(emptyListAirports);
+        when(airportService.findAirportsByNamePart(notExistAirportNamePart)).thenReturn(Collections.emptyList());
 
         MockHttpServletResponse response = mvc.perform(
                 post("/searchAirport")
@@ -97,6 +95,6 @@ public class MainPageControllerTest {
                 .andReturn().getResponse();
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertEquals(mapper.writeValueAsString(emptyListAirports), response.getContentAsString());
+        assertEquals(mapper.writeValueAsString(Collections.emptyList()), response.getContentAsString());
     }
 }

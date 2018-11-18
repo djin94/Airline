@@ -21,11 +21,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,9 +46,9 @@ public class SearchFlightControllerTest {
     private ObjectMapper mapper;
 
     private FlightDTO flightDTO;
-    private Flight flight;
     private List<FlightDTO> flightDTOS;
     private List<Flight> flights;
+    private FlightDTO notExistFlightDTO;
 
     @Before
     public void setUp() throws Exception {
@@ -60,13 +60,18 @@ public class SearchFlightControllerTest {
         flightDTOS = new ArrayList<>();
         flightDTOS.add(flightDTO);
 
-        flight = new Flight();
+        Flight flight = new Flight();
+        flight.setId(1);
 
         flights = new ArrayList<>();
         flights.add(flight);
 
-        mapper = new ObjectMapper();
+        notExistFlightDTO = new FlightDTO();
+        notExistFlightDTO.setDepartureAirport("Berlin");
+        notExistFlightDTO.setArrivalAirport("London");
+        notExistFlightDTO.setDateString("2018-11-15");
 
+        mapper = new ObjectMapper();
 
         JacksonTester.initFields(this, new ObjectMapper());
         mvc = MockMvcBuilders.standaloneSetup(searchFlightController)
@@ -75,25 +80,78 @@ public class SearchFlightControllerTest {
     }
 
     @Test
-    public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlightsIfExists() throws Exception {
+    public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlightsIfExist() throws Exception {
         when(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport())).thenReturn(flights);
         when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
 
-        MockHttpServletResponse searchFlightResponse = mvc.perform(
-                get("/searchflight")
-                        .param("nameDepartureAirport",flightDTO.getDepartureAirport())
-                        .param("nameArrivalAirport",flightDTO.getArrivalAirport())
-                        .param("date",flightDTO.getDateString())
+        mvc.perform(get("/searchflight")
+                .param("nameDepartureAirport", flightDTO.getDepartureAirport())
+                .param("nameArrivalAirport", flightDTO.getArrivalAirport())
+                .param("date", flightDTO.getDateString())
+                .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        MockHttpServletResponse listFlightsResponse = mvc.perform(
+                get("/searchflight/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
-        MockHttpServletResponse listFlightsresponse = mvc.perform(
-                get("/searchflight/listflights")
-                        .contentType(MediaType.TEXT_HTML_VALUE)
-        )
+        assertEquals(HttpStatus.OK.value(), listFlightsResponse.getStatus());
+        assertEquals(mapper.writeValueAsString(flightDTOS), listFlightsResponse.getContentAsString());
+    }
+
+    @Test
+    public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
+        mvc.perform(get("/searchflight")
+                .param("nameDepartureAirport", notExistFlightDTO.getDepartureAirport())
+                .param("nameArrivalAirport", notExistFlightDTO.getArrivalAirport())
+                .param("date", notExistFlightDTO.getDateString())
+                .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
-        assertEquals(HttpStatus.OK.value(), listFlightsresponse.getStatus());
-        assertEquals(mapper.writeValueAsString(flightDTOS), listFlightsresponse.getContentAsString());
+        MockHttpServletResponse listFlightsResponse = mvc.perform(
+                get("/admin/listflights/flights")
+                        .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), listFlightsResponse.getStatus());
+        assertEquals(mapper.writeValueAsString(Collections.emptyList()), listFlightsResponse.getContentAsString());
+    }
+
+    @Test
+    public void whenSearchFlightsForAirportByDate_thenReturnFlightsIfExist() throws Exception {
+        when(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())).thenReturn(flights);
+        when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
+
+        mvc.perform(get("/admin/listflights")
+                .param("nameAirport", flightDTO.getDepartureAirport())
+                .param("date", flightDTO.getDateString())
+                .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        MockHttpServletResponse listFlightsResponse = mvc.perform(
+                get("/admin/listflights/flights")
+                        .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), listFlightsResponse.getStatus());
+        assertEquals(mapper.writeValueAsString(flightDTOS), listFlightsResponse.getContentAsString());
+    }
+
+    @Test
+    public void whenSearchFlightsForAirportByDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
+        mvc.perform(get("/admin/listflights")
+                .param("nameAirport", notExistFlightDTO.getDepartureAirport())
+                .param("date", notExistFlightDTO.getDateString())
+                .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        MockHttpServletResponse listFlightsResponse = mvc.perform(
+                get("/admin/listflights/flights")
+                        .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), listFlightsResponse.getStatus());
+        assertEquals(mapper.writeValueAsString(Collections.emptyList()), listFlightsResponse.getContentAsString());
     }
 }
