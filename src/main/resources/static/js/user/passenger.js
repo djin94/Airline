@@ -40,7 +40,7 @@ function editPassenger() {
 
 function getCurrentUserData() {
     $.ajax({
-        url: '/user/passenger/currentdata',
+        url: '/user/userlogin',
         method: 'get',
         contentType: 'application/json',
         dataType: 'json',

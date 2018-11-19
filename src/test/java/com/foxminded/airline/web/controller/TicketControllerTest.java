@@ -2,7 +2,6 @@ package com.foxminded.airline.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.airline.domain.entity.*;
-import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
 import com.foxminded.airline.domain.service.impl.SitServiceImpl;
 import com.foxminded.airline.domain.service.impl.TicketServiceImpl;
@@ -31,7 +30,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -67,20 +66,20 @@ public class TicketControllerTest {
     private String number;
     private String dateString;
     private String timeString;
-    private FlightPrice flightPrice;
     private Sit sit;
     private List<Sit> sits;
-    private FlightPriceDTO flightPriceDTO;
     private List<FlightPriceDTO> flightPriceDTOS;
     private TicketDTO ticketDTO;
     private Ticket ticket;
+    private List<Ticket> tickets;
+    private List<TicketDTO> ticketDTOS;
     private User user;
 
     private ObjectMapper mapper;
 
     @Before
     public void setUp() throws Exception {
-        flightPrice = new FlightPrice();
+        FlightPrice flightPrice = new FlightPrice();
         flightPrice.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
 
         sit = new Sit();
@@ -99,7 +98,7 @@ public class TicketControllerTest {
 
         flight.add(flightPrice);
 
-        flightPriceDTO = new FlightPriceDTO();
+        FlightPriceDTO flightPriceDTO = new FlightPriceDTO();
         flightPriceDTO.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
 
         flightPriceDTOS = new ArrayList<>();
@@ -112,10 +111,16 @@ public class TicketControllerTest {
         user.setId(1);
 
         ticketDTO = new TicketDTO();
+        ticketDTOS = new ArrayList<>();
+        ticketDTOS.add(ticketDTO);
+
         ticket = new Ticket();
         ticket.setUser(user);
         ticket.setSit(sit);
         ticket.setFlight(flight);
+
+        tickets = new ArrayList<>();
+        tickets.add(ticket);
 
         mapper = new ObjectMapper();
 
@@ -187,5 +192,49 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    @Test
+    public void whenCreateTicketForUser_thenCreateTicketForUser() throws Exception{
+        when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
+        when(userService.getCurrentUser()).thenReturn(user);
+        when(ticketConverter.createTicketFromDTOForUser(ticketDTO,flight,user)).thenReturn(ticket);
+
+        mvc.perform(get("/buyticket")
+                .param("number", number)
+                .param("dateString", dateString)
+                .param("timeString", timeString)
+                .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        MockHttpServletResponse response = mvc.perform(
+                post("/user/buyticket")
+                        .content(mapper.writeValueAsString(ticketDTO))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    @Test
+    public void whenGetListTicketsForFlight_thenReturnListTicketsForFlight() throws Exception{
+        when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
+        when(ticketService.findTicketsByFlight(flight)).thenReturn(tickets);
+        when(ticketConverter.createTicketDTOsFromTickets(tickets)).thenReturn(ticketDTOS);
+
+        mvc.perform(get("/buyticket")
+                .param("number", number)
+                .param("dateString", dateString)
+                .param("timeString", timeString)
+                .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        MockHttpServletResponse response = mvc.perform(
+                post("/admin/listtickets")
+                        .contentType(MediaType.TEXT_HTML_VALUE))
+                .andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(mapper.writeValueAsString(ticketDTOS), response.getContentAsString());
     }
 }

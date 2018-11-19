@@ -84,7 +84,7 @@ public class MainPageControllerTest {
     }
 
     @Test
-    public void whenSearchAirportByNamePart_thenReturnEmptyListAirportsIfNotExist()throws Exception{
+    public void whenSearchAirportByNamePart_thenReturnEmptyListAirportsIfNotExist() throws Exception {
         when(airportService.findAirportsByNamePart(notExistAirportNamePart)).thenReturn(Collections.emptyList());
 
         MockHttpServletResponse response = mvc.perform(

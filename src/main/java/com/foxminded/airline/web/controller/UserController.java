@@ -37,15 +37,13 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String showMainPage() {
+        user = userService.getCurrentUser();
         return "user/userindex";
     }
 
     @GetMapping(value = "/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getUserName() {
-        UserDTO userDTO = new UserDTO();
-        user = userService.getCurrentUser();
-        userDTO.setLogin(user.getLogin());
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        return new ResponseEntity<>(userConverter.createUserDTOFromUser(user), HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/account")
@@ -56,11 +54,6 @@ public class UserController {
     @GetMapping(value = "/user/passenger")
     public String showEditPassengerPage() {
         return "user/passenger";
-    }
-
-    @GetMapping(value = "/user/passenger/currentdata", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> getPassengerData() {
-        return new ResponseEntity<>(userConverter.createUserDTOFromUser(user), HttpStatus.OK);
     }
 
     @PutMapping(value = "/user/passenger")
