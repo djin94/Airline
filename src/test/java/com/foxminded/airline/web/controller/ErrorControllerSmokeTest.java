@@ -13,13 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import static org.junit.Assert.*;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ErrorControllerSmokeTest {
-    @Autowired
-    private ErrorController errorController;
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;

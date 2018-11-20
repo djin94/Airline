@@ -19,8 +19,6 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class LoginControllerSmokeTest {
-    @Autowired
-    private LoginController loginController;
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;

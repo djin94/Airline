@@ -13,9 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import static org.junit.Assert.*;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SearchFlightControllerSmokeTest {
+public class UserControllerSmokeTest {
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;
@@ -34,40 +36,32 @@ public class SearchFlightControllerSmokeTest {
     }
 
     @Test
-    public void whenGetListFlightsPage_thenReturnListFlightsPage() throws Exception {
-        request.setRequestURI("/searchflight");
+    public void whenGetMainPage_thenReturnMainPage()throws Exception{
+        request.setRequestURI("/user");
         request.setMethod("GET");
-        request.setParameter("nameDepartureAirport", "");
-        request.setParameter("nameArrivalAirport", "");
-        request.setParameter("date", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "user/userindex");
     }
 
     @Test
-    public void whenGetListFlightsPageForUser_thenReturnListFlightsPageForUser() throws Exception {
-        request.setRequestURI("/user/searchflight");
+    public void whenGetAccountPage_thenReturnAccountPage()throws Exception{
+        request.setRequestURI("/user/account");
         request.setMethod("GET");
-        request.setParameter("nameDepartureAirport", "");
-        request.setParameter("nameArrivalAirport", "");
-        request.setParameter("date", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "user/searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "user/account");
     }
 
     @Test
-    public void whenGetListFlightsPageForAdmin_thenReturnListFlightsPageForAdmin()throws Exception{
-        request.setRequestURI("/admin/listflights");
+    public void whenGetEditPassengerPage_thenReturnEditPassengerPage()throws Exception{
+        request.setRequestURI("/user/passenger");
         request.setMethod("GET");
-        request.setParameter("nameAirport", "");
-        request.setParameter("date", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "admin/listFlights");
+        ModelAndViewAssert.assertViewName(mav, "user/passenger");
     }
 }

@@ -16,8 +16,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MainPageControllerSmokeTest {
-    @Autowired
-    private MainPageController mainPageController;
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;

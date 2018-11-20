@@ -13,9 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.time.format.DateTimeFormatter;
+
+import static org.junit.Assert.*;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SearchFlightControllerSmokeTest {
+public class TicketControllerSmokeTest {
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;
@@ -27,47 +31,56 @@ public class SearchFlightControllerSmokeTest {
 
     private MockHttpServletResponse response;
 
+    private String number;
+    private String dateString;
+    private String timeString;
+
     @Before
     public void setUp() throws Exception {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
+
+        number = "2587";
+        dateString = "2018-10-02";
+        timeString = "16:40";
     }
 
     @Test
-    public void whenGetListFlightsPage_thenReturnListFlightsPage() throws Exception {
-        request.setRequestURI("/searchflight");
+    public void whenGetBuyTicketPage_thenReturnBuyTicketPage() throws Exception{
+        request.setRequestURI("/buyticket");
         request.setMethod("GET");
-        request.setParameter("nameDepartureAirport", "");
-        request.setParameter("nameArrivalAirport", "");
-        request.setParameter("date", "");
+        request.setParameter("number", number);
+        request.setParameter("dateString", dateString);
+        request.setParameter("timeString", timeString);
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "buyTicket");
     }
 
     @Test
-    public void whenGetListFlightsPageForUser_thenReturnListFlightsPageForUser() throws Exception {
-        request.setRequestURI("/user/searchflight");
+    public void whenGetBuyTicketPageForUser_thenReturnBuyTicketPageForUser() throws Exception{
+        request.setRequestURI("/user/buyticket");
         request.setMethod("GET");
-        request.setParameter("nameDepartureAirport", "");
-        request.setParameter("nameArrivalAirport", "");
-        request.setParameter("date", "");
+        request.setParameter("number", number);
+        request.setParameter("dateString", dateString);
+        request.setParameter("timeString", timeString);
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "user/searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "user/buyTicket");
     }
 
     @Test
-    public void whenGetListFlightsPageForAdmin_thenReturnListFlightsPageForAdmin()throws Exception{
-        request.setRequestURI("/admin/listflights");
+    public void whenGetPurchasedTicketsPage_thenReturnPurchasedTicketsPage()throws Exception{
+        request.setRequestURI("/admin/listtickets");
         request.setMethod("GET");
-        request.setParameter("nameAirport", "");
-        request.setParameter("date", "");
+        request.setParameter("number", number);
+        request.setParameter("dateString", dateString);
+        request.setParameter("timeString", timeString);
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "admin/listFlights");
+        ModelAndViewAssert.assertViewName(mav, "admin/listTickets");
     }
 }

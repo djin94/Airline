@@ -76,9 +76,9 @@ public class TicketController {
 
     @GetMapping(value = "/user/buyticket",
             params = {"number", "dateString", "timeString"})
-    public String showBuyTicketForUser(@RequestParam("number") String number,
-                                       @RequestParam("dateString") String dateString,
-                                       @RequestParam("timeString") String timeString) {
+    public String showBuyTicketPageForUser(@RequestParam("number") String number,
+                                           @RequestParam("dateString") String dateString,
+                                           @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "user/buyTicket";
     }
@@ -93,9 +93,9 @@ public class TicketController {
 
     @GetMapping(value = "/admin/listtickets",
             params = {"number", "dateString", "timeString"})
-    public String showPurchasedTickets(@RequestParam("number") String number,
-                                       @RequestParam("dateString") String dateString,
-                                       @RequestParam("timeString") String timeString) {
+    public String showPurchasedTicketsPage(@RequestParam("number") String number,
+                                           @RequestParam("dateString") String dateString,
+                                           @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
         return "admin/listTickets";
     }
