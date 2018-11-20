@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     @GetMapping(value = "/registration")
-    public String registerUser() {
+    public String showUserRegistrationPage() {
         return "registration";
     }
 
