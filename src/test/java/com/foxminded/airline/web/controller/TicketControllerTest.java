@@ -29,6 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -197,7 +198,7 @@ public class TicketControllerTest {
     @Test
     public void whenCreateTicketForUser_thenCreateTicketForUser() throws Exception{
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
-        when(userService.getCurrentUser()).thenReturn(user);
+        when(userService.getCurrentUser()).thenReturn(Optional.of(user));
         when(ticketConverter.createTicketFromDTOForUser(ticketDTO,flight,user)).thenReturn(ticket);
 
         mvc.perform(get("/buyticket")

@@ -64,4 +64,14 @@ public class UserControllerSmokeTest {
 
         ModelAndViewAssert.assertViewName(mav, "user/passenger");
     }
+
+    @Test
+    public void whenGetHistoryPage_thenReturnHistoryPage()throws Exception{
+        request.setRequestURI("/user/history");
+        request.setMethod("GET");
+
+        ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
+
+        ModelAndViewAssert.assertViewName(mav, "user/history");
+    }
 }

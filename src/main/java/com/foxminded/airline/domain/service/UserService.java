@@ -12,7 +12,7 @@ public interface UserService {
 
     void editPassportData(User user, UserDTO userDTO);
 
-    User getCurrentUser();
+    Optional<User> getCurrentUser();
 
     Optional<User> findUserByLogin(String login);
 }

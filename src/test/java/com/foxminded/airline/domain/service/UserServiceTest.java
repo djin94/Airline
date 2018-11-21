@@ -116,7 +116,7 @@ public class UserServiceTest {
         when(userRepository.findByLogin(login)).thenReturn(Optional.of(user));
 
         User expectedUser = user;
-        User actualUser = userService.getCurrentUser();
+        User actualUser = userService.getCurrentUser().get();
 
         assertEquals(expectedUser, actualUser);
     }

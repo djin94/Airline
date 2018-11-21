@@ -37,7 +37,9 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String showMainPage() {
-        user = userService.getCurrentUser();
+        if (userService.getCurrentUser().isPresent()) {
+            user = userService.getCurrentUser().get();
+        }
         return "user/userindex";
     }
 

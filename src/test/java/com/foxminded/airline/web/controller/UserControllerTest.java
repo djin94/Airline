@@ -26,10 +26,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -90,7 +92,7 @@ public class UserControllerTest {
 
     @Test
     public void whenGetCurrentUserName_thenReturnCurrentUserName() throws Exception {
-        when(userService.getCurrentUser()).thenReturn(user);
+        when(userService.getCurrentUser()).thenReturn(Optional.of(user));
         when(userConverter.createUserDTOFromUser(user)).thenReturn(userDTO);
 
         mvc.perform(get("/user")
@@ -108,14 +110,15 @@ public class UserControllerTest {
 
     @Test
     public void whenEditPassengerData_thenEditPassenger() throws Exception {
-        when(userService.getCurrentUser()).thenReturn(user);
+        when(userService.getCurrentUser()).thenReturn(Optional.of(user));
 
         mvc.perform(get("/user")
                 .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/user/passenger")
+                put("/user/passenger")
+                        .content(mapper.writeValueAsString(userDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
 
@@ -124,7 +127,7 @@ public class UserControllerTest {
 
     @Test
     public void whenGetCurrentUserHistoryOfOrders_thenReturnCurrentUserHistoryOfOrders() throws Exception {
-        when(userService.getCurrentUser()).thenReturn(user);
+        when(userService.getCurrentUser()).thenReturn(Optional.of(user));
         when(ticketService.findTicketsByUser(user)).thenReturn(tickets);
         when(ticketConverter.createTicketDTOsFromTickets(tickets)).thenReturn(ticketDTOS);
 
