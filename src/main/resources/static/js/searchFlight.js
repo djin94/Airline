@@ -44,5 +44,5 @@ function printFlights(data) {
 }
 
 function buyTicket(number, dateString, timeString) {
-    window.location.replace("/buyticket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
+    window.location.replace("/user/buyticket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
 }
