@@ -1,67 +1,58 @@
-package com.foxminded.airline.domain.service;
+package com.foxminded.airline.domain.service.integration;
 
-import com.foxminded.airline.dao.repository.AirportRepository;
-import com.foxminded.airline.dao.repository.FlightRepository;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Plane;
-import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
+import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.web.dto.FlightDTO;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class FlightServiceTest {
-    @InjectMocks
-    private FlightServiceImpl flightService;
-
-    @Mock
-    private FlightRepository flightRepository;
-
-    @Mock
-    private AirportRepository airportRepository;
+@RunWith(SpringRunner.class)
+public class FlightServiceIntegrationTest {
+    @Autowired
+    private FlightService flightService;
 
     private Flight flight;
     private LocalDate date;
     private LocalTime time;
+    private Plane plane;
     private Airport departureAirport;
     private Airport arrivalAirport;
     private String number;
     private FlightDTO flightDTO;
 
     @Before
-    public void setUp() {
-
+    public void setUp() throws Exception {
         arrivalAirport = new Airport();
-        arrivalAirport.setName("London");
+        arrivalAirport.setName("Stockholm, airport Arlanda");
 
         departureAirport = new Airport();
-        departureAirport.setName("Berlin");
+        departureAirport.setName("London, airport Heathrow");
 
-        Plane plane = new Plane();
-        plane.setName("Boeing 737");
+        plane = new Plane();
+        plane.setName("Boeing 747");
 
-        time = LocalTime.of(7, 45);
-        date = LocalDate.of(2018, 10, 15);
+        time = LocalTime.of(8, 5);
+        date = LocalDate.of(2018, 10, 1);
 
-        number = "7845";
+        number = "1574";
 
         flight = new Flight();
+        flight.setId((long) 1);
         flight.setArrivalAirport(arrivalAirport);
         flight.setDepartureAirport(departureAirport);
         flight.setDate(date);
@@ -72,15 +63,11 @@ public class FlightServiceTest {
         flightDTO.setNumber(number);
         flightDTO.setArrivalAirport(arrivalAirport.getName());
         flightDTO.setDepartureAirport(departureAirport.getName());
-        flightDTO.setDateString("2018-10-15");
-
-        MockitoAnnotations.initMocks(this);
+        flightDTO.setDateString("2018-10-01");
     }
 
     @Test
     public void whenFindFlightByNumberAndDateAndTime_thenReturnFlight() {
-        when(flightRepository.findByNumberAndDateAndTime(number, date, time)).thenReturn(Optional.of(flight));
-
         Flight expectedFlight = flight;
         Flight actualFlight = flightService.findFlightByNumberAndDateAndTime(number, date.toString(), time.toString());
 
@@ -89,10 +76,6 @@ public class FlightServiceTest {
 
     @Test
     public void whenFindFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlights() {
-        when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
-        when(airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport())).thenReturn(Optional.of(arrivalAirport));
-        when(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, date)).thenReturn(Arrays.asList(flight));
-
         List<Flight> actualFlights = flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport());
 
         assertThat(actualFlights, hasItems(flight));
@@ -100,9 +83,6 @@ public class FlightServiceTest {
 
     @Test
     public void whenFindFlightsForAirportByDate_thenReturnFlightsForAirport() {
-        when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
-        when(flightRepository.findByDepartureAirportAndDate(departureAirport, date)).thenReturn(Arrays.asList(flight));
-
         List<Flight> actualFlights = flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport());
 
         assertThat(actualFlights, hasItems(flight));

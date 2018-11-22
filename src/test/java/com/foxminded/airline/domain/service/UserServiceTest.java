@@ -43,7 +43,6 @@ public class UserServiceTest {
     private UserDTO userDTO;
     private String login;
     private String password;
-
     private String cryptedPassword;
 
     @Before

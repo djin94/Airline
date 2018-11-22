@@ -1,47 +1,43 @@
-package com.foxminded.airline.domain.service;
+package com.foxminded.airline.domain.service.integration;
 
-import com.foxminded.airline.dao.repository.SitRepository;
-import com.foxminded.airline.dao.repository.TicketRepository;
 import com.foxminded.airline.domain.entity.*;
-import com.foxminded.airline.domain.service.impl.SitServiceImpl;
+import com.foxminded.airline.domain.service.SitService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
 
 @SpringBootTest
-public class SitServiceTest {
-
-    @InjectMocks
-    private SitServiceImpl sitService;
-
-    @Mock
-    private TicketRepository ticketRepository;
-
-    @Mock
-    private SitRepository sitRepository;
+@RunWith(SpringRunner.class)
+public class SitServiceIntegrationTest {
+    @Autowired
+    private SitService sitService;
 
     private Flight flight;
     private Ticket ticket;
     private List<Sit> planeSits;
     private List<Sit> availablePlaneSits;
+    private Sit availableSit;
     private Sit sitWithNullLevelTicket;
     private Sit sitWithBusinessLevelticket;
 
     @Before
     public void setUp() throws Exception {
         Plane plane = new Plane();
+        plane.setId((long) 1);
+        plane.setName("Boeing 747");
 
         flight = new Flight();
+        flight.setId((long) 1);
         flight.setPlane(plane);
 
         Sit busySit = new Sit();
@@ -49,7 +45,7 @@ public class SitServiceTest {
         busySit.setPlane(plane);
         busySit.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
 
-        Sit availableSit = new Sit();
+        availableSit = new Sit();
         availableSit.setId((long) 2);
         availableSit.setPlane(plane);
         availableSit.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
@@ -68,19 +64,13 @@ public class SitServiceTest {
         sitWithNullLevelTicket = new Sit();
         sitWithBusinessLevelticket = new Sit();
         sitWithBusinessLevelticket.setLevelTicket(LevelTicket.BUSINESS.getLevelTicket());
-
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void whenFindAvailableSitsForFlightAndLevelTicket_thenReturnAvailableSitsForFlight() {
-        when(sitRepository.findByPlaneAndLevelTicket(flight.getPlane(), LevelTicket.ECONOM.getLevelTicket())).thenReturn(planeSits);
-        when(ticketRepository.findByFlight(flight)).thenReturn(Arrays.asList(ticket));
-
-        List<Sit> expectedSits = availablePlaneSits;
         List<Sit> actualSits = sitService.findAvailableSitsForFlightAndLevelTicket(flight, LevelTicket.ECONOM.getLevelTicket());
 
-        assertEquals(expectedSits, actualSits);
+        assertThat(actualSits, hasItem(availableSit));
     }
 
     @Test

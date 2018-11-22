@@ -70,7 +70,8 @@ public class UserControllerTest {
         userDTO.setLogin("Kabatov");
 
         user = new User();
-        user.setId(1);
+        user.setId((long) 1);
+
         user.setLogin("Kabatov");
 
         ticketDTO = new TicketDTO();

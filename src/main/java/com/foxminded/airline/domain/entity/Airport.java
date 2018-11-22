@@ -14,7 +14,7 @@ public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airportId", unique = true)
-    private int id;
+    private Long id;
 
     private String name;
 
@@ -26,11 +26,11 @@ public class Airport {
     @JsonIgnore
     private List<Flight> arrivalFlights = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,7 +63,7 @@ public class Airport {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Airport airport = (Airport) o;
-        return id == airport.id;
+        return id.equals(airport.id);
     }
 
     @Override

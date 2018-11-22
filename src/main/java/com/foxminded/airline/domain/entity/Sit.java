@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "sit")
@@ -12,7 +13,7 @@ public class Sit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sitId", unique = true)
-    private int id;
+    private Long id;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "plane_id")
@@ -27,11 +28,11 @@ public class Sit {
     @JsonIgnore
     private List<Ticket> tickets;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,12 +67,12 @@ public class Sit {
 
         Sit sit = (Sit) o;
 
-        return id == sit.id;
+        return id.equals(sit.id);
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return Objects.hash(id);
     }
 
     @Override

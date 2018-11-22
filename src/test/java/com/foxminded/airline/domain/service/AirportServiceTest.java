@@ -29,7 +29,6 @@ public class AirportServiceTest {
 
     private Airport airportHeathrow;
     private String airportNamePart;
-    private List<Airport> emptyListAirports;
     private String notExistAirportNamePart;
 
     @Before

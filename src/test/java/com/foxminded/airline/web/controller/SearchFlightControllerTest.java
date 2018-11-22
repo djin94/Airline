@@ -61,7 +61,7 @@ public class SearchFlightControllerTest {
         flightDTOS.add(flightDTO);
 
         Flight flight = new Flight();
-        flight.setId(1);
+        flight.setId((long) 1);
 
         flights = new ArrayList<>();
         flights.add(flight);

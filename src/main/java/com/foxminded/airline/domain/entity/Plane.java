@@ -14,7 +14,7 @@ public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "planeId", unique = true)
-    private int id;
+    private Long id;
 
     private String name;
 
@@ -28,11 +28,11 @@ public class Plane {
     @JsonIgnore
     private List<Sit> sits = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,7 +65,7 @@ public class Plane {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plane plane = (Plane) o;
-        return id == plane.id;
+        return id.equals(plane.id);
     }
 
     @Override

@@ -1,64 +1,61 @@
-package com.foxminded.airline.domain.service;
+package com.foxminded.airline.domain.service.integration;
 
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
-import com.foxminded.airline.domain.service.impl.TicketServiceImpl;
-import com.foxminded.airline.dao.repository.TicketRepository;
+import com.foxminded.airline.domain.service.TicketService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
-public class TicketServiceTest {
-
-    @InjectMocks
-    private TicketServiceImpl ticketService;
-
-    @Mock
-    private TicketRepository ticketRepository;
+@SpringBootTest
+@RunWith(SpringRunner.class)
+public class TicketServiceIntegrationTest {
+    @Autowired
+    private TicketService ticketService;
 
     private Flight flight;
+    private Ticket ticket;
     private User user;
     private List<Ticket> flightTickets;
 
     @Before
     public void setUp() throws Exception {
         flight = new Flight();
+        flight.setId((long) 1);
 
         user = new User();
+        user.setId((long) 1);
 
-        Ticket ticket = new Ticket();
+        ticket = new Ticket();
+        ticket.setNumber((long) 1);
         ticket.setFlight(flight);
         ticket.setUser(user);
 
         flightTickets = new ArrayList<>();
         flightTickets.add(ticket);
-
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void whenFindTicketsByFlight_thenReturnTickets() {
-        when(ticketRepository.findByFlight(flight)).thenReturn(flightTickets);
-
         List<Ticket> expectedTickets = flightTickets;
         List<Ticket> actualTickets = ticketService.findTicketsByFlight(flight);
 
-        assertEquals(expectedTickets, actualTickets);
+        assertThat(actualTickets, hasItem(ticket));
     }
 
     @Test
     public void whenFindTicketsByUser_thenReturnTicketsForUser() {
-        when(ticketRepository.findByUser(user)).thenReturn(flightTickets);
-
         List<Ticket> expectedTickets = flightTickets;
         List<Ticket> actualTickets = ticketService.findTicketsByUser(user);
 

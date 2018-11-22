@@ -84,6 +84,7 @@ public class TicketControllerTest {
         flightPrice.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
 
         sit = new Sit();
+        sit.setId((long) 1);
         sit.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
         sit.setPlace("12B");
 
@@ -92,7 +93,7 @@ public class TicketControllerTest {
         timeString = "8:00";
 
         flight = new Flight();
-        flight.setId(1);
+        flight.setId((long) 1);
         flight.setNumber(number);
         flight.setDate(LocalDate.parse(dateString));
         flight.setTime(LocalTime.of(8, 0));
@@ -109,7 +110,7 @@ public class TicketControllerTest {
         sits.add(sit);
 
         user = new User();
-        user.setId(1);
+        user.setId((long) 1);
 
         ticketDTO = new TicketDTO();
         ticketDTOS = new ArrayList<>();
@@ -177,7 +178,7 @@ public class TicketControllerTest {
     @Test
     public void whenCreateTicket_thenCreateTicket() throws Exception {
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
-        when(ticketConverter.createTicketFromDTO(ticketDTO,flight)).thenReturn(ticket);
+        when(ticketConverter.createTicketFromDTO(ticketDTO, flight)).thenReturn(ticket);
 
         mvc.perform(get("/buyticket")
                 .param("number", number)
@@ -196,10 +197,10 @@ public class TicketControllerTest {
     }
 
     @Test
-    public void whenCreateTicketForUser_thenCreateTicketForUser() throws Exception{
+    public void whenCreateTicketForUser_thenCreateTicketForUser() throws Exception {
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
         when(userService.getCurrentUser()).thenReturn(Optional.of(user));
-        when(ticketConverter.createTicketFromDTOForUser(ticketDTO,flight,user)).thenReturn(ticket);
+        when(ticketConverter.createTicketFromDTOForUser(ticketDTO, flight, user)).thenReturn(ticket);
 
         mvc.perform(get("/buyticket")
                 .param("number", number)
@@ -218,7 +219,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    public void whenGetListTicketsForFlight_thenReturnListTicketsForFlight() throws Exception{
+    public void whenGetListTicketsForFlight_thenReturnListTicketsForFlight() throws Exception {
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
         when(ticketService.findTicketsByFlight(flight)).thenReturn(tickets);
         when(ticketConverter.createTicketDTOsFromTickets(tickets)).thenReturn(ticketDTOS);

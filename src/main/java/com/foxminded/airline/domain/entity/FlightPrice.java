@@ -12,7 +12,7 @@ public class FlightPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flightpriceId", unique = true)
-    private int id;
+    private Long id;
 
     private int price;
 
@@ -24,11 +24,11 @@ public class FlightPrice {
     @JsonIgnore
     private Flight flight;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class FlightPrice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FlightPrice that = (FlightPrice) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override
