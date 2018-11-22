@@ -15,4 +15,6 @@ public interface UserService {
     Optional<User> getCurrentUser();
 
     Optional<User> findUserByLogin(String login);
+
+    boolean createUser(String login, String password, String email, String phone);
 }

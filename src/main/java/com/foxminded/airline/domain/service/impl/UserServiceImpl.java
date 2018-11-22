@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getCurrentUser() {
-        if (SecurityContextHolder.getContext().getAuthentication()!=null) {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
             return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         }
         return Optional.empty();
@@ -52,5 +52,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
-
+    @Override
+    public boolean createUser(String login, String password, String email, String phone) {
+        Optional<User> userExist = userRepository.findByLogin(login);
+        if (userExist.isPresent()) {
+            return false;
+        } else {
+            User user = new User();
+            user.setLogin(login);
+            user.setPassword(cryptPassword(password));
+            user.setEmail(email);
+            user.setPhone(phone);
+            save(user);
+        }
+        return true;
+    }
 }
