@@ -16,10 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -91,7 +91,7 @@ public class FlightServiceTest {
     public void whenFindFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlights() {
         when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
         when(airportRepository.findByNameIgnoreCase(flightDTO.getArrivalAirport())).thenReturn(Optional.of(arrivalAirport));
-        when(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, date)).thenReturn(Arrays.asList(flight));
+        when(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, date)).thenReturn(asList(flight));
 
         List<Flight> actualFlights = flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport());
 
@@ -101,7 +101,7 @@ public class FlightServiceTest {
     @Test
     public void whenFindFlightsForAirportByDate_thenReturnFlightsForAirport() {
         when(airportRepository.findByNameIgnoreCase(flightDTO.getDepartureAirport())).thenReturn(Optional.of(departureAirport));
-        when(flightRepository.findByDepartureAirportAndDate(departureAirport, date)).thenReturn(Arrays.asList(flight));
+        when(flightRepository.findByDepartureAirportAndDate(departureAirport, date)).thenReturn(asList(flight));
 
         List<Flight> actualFlights = flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport());
 

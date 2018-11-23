@@ -12,9 +12,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -75,7 +75,7 @@ public class SitServiceTest {
     @Test
     public void whenFindAvailableSitsForFlightAndLevelTicket_thenReturnAvailableSitsForFlight() {
         when(sitRepository.findByPlaneAndLevelTicket(flight.getPlane(), LevelTicket.ECONOM.getLevelTicket())).thenReturn(planeSits);
-        when(ticketRepository.findByFlight(flight)).thenReturn(Arrays.asList(ticket));
+        when(ticketRepository.findByFlight(flight)).thenReturn(asList(ticket));
 
         List<Sit> expectedSits = availablePlaneSits;
         List<Sit> actualSits = sitService.findAvailableSitsForFlightAndLevelTicket(flight, LevelTicket.ECONOM.getLevelTicket());

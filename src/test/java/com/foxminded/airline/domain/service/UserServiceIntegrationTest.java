@@ -1,8 +1,7 @@
-package com.foxminded.airline.domain.service.integration;
+package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
-import com.foxminded.airline.domain.service.UserService;
 import com.foxminded.airline.web.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;

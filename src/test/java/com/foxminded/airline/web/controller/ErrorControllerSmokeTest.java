@@ -34,7 +34,7 @@ public class ErrorControllerSmokeTest {
     }
 
     @Test
-    public void whenGetError403Page_thenReturnError403Page() throws Exception{
+    public void whenGetError403Page_thenReturnError403Page() throws Exception {
         request.setRequestURI("/403");
         request.setMethod("GET");
 

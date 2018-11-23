@@ -1,4 +1,4 @@
-package com.foxminded.airline.domain.service.integration;
+package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;
@@ -48,7 +48,6 @@ public class TicketServiceIntegrationTest {
 
     @Test
     public void whenFindTicketsByFlight_thenReturnTickets() {
-        List<Ticket> expectedTickets = flightTickets;
         List<Ticket> actualTickets = ticketService.findTicketsByFlight(flight);
 
         assertThat(actualTickets, hasItem(ticket));

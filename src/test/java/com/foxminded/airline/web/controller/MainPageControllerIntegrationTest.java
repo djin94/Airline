@@ -1,4 +1,4 @@
-package com.foxminded.airline.web.controller.integration;
+package com.foxminded.airline.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.airline.domain.entity.Airport;

@@ -37,7 +37,7 @@ public class LoginControllerSmokeTest {
     }
 
     @Test
-    public void whenGetLoginPage_thenReturnLoginPage()throws Exception{
+    public void whenGetLoginPage_thenReturnLoginPage() throws Exception {
         request.setRequestURI("/login");
         request.setMethod("GET");
 
@@ -57,13 +57,13 @@ public class LoginControllerSmokeTest {
     }
 
     @Test
-    public void whenCreateNewUser_thenReturnToMainPageIfUserCreate()throws Exception{
+    public void whenCreateNewUser_thenReturnToMainPageIfUserCreate() throws Exception {
         request.setRequestURI("/registration");
         request.setMethod("POST");
-        request.setParameter("login","");
-        request.setParameter("password","");
-        request.setParameter("email","");
-        request.setParameter("phone","");
+        request.setParameter("login", "");
+        request.setParameter("password", "");
+        request.setParameter("email", "");
+        request.setParameter("phone", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
@@ -71,13 +71,13 @@ public class LoginControllerSmokeTest {
     }
 
     @Test
-    public void whenCreateNewUser_thenReturnToRegistrationPageIfUserNotCreate()throws Exception{
+    public void whenCreateNewUser_thenReturnToRegistrationPageIfUserNotCreate() throws Exception {
         request.setRequestURI("/registration");
         request.setMethod("POST");
-        request.setParameter("login","djin94");
-        request.setParameter("password","");
-        request.setParameter("email","");
-        request.setParameter("phone","");
+        request.setParameter("login", "djin94");
+        request.setParameter("password", "");
+        request.setParameter("email", "");
+        request.setParameter("phone", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 

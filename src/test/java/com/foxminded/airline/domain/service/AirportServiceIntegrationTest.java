@@ -1,4 +1,4 @@
-package com.foxminded.airline.domain.service.integration;
+package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.service.AirportService;
@@ -37,10 +37,10 @@ public class AirportServiceIntegrationTest {
     }
 
     @Test
-    public void whenFindAirportsByNamePart_thenReturnAirportsIfExist(){
+    public void whenFindAirportsByNamePart_thenReturnAirportsIfExist() {
         List<Airport> expectedAirports = airports;
         List<Airport> actualAirports = airportService.findAirportsByNamePart(namePart);
 
-        assertEquals(expectedAirports,actualAirports);
+        assertEquals(expectedAirports, actualAirports);
     }
 }

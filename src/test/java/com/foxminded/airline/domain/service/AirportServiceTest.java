@@ -1,8 +1,8 @@
 package com.foxminded.airline.domain.service;
 
+import com.foxminded.airline.dao.repository.AirportRepository;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.service.impl.AirportServiceImpl;
-import com.foxminded.airline.dao.repository.AirportRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -10,12 +10,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.hasItems;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -45,7 +46,7 @@ public class AirportServiceTest {
 
     @Test
     public void whenFindAirportsByNamePart_thenReturnAirportsIfExist() {
-        when(airportRepository.findByNameLikeIgnoreCase("%" + airportNamePart + "%")).thenReturn(Arrays.asList(airportHeathrow));
+        when(airportRepository.findByNameLikeIgnoreCase("%" + airportNamePart + "%")).thenReturn(asList(airportHeathrow));
 
         List<Airport> actualAirports = airportService.findAirportsByNamePart(airportNamePart);
 
