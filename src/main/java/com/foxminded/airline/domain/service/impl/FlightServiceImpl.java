@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -29,19 +30,24 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<Flight> findFlightsByDepartureAirportAndArrivalAirportAndDate(String dateString, String departureAirportName, String arrivalAirportName) {
         LocalDate dateFlight = LocalDate.parse(dateString);
-        Airport departureAirport = airportRepository.findByNameIgnoreCase(departureAirportName).get();
-        Airport arrivalAirport = airportRepository.findByNameIgnoreCase(arrivalAirportName).get();
+        Optional<Airport> departureAirport = airportRepository.findByNameIgnoreCase(departureAirportName);
+        Optional<Airport> arrivalAirport = airportRepository.findByNameIgnoreCase(arrivalAirportName);
         List<Flight> flights = new ArrayList<>();
-        flights.addAll(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight));
-        return flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport, arrivalAirport, dateFlight);
+        if (departureAirport.isPresent() && arrivalAirport.isPresent()) {
+            flights.addAll(flightRepository.findByDepartureAirportAndArrivalAirportAndDate(departureAirport.get(), arrivalAirport.get(), dateFlight));
+        }
+        return flights;
     }
 
     @Override
     public List<Flight> findFlightsForAirportByDate(String dateString, String airportName) {
         LocalDate dateFlight = LocalDate.parse(dateString);
-        Airport airport = airportRepository.findByNameIgnoreCase(airportName).get();
-        List<Flight> flights = flightRepository.findByDepartureAirportAndDate(airport, dateFlight);
-        flights.addAll(flightRepository.findByArrivalAirportAndDate(airport, dateFlight));
+        Optional<Airport> airport = airportRepository.findByNameIgnoreCase(airportName);
+        List<Flight> flights = new ArrayList<>();
+        if (airport.isPresent()) {
+            flights.addAll(flightRepository.findByDepartureAirportAndDate(airport.get(), dateFlight));
+            flights.addAll(flightRepository.findByArrivalAirportAndDate(airport.get(), dateFlight));
+        }
         return flights;
     }
 }
