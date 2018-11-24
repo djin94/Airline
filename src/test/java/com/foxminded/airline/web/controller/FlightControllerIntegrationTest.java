@@ -2,21 +2,16 @@ package com.foxminded.airline.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.airline.domain.entity.Flight;
-import com.foxminded.airline.domain.service.impl.FlightServiceImpl;
-import com.foxminded.airline.domain.service.utils.FlightConverter;
 import com.foxminded.airline.web.dto.FlightDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -24,24 +19,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class SearchFlightControllerTest {
+@RunWith(SpringRunner.class)
+public class FlightControllerIntegrationTest {
+    @Autowired
+    private FlightController flightController;
 
     private MockMvc mvc;
-
-    @InjectMocks
-    private SearchFlightController searchFlightController;
-
-    @Mock
-    private FlightServiceImpl flightService;
-
-    @Mock
-    private FlightConverter flightConverter;
 
     private ObjectMapper mapper;
 
@@ -53,9 +40,12 @@ public class SearchFlightControllerTest {
     @Before
     public void setUp() throws Exception {
         flightDTO = new FlightDTO();
-        flightDTO.setDateString("2018-11-11");
+        flightDTO.setNumber("1574");
+        flightDTO.setDateString("2018-10-01");
+        flightDTO.setTimeString("08:05");
+        flightDTO.setPlaneName("Boeing 747");
         flightDTO.setDepartureAirport("London, airport Heathrow");
-        flightDTO.setArrivalAirport("Berlin, airport Tegel");
+        flightDTO.setArrivalAirport("Stockholm, airport Arlanda");
 
         flightDTOS = new ArrayList<>();
         flightDTOS.add(flightDTO);
@@ -72,18 +62,11 @@ public class SearchFlightControllerTest {
         notExistFlightDTO.setDateString("2018-11-15");
 
         mapper = new ObjectMapper();
-
-        JacksonTester.initFields(this, new ObjectMapper());
-        mvc = MockMvcBuilders.standaloneSetup(searchFlightController)
-                .build();
-        MockitoAnnotations.initMocks(this);
+        mvc = MockMvcBuilders.standaloneSetup(flightController).build();
     }
 
     @Test
     public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlightsIfExist() throws Exception {
-        when(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport())).thenReturn(flights);
-        when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
-
         mvc.perform(get("/searchflight")
                 .param("nameDepartureAirport", flightDTO.getDepartureAirport())
                 .param("nameArrivalAirport", flightDTO.getArrivalAirport())
@@ -110,7 +93,7 @@ public class SearchFlightControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/searchflight/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -120,9 +103,6 @@ public class SearchFlightControllerTest {
 
     @Test
     public void whenSearchFlightsForAirportByDate_thenReturnFlightsIfExist() throws Exception {
-        when(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())).thenReturn(flights);
-        when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
-
         mvc.perform(get("/admin/listflights")
                 .param("nameAirport", flightDTO.getDepartureAirport())
                 .param("date", flightDTO.getDateString())

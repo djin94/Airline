@@ -1,5 +1,6 @@
 package com.foxminded.airline.domain.service.impl;
 
+import com.foxminded.airline.dao.repository.UserRepository;
 import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dao.repository.TicketRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TicketServiceImpl implements TicketService {
@@ -14,8 +16,18 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Ticket save(Ticket ticket) {
+        Optional<User> user = userRepository.findByPassportNumber(ticket.getUser().getPassportNumber());
+        if (user.isPresent()){
+            ticket.setUser(user.get());
+        }
+        else {
+            userRepository.save(ticket.getUser());
+        }
         return ticketRepository.save(ticket);
     }
 

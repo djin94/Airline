@@ -2,7 +2,6 @@ package com.foxminded.airline.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxminded.airline.domain.entity.Airport;
-import com.foxminded.airline.web.controller.MainPageController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,22 +18,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MainPageControllerIntegrationTest {
-
     @Autowired
     private MainPageController mainPageController;
 
     private MockMvc mvc;
 
     private List<Airport> airports;
-    private String airportNamePart;
-    private String notExistAirportNamePart;
     private Airport airportWithNamePart;
     private Airport notExistAirportWithNamePart;
     private ObjectMapper mapper;
@@ -45,8 +40,8 @@ public class MainPageControllerIntegrationTest {
         airport.setId((long) 1);
         airport.setName("London, airport Heathrow");
 
-        airportNamePart = "London";
-        notExistAirportNamePart = "Moscow";
+        String airportNamePart = "London";
+        String notExistAirportNamePart = "Moscow";
 
         airportWithNamePart = new Airport();
         airportWithNamePart.setName(airportNamePart);

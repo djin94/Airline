@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SearchFlightControllerSmokeTest {
+public class FlightControllerSmokeTest {
 
     @Autowired
     private RequestMappingHandlerAdapter handleAdapter;
