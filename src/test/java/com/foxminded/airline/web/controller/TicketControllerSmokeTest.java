@@ -13,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.Assert.*;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TicketControllerSmokeTest {
@@ -46,7 +42,7 @@ public class TicketControllerSmokeTest {
     }
 
     @Test
-    public void whenGetBuyTicketPage_thenReturnBuyTicketPage() throws Exception{
+    public void whenGetBuyTicketPage_thenReturnBuyTicketPage() throws Exception {
         request.setRequestURI("/buyticket");
         request.setMethod("GET");
         request.setParameter("number", number);
@@ -59,7 +55,7 @@ public class TicketControllerSmokeTest {
     }
 
     @Test
-    public void whenGetBuyTicketPageForUser_thenReturnBuyTicketPageForUser() throws Exception{
+    public void whenGetBuyTicketPageForUser_thenReturnBuyTicketPageForUser() throws Exception {
         request.setRequestURI("/user/buyticket");
         request.setMethod("GET");
         request.setParameter("number", number);
@@ -72,7 +68,7 @@ public class TicketControllerSmokeTest {
     }
 
     @Test
-    public void whenGetPurchasedTicketsPage_thenReturnPurchasedTicketsPage()throws Exception{
+    public void whenGetPurchasedTicketsPage_thenReturnPurchasedTicketsPage() throws Exception {
         request.setRequestURI("/admin/listtickets");
         request.setMethod("GET");
         request.setParameter("number", number);

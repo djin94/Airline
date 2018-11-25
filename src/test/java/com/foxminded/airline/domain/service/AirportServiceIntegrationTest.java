@@ -1,7 +1,6 @@
 package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.Airport;
-import com.foxminded.airline.domain.service.AirportService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

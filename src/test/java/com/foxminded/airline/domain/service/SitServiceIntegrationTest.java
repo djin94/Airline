@@ -1,7 +1,6 @@
 package com.foxminded.airline.domain.service;
 
 import com.foxminded.airline.domain.entity.*;
-import com.foxminded.airline.domain.service.SitService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +22,6 @@ public class SitServiceIntegrationTest {
     private SitService sitService;
 
     private Flight flight;
-    private Ticket ticket;
-    private List<Sit> planeSits;
-    private List<Sit> availablePlaneSits;
     private Sit availableSit;
     private Sit sitWithNullLevelTicket;
     private Sit sitWithBusinessLevelticket;
@@ -50,14 +46,14 @@ public class SitServiceIntegrationTest {
         availableSit.setPlane(plane);
         availableSit.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
 
-        planeSits = new ArrayList<>();
+        List<Sit> planeSits = new ArrayList<>();
         planeSits.add(busySit);
         planeSits.add(availableSit);
 
-        availablePlaneSits = new ArrayList<>();
+        List<Sit> availablePlaneSits = new ArrayList<>();
         availablePlaneSits.add(availableSit);
 
-        ticket = new Ticket();
+        Ticket ticket = new Ticket();
         ticket.setFlight(flight);
         ticket.setSit(busySit);
 

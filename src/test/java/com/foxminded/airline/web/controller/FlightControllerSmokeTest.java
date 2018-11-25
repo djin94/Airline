@@ -60,7 +60,7 @@ public class FlightControllerSmokeTest {
     }
 
     @Test
-    public void whenGetListFlightsPageForAdmin_thenReturnListFlightsPageForAdmin()throws Exception{
+    public void whenGetListFlightsPageForAdmin_thenReturnListFlightsPageForAdmin() throws Exception {
         request.setRequestURI("/admin/listflights");
         request.setMethod("GET");
         request.setParameter("nameAirport", "");

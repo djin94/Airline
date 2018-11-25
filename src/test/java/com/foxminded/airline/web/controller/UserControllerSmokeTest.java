@@ -13,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import static org.junit.Assert.*;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class UserControllerSmokeTest {
@@ -36,7 +34,7 @@ public class UserControllerSmokeTest {
     }
 
     @Test
-    public void whenGetMainPage_thenReturnMainPage()throws Exception{
+    public void whenGetMainPage_thenReturnMainPage() throws Exception {
         request.setRequestURI("/user");
         request.setMethod("GET");
 
@@ -46,7 +44,7 @@ public class UserControllerSmokeTest {
     }
 
     @Test
-    public void whenGetAccountPage_thenReturnAccountPage()throws Exception{
+    public void whenGetAccountPage_thenReturnAccountPage() throws Exception {
         request.setRequestURI("/user/account");
         request.setMethod("GET");
 
@@ -56,7 +54,7 @@ public class UserControllerSmokeTest {
     }
 
     @Test
-    public void whenGetEditPassengerPage_thenReturnEditPassengerPage()throws Exception{
+    public void whenGetEditPassengerPage_thenReturnEditPassengerPage() throws Exception {
         request.setRequestURI("/user/passenger");
         request.setMethod("GET");
 
@@ -66,7 +64,7 @@ public class UserControllerSmokeTest {
     }
 
     @Test
-    public void whenGetHistoryPage_thenReturnHistoryPage()throws Exception{
+    public void whenGetHistoryPage_thenReturnHistoryPage() throws Exception {
         request.setRequestURI("/user/history");
         request.setMethod("GET");
 

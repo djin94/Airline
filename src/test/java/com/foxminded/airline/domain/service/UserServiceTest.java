@@ -1,10 +1,10 @@
 package com.foxminded.airline.domain.service;
 
+import com.foxminded.airline.dao.repository.UserRepository;
 import com.foxminded.airline.domain.entity.Role;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.impl.UserServiceImpl;
 import com.foxminded.airline.web.dto.UserDTO;
-import com.foxminded.airline.dao.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -81,13 +81,13 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenCryptPassword_thenCryptPassword(){
+    public void whenCryptPassword_thenCryptPassword() {
         when(bCryptPasswordEncoder.encode(password)).thenReturn(cryptedPassword);
 
         String expectedString = cryptedPassword;
         String actualString = userService.cryptPassword(password);
 
-        assertEquals(expectedString,actualString);
+        assertEquals(expectedString, actualString);
     }
 
     @Test

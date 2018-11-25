@@ -25,10 +25,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
@@ -44,12 +42,8 @@ public class UserControllerIntegrationTest {
     private MockMvc mvc;
 
     private User user;
-    private User anotherUser;
     private UserDTO userDTO;
     private UserDTO anotherUserDTO;
-    private TicketDTO ticketDTO;
-    private Ticket ticket;
-    private List<Ticket> tickets;
     private List<TicketDTO> ticketDTOS;
 
     private ObjectMapper mapper;
@@ -109,28 +103,19 @@ public class UserControllerIntegrationTest {
         anotherUserDTO.setLastName("Lovich");
         anotherUserDTO.setPassportNumber("455687412");
 
-        anotherUser = new User();
-        anotherUser.setId((long) 1);
-        anotherUser.setLogin("Chir");
-        anotherUser.setFirstName(anotherUserDTO.getFirstName());
-        anotherUser.setPatronym(anotherUserDTO.getPatronym());
-        anotherUser.setLastName(anotherUserDTO.getLastName());
-        anotherUser.setPassportNumber(anotherUserDTO.getPassportNumber());
-
-        ticketDTO = new TicketDTO();
+        TicketDTO ticketDTO = new TicketDTO();
         ticketDTO.setSit(sit.getPlace());
         ticketDTO.setUserDTO(userDTO);
         ticketDTO.setFlightDTO(flightDTO);
+
         ticketDTOS = new ArrayList<>();
         ticketDTOS.add(ticketDTO);
 
-        ticket = new Ticket();
+        Ticket ticket = new Ticket();
         ticket.setUser(user);
         ticket.setSit(sit);
         ticket.setFlight(flight);
 
-        tickets = new ArrayList<>();
-        tickets.add(ticket);
         mapper = new ObjectMapper();
 
         JacksonTester.initFields(this, new ObjectMapper());
@@ -138,7 +123,7 @@ public class UserControllerIntegrationTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         userRepository.save(user);
     }
 

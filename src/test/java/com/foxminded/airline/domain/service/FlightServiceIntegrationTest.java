@@ -3,7 +3,6 @@ package com.foxminded.airline.domain.service;
 import com.foxminded.airline.domain.entity.Airport;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Plane;
-import com.foxminded.airline.domain.service.FlightService;
 import com.foxminded.airline.web.dto.FlightDTO;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,21 +28,18 @@ public class FlightServiceIntegrationTest {
     private Flight flight;
     private LocalDate date;
     private LocalTime time;
-    private Plane plane;
-    private Airport departureAirport;
-    private Airport arrivalAirport;
     private String number;
     private FlightDTO flightDTO;
 
     @Before
     public void setUp() throws Exception {
-        arrivalAirport = new Airport();
+        Airport arrivalAirport = new Airport();
         arrivalAirport.setName("Stockholm, airport Arlanda");
 
-        departureAirport = new Airport();
+        Airport departureAirport = new Airport();
         departureAirport.setName("London, airport Heathrow");
 
-        plane = new Plane();
+        Plane plane = new Plane();
         plane.setName("Boeing 747");
 
         time = LocalTime.of(8, 5);

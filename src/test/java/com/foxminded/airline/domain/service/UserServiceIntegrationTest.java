@@ -20,14 +20,11 @@ public class UserServiceIntegrationTest {
     private UserService userService;
 
     private User user;
-    private UserDTO userDTO;
-    private String login;
-    private String password;
 
     @Before
     public void setUp() throws Exception {
-        login = "djin94";
-        password = "123456";
+        String login = "djin94";
+        String password = "123456";
         String passportNumberKabatov = "464687123";
         String lastNameKabatov = "Kabatov";
         String firstNameKabatov = "Evgeny";
@@ -48,7 +45,8 @@ public class UserServiceIntegrationTest {
         String firstNameDrozdov = "Denis";
         String patronymDrozdov = "Alekseevich";
         String passportNumberDrozdov = "456468713";
-        userDTO = new UserDTO();
+
+        UserDTO userDTO = new UserDTO();
         userDTO.setLogin(login);
         userDTO.setLastName(lastNameDrozdov);
         userDTO.setFirstName(firstNameDrozdov);

@@ -3,7 +3,6 @@ package com.foxminded.airline.domain.service;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
-import com.foxminded.airline.domain.service.TicketService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

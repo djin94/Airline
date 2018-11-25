@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
@@ -34,7 +34,6 @@ public class FlightControllerIntegrationTest {
 
     private FlightDTO flightDTO;
     private List<FlightDTO> flightDTOS;
-    private List<Flight> flights;
     private FlightDTO notExistFlightDTO;
 
     @Before
@@ -53,7 +52,7 @@ public class FlightControllerIntegrationTest {
         Flight flight = new Flight();
         flight.setId((long) 1);
 
-        flights = new ArrayList<>();
+        List<Flight> flights = new ArrayList<>();
         flights.add(flight);
 
         notExistFlightDTO = new FlightDTO();

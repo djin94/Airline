@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -40,20 +39,13 @@ public class TicketControllerIntegrationTest {
 
     private MockMvc mvc;
 
-    private Flight flight;
     private String number;
     private String dateString;
     private String timeString;
     private Sit sit;
     private Sit availableSit;
     private FlightPriceDTO flightPriceDTO;
-    private List<Sit> sits;
-    private List<FlightPriceDTO> flightPriceDTOS;
     private TicketDTO ticketDTO;
-    private Ticket ticket;
-    private List<Ticket> tickets;
-    private List<TicketDTO> ticketDTOS;
-    private User user;
 
     private ObjectMapper mapper;
 
@@ -83,7 +75,7 @@ public class TicketControllerIntegrationTest {
         dateString = "2018-10-01";
         timeString = "08:05";
 
-        flight = new Flight();
+        Flight flight = new Flight();
         flight.setId((long) 1);
         flight.setNumber(number);
         flight.setDate(LocalDate.parse(dateString));
@@ -102,13 +94,7 @@ public class TicketControllerIntegrationTest {
         flightPriceDTO.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
         flightPriceDTO.setPrice("100.0");
 
-        flightPriceDTOS = new ArrayList<>();
-        flightPriceDTOS.add(flightPriceDTO);
-
-        sits = new ArrayList<>();
-        sits.add(sit);
-
-        user = new User();
+        User user = new User();
         user.setId((long) 1);
         user.setLogin("Chir");
         user.setFirstName("Alexander");
@@ -127,16 +113,11 @@ public class TicketControllerIntegrationTest {
         ticketDTO.setSit(sit.getPlace());
         ticketDTO.setUserDTO(userDTO);
         ticketDTO.setFlightDTO(flightDTO);
-        ticketDTOS = new ArrayList<>();
-        ticketDTOS.add(ticketDTO);
 
-        ticket = new Ticket();
+        Ticket ticket = new Ticket();
         ticket.setUser(user);
         ticket.setSit(sit);
         ticket.setFlight(flight);
-
-        tickets = new ArrayList<>();
-        tickets.add(ticket);
 
         mapper = new ObjectMapper();
 

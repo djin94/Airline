@@ -1,10 +1,10 @@
 package com.foxminded.airline.domain.service;
 
+import com.foxminded.airline.dao.repository.TicketRepository;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.Ticket;
 import com.foxminded.airline.domain.entity.User;
 import com.foxminded.airline.domain.service.impl.TicketServiceImpl;
-import com.foxminded.airline.dao.repository.TicketRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class TicketServiceTest {

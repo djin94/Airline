@@ -56,8 +56,6 @@ public class UserControllerTest {
 
     private User user;
     private UserDTO userDTO;
-    private TicketDTO ticketDTO;
-    private Ticket ticket;
     private List<Ticket> tickets;
     private List<TicketDTO> ticketDTOS;
 
@@ -74,11 +72,11 @@ public class UserControllerTest {
 
         user.setLogin("Kabatov");
 
-        ticketDTO = new TicketDTO();
+        TicketDTO ticketDTO = new TicketDTO();
         ticketDTOS = new ArrayList<>();
         ticketDTOS.add(ticketDTO);
 
-        ticket = new Ticket();
+        Ticket ticket = new Ticket();
         ticket.setUser(user);
 
         tickets = new ArrayList<>();
