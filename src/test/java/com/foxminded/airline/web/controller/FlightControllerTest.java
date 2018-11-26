@@ -123,7 +123,7 @@ public class FlightControllerTest {
         when(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())).thenReturn(flights);
         when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
 
-        mvc.perform(get("/admin/flights")
+        mvc.perform(get("/admin/listflights")
                 .param("nameAirport", flightDTO.getDepartureAirport())
                 .param("date", flightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))
@@ -140,7 +140,7 @@ public class FlightControllerTest {
 
     @Test
     public void whenSearchFlightsForAirportByDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
-        mvc.perform(get("/admin/flights")
+        mvc.perform(get("/admin/listflights")
                 .param("nameAirport", notExistFlightDTO.getDepartureAirport())
                 .param("date", notExistFlightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))

@@ -102,7 +102,7 @@ public class FlightControllerIntegrationTest {
 
     @Test
     public void whenSearchFlightsForAirportByDate_thenReturnFlightsIfExist() throws Exception {
-        mvc.perform(get("/admin/flights")
+        mvc.perform(get("/admin/listflights")
                 .param("nameAirport", flightDTO.getDepartureAirport())
                 .param("date", flightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))
@@ -119,7 +119,7 @@ public class FlightControllerIntegrationTest {
 
     @Test
     public void whenSearchFlightsForAirportByDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
-        mvc.perform(get("/admin/flights")
+        mvc.perform(get("/admin/listflights")
                 .param("nameAirport", notExistFlightDTO.getDepartureAirport())
                 .param("date", notExistFlightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))

@@ -55,7 +55,7 @@ public class FlightController {
         return "user/flight";
     }
 
-    @GetMapping(value = "/admin/flights",
+    @GetMapping(value = "/admin/listflights",
             produces = MediaType.TEXT_HTML_VALUE,
             params = {"nameAirport", "date"})
     public String showListFlightsForAdminPage(@RequestParam("nameAirport") String nameAirport,
@@ -64,7 +64,7 @@ public class FlightController {
         flightDTO.setDepartureAirport(nameAirport);
         flightDTO.setArrivalAirport("");
         flightDTO.setDateString(date);
-        return "admin/flight";
+        return "admin/listFlights";
     }
 
     @GetMapping(value = "/api/v1/admin/flights/listflights")
