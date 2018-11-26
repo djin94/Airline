@@ -6,7 +6,6 @@ import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.web.dto.FlightDTO;
 import com.foxminded.airline.web.dto.TicketDTO;
 import com.foxminded.airline.web.dto.UserDTO;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
