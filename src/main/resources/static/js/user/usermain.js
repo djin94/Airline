@@ -9,7 +9,7 @@ $(document).ready(function () {
 
 function searchDepartureAirport() {
     $.ajax({
-        url: '/api/v1/searchAirport',
+        url: '/api/v1/airports',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({name: $('#nameDepartureAirport').val()}),
@@ -22,7 +22,7 @@ function searchDepartureAirport() {
 
 function searchArrivalAirport() {
     $.ajax({
-        url: '/api/v1/searchAirport',
+        url: '/api/v1/airports',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({name: $('#nameArrivalAirport').val()}),
