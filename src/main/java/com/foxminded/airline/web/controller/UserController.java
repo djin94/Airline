@@ -43,7 +43,7 @@ public class UserController {
         return "user/userindex";
     }
 
-    @GetMapping(value = "/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/v1/user/userlogin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getUserName() {
         return new ResponseEntity<>(userConverter.createUserDTOFromUser(user), HttpStatus.OK);
     }
@@ -58,7 +58,7 @@ public class UserController {
         return "user/passenger";
     }
 
-    @PutMapping(value = "/user/passenger")
+    @PutMapping(value = "/api/v1/user/passenger")
     public ResponseEntity<String> editPassenger(@RequestBody UserDTO userDTO) {
         userService.editPassportData(user, userDTO);
         userService.save(user);
@@ -70,7 +70,7 @@ public class UserController {
         return "user/history";
     }
 
-    @GetMapping(value = "/user/history/currenthistory")
+    @GetMapping(value = "/api/v1/user/history/currenthistory")
     public ResponseEntity<List<TicketDTO>> getFlights() {
         return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketService.findTicketsByUser(user)), HttpStatus.OK);
     }

@@ -59,7 +59,7 @@ public class MainPageControllerIntegrationTest {
     @Test
     public void whenSearchAirportByNamePart_thenReturnListAirportsIfExist() throws Exception {
         MockHttpServletResponse response = mvc.perform(
-                post("/searchAirport")
+                post("/api/v1/airports")
                         .content(mapper.writeValueAsString(airportWithNamePart))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -71,7 +71,7 @@ public class MainPageControllerIntegrationTest {
     @Test
     public void whenSearchAirportByNamePart_thenReturnEmptyListAirportsIfNotExist() throws Exception {
         MockHttpServletResponse response = mvc.perform(
-                post("/searchAirport")
+                post("/api/v1/airports")
                         .content(mapper.writeValueAsString(notExistAirportWithNamePart))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();

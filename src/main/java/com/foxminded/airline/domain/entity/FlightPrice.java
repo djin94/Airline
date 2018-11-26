@@ -19,7 +19,7 @@ public class FlightPrice {
     @Column(name = "levelticket")
     private String levelTicket;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "flight_id")
     @JsonIgnore
     private Flight flight;

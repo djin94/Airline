@@ -84,7 +84,7 @@ public class FlightControllerTest {
         when(flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport())).thenReturn(flights);
         when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
 
-        mvc.perform(get("/searchflight")
+        mvc.perform(get("/flights")
                 .param("nameDepartureAirport", flightDTO.getDepartureAirport())
                 .param("nameArrivalAirport", flightDTO.getArrivalAirport())
                 .param("date", flightDTO.getDateString())
@@ -92,7 +92,7 @@ public class FlightControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/searchflight/listflights")
+                get("/api/v1/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -102,7 +102,7 @@ public class FlightControllerTest {
 
     @Test
     public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
-        mvc.perform(get("/searchflight")
+        mvc.perform(get("/flights")
                 .param("nameDepartureAirport", notExistFlightDTO.getDepartureAirport())
                 .param("nameArrivalAirport", notExistFlightDTO.getArrivalAirport())
                 .param("date", notExistFlightDTO.getDateString())
@@ -110,7 +110,7 @@ public class FlightControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/api/v1/admin/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -123,14 +123,14 @@ public class FlightControllerTest {
         when(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())).thenReturn(flights);
         when(flightConverter.createDTOsForFlights(flights)).thenReturn(flightDTOS);
 
-        mvc.perform(get("/admin/listflights")
+        mvc.perform(get("/admin/flights")
                 .param("nameAirport", flightDTO.getDepartureAirport())
                 .param("date", flightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/api/v1/admin/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -140,14 +140,14 @@ public class FlightControllerTest {
 
     @Test
     public void whenSearchFlightsForAirportByDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
-        mvc.perform(get("/admin/listflights")
+        mvc.perform(get("/admin/flights")
                 .param("nameAirport", notExistFlightDTO.getDepartureAirport())
                 .param("date", notExistFlightDTO.getDateString())
                 .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/api/v1/admin/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 

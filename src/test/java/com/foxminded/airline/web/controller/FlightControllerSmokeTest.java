@@ -35,7 +35,7 @@ public class FlightControllerSmokeTest {
 
     @Test
     public void whenGetListFlightsPage_thenReturnListFlightsPage() throws Exception {
-        request.setRequestURI("/searchflight");
+        request.setRequestURI("/flights");
         request.setMethod("GET");
         request.setParameter("nameDepartureAirport", "");
         request.setParameter("nameArrivalAirport", "");
@@ -43,12 +43,12 @@ public class FlightControllerSmokeTest {
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "flight");
     }
 
     @Test
     public void whenGetListFlightsPageForUser_thenReturnListFlightsPageForUser() throws Exception {
-        request.setRequestURI("/user/searchflight");
+        request.setRequestURI("/user/flights");
         request.setMethod("GET");
         request.setParameter("nameDepartureAirport", "");
         request.setParameter("nameArrivalAirport", "");
@@ -56,18 +56,18 @@ public class FlightControllerSmokeTest {
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "user/searchFlight");
+        ModelAndViewAssert.assertViewName(mav, "user/flight");
     }
 
     @Test
     public void whenGetListFlightsPageForAdmin_thenReturnListFlightsPageForAdmin() throws Exception {
-        request.setRequestURI("/admin/listflights");
+        request.setRequestURI("/admin/flights");
         request.setMethod("GET");
         request.setParameter("nameAirport", "");
         request.setParameter("date", "");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "admin/listFlights");
+        ModelAndViewAssert.assertViewName(mav, "admin/flight");
     }
 }

@@ -74,7 +74,7 @@ public class MainPageControllerTest {
         when(airportService.findAirportsByNamePart(airportNamePart)).thenReturn(airports);
 
         MockHttpServletResponse response = mvc.perform(
-                post("/searchAirport")
+                post("/api/v1/airports")
                         .content(mapper.writeValueAsString(airportWithNamePart))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -88,7 +88,7 @@ public class MainPageControllerTest {
         when(airportService.findAirportsByNamePart(notExistAirportNamePart)).thenReturn(Collections.emptyList());
 
         MockHttpServletResponse response = mvc.perform(
-                post("/searchAirport")
+                post("/api/v1/airports")
                         .content(mapper.writeValueAsString(notExistAirportWithNamePart))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();

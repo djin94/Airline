@@ -24,7 +24,7 @@ public class FlightController {
 
     private FlightDTO flightDTO;
 
-    @GetMapping(value = "/searchflight",
+    @GetMapping(value = "/flights",
             produces = MediaType.TEXT_HTML_VALUE,
             params = {"nameDepartureAirport", "nameArrivalAirport", "date"})
     public String showListFlightsPage(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
@@ -34,16 +34,16 @@ public class FlightController {
         flightDTO.setDepartureAirport(nameDepartureAirport);
         flightDTO.setArrivalAirport(nameArrivalAirport);
         flightDTO.setDateString(date);
-        return "searchFlight";
+        return "flight";
     }
 
-    @GetMapping(value = "/searchflight/listflights", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/v1/flights/listflights", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FlightDTO>> searchFlights() {
         List<Flight> flights = flightService.findFlightsByDepartureAirportAndArrivalAirportAndDate(flightDTO.getDateString(), flightDTO.getDepartureAirport(), flightDTO.getArrivalAirport());
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flights), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/searchflight",
+    @GetMapping(value = "/user/flights",
             params = {"nameDepartureAirport", "nameArrivalAirport", "date"})
     public String showListFlightsForUserPage(@RequestParam("nameDepartureAirport") String nameDepartureAirport,
                                              @RequestParam("nameArrivalAirport") String nameArrivalAirport,
@@ -52,10 +52,10 @@ public class FlightController {
         flightDTO.setDepartureAirport(nameDepartureAirport);
         flightDTO.setArrivalAirport(nameArrivalAirport);
         flightDTO.setDateString(date);
-        return "user/searchFlight";
+        return "user/flight";
     }
 
-    @GetMapping(value = "/admin/listflights",
+    @GetMapping(value = "/admin/flights",
             produces = MediaType.TEXT_HTML_VALUE,
             params = {"nameAirport", "date"})
     public String showListFlightsForAdminPage(@RequestParam("nameAirport") String nameAirport,
@@ -64,10 +64,10 @@ public class FlightController {
         flightDTO.setDepartureAirport(nameAirport);
         flightDTO.setArrivalAirport("");
         flightDTO.setDateString(date);
-        return "admin/listFlights";
+        return "admin/flight";
     }
 
-    @GetMapping(value = "/admin/listflights/flights")
+    @GetMapping(value = "/api/v1/admin/flights/listflights")
     public ResponseEntity<List<FlightDTO>> searchFlightsForAirport() {
         return new ResponseEntity<>(flightConverter.createDTOsForFlights(flightService.findFlightsForAirportByDate(flightDTO.getDateString(), flightDTO.getDepartureAirport())), HttpStatus.OK);
     }

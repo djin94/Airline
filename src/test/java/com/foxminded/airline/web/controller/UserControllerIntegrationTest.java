@@ -122,11 +122,6 @@ public class UserControllerIntegrationTest {
         mvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
-    @After
-    public void tearDown() {
-        userRepository.save(user);
-    }
-
     @Test
     @WithMockUser(value = "Chir")
     public void whenGetCurrentUserName_thenReturnCurrentUserName() throws Exception {
@@ -135,7 +130,7 @@ public class UserControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/user/userlogin")
+                get("/api/v1/user/userlogin")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
 
@@ -151,10 +146,12 @@ public class UserControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                put("/user/passenger")
+                put("/api/v1/user/passenger")
                         .content(mapper.writeValueAsString(anotherUserDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
+
+        userRepository.save(user);
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
@@ -167,7 +164,7 @@ public class UserControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/user/history/currenthistory")
+                get("/api/v1/user/history/currenthistory")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
 

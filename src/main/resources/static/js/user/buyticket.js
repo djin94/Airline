@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 function loadFlightPrice() {
     $.ajax({
-        url: '/buyticket/flightprices',
+        url: '/api/v1/tickets/flightprices',
         method: 'get',
         contentType: "application/json",
         dataType: 'json',
@@ -32,7 +32,7 @@ function printFlightPrices(data) {
 
 function loadSits() {
     $.ajax({
-        url: '/buyticket/sits',
+        url: '/api/v1/tickets/sits',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({levelTicket: $('#flightPrice').val()}),
@@ -55,7 +55,7 @@ function printSits(data) {
 
 function createTicket() {
     $.ajax({
-        url: '/user/buyticket',
+        url: '/api/v1/user/tickets',
         method: 'post',
         contentType: "application/json",
         data: JSON.stringify({
