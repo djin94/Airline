@@ -31,19 +31,4 @@ public class FlightConverter {
         flightDTO.setEnabled(isFlightEnabled(flight));
         return flightDTO;
     }
-
-    private boolean isFlightEnabled(Flight flight) {
-        int compareDate = flight.getDate().compareTo(LocalDate.now());
-        if (compareDate < 0) {
-            return false;
-        }
-        if (compareDate == 0) {
-            int closingSaleTime = 2;
-            int differentHours = flight.getTime().getHour() - LocalTime.now().getHour();
-            if (differentHours > closingSaleTime) {
-                return true;
-            }
-        }
-        return true;
-    }
 }
