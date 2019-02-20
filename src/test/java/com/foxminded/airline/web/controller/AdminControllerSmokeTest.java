@@ -44,7 +44,7 @@ public class AdminControllerSmokeTest {
     }
 
     @Test
-    public void whenGetSearchFlightPage_thenReturnAdminPage() throws Exception {
+    public void whenGetSearchFlightPage_thenReturnSearchFlightPage() throws Exception {
         request.setRequestURI("/admin/searchflights");
         request.setMethod("GET");
 

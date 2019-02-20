@@ -6,11 +6,12 @@ import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dao.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class TicketServiceImpl implements TicketService {
 
     @Autowired
