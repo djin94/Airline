@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 function getUserName() {
     $.ajax({
-        url: '/user/userlogin',
+        url: '/api/v1/user/userlogin',
         method: 'get',
         contentType: 'application/json',
         dataType: 'json',

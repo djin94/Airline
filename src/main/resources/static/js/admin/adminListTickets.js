@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 function loadTickets() {
     $.ajax({
-        url: '/admin/listtickets',
+        url: '/api/v1/admin/listtickets',
         method: 'post',
         cache: false,
         timeout: 600000,

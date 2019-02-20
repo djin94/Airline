@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 function getUserName() {
     $.ajax({
-        url: '/user/userlogin',
+        url: '/api/v1/user/userlogin',
         method: 'get',
         contentType: 'application/json',
         dataType: 'json',
@@ -22,7 +22,7 @@ function getUserName() {
 
 function getHistory() {
     $.ajax({
-        url: '/user/history/currenthistory',
+        url: '/api/v1/user/history/currenthistory',
         method: 'get',
         contentType: 'application/json',
         dataType: 'json',

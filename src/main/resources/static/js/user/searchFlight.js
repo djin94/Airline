@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 function loadFlights() {
     $.ajax({
-        url: '/searchflight/listflights',
+        url: '/api/v1/flights/listflights',
         method: 'get',
         cache: false,
         timeout: 600000,
@@ -44,5 +44,5 @@ function printFlights(data) {
 }
 
 function buyTicket(number, dateString, timeString) {
-    window.location.replace("/user/buyticket?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
+    window.location.replace("/user/tickets?number=" + number + "&dateString=" + dateString + "&timeString=" + timeString);
 }

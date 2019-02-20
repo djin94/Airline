@@ -10,4 +10,6 @@ public interface FlightService {
     List<Flight> findFlightsByDepartureAirportAndArrivalAirportAndDate(String dateString, String departureAirportName, String arrivalAirportName);
 
     List<Flight> findFlightsForAirportByDate(String dateString, String airportName);
+
+    boolean isFlightEnabled(Flight flight);
 }

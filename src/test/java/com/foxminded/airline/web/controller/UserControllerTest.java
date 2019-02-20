@@ -99,7 +99,7 @@ public class UserControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/user/userlogin")
+                get("/api/v1/user/userlogin")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
 
@@ -116,7 +116,7 @@ public class UserControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                put("/user/passenger")
+                put("/api/v1/user/passenger")
                         .content(mapper.writeValueAsString(userDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
@@ -135,7 +135,7 @@ public class UserControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/user/history/currenthistory")
+                get("/api/v1/user/history/currenthistory")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn().getResponse();
 

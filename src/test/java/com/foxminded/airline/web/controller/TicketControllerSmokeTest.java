@@ -42,8 +42,8 @@ public class TicketControllerSmokeTest {
     }
 
     @Test
-    public void whenGetBuyTicketPage_thenReturnBuyTicketPage() throws Exception {
-        request.setRequestURI("/buyticket");
+    public void whenGetTicketsPage_thenReturnTicketsPage() throws Exception {
+        request.setRequestURI("/tickets");
         request.setMethod("GET");
         request.setParameter("number", number);
         request.setParameter("dateString", dateString);
@@ -51,12 +51,12 @@ public class TicketControllerSmokeTest {
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "buyTicket");
+        ModelAndViewAssert.assertViewName(mav, "ticket");
     }
 
     @Test
-    public void whenGetBuyTicketPageForUser_thenReturnBuyTicketPageForUser() throws Exception {
-        request.setRequestURI("/user/buyticket");
+    public void whenGetTicketsPageForUser_thenReturnTicketsPageForUser() throws Exception {
+        request.setRequestURI("/user/tickets");
         request.setMethod("GET");
         request.setParameter("number", number);
         request.setParameter("dateString", dateString);
@@ -64,7 +64,7 @@ public class TicketControllerSmokeTest {
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "user/buyTicket");
+        ModelAndViewAssert.assertViewName(mav, "user/ticket");
     }
 
     @Test

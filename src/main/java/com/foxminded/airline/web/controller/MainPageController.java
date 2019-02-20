@@ -24,7 +24,7 @@ public class MainPageController {
         return "index";
     }
 
-    @PostMapping(value = "/searchAirport", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/api/v1/airports", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Airport>> searchAirports(@RequestBody Airport airport) {
         return new ResponseEntity<>(airportService.findAirportsByNamePart(airport.getName()), HttpStatus.OK);
     }

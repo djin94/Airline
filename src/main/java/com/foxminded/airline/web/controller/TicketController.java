@@ -46,44 +46,44 @@ public class TicketController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/buyticket",
+    @GetMapping(value = "/tickets",
             params = {"number", "dateString", "timeString"})
     public String showBuyTicketPage(@RequestParam("number") String number,
                                     @RequestParam("dateString") String dateString,
                                     @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
-        return "buyTicket";
+        return "ticket";
     }
 
-    @GetMapping(value = "/buyticket/flightprices",
+    @GetMapping(value = "/api/v1/tickets/flightprices",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FlightPriceDTO>> getFlightPrices() throws IOException {
         return new ResponseEntity<>(flightPriceConverter.createDTOsForFlightPrices(flight.getFlightPrices()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/buyticket/sits",
+    @GetMapping(value = "/api/v1/tickets/sits",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sit>> getSits(@RequestBody Sit sit) throws IOException {
         return new ResponseEntity<>(sitService.findAvailableSitsForFlightAndLevelTicket(flight, sitService.getLevelTicketFromSitOrDefault(sit)), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/buyticket",
+    @PostMapping(value = "/api/v1/tickets",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicket(@RequestBody TicketDTO ticketDTO) {
         ticketService.save(ticketConverter.createTicketFromDTO(ticketDTO, flight));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/buyticket",
+    @GetMapping(value = "/user/tickets",
             params = {"number", "dateString", "timeString"})
     public String showBuyTicketPageForUser(@RequestParam("number") String number,
                                            @RequestParam("dateString") String dateString,
                                            @RequestParam("timeString") String timeString) {
         flight = flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString);
-        return "user/buyTicket";
+        return "user/ticket";
     }
 
-    @PostMapping(value = "/user/buyticket",
+    @PostMapping(value = "/api/v1/user/tickets",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTicketForUser(@RequestBody TicketDTO ticketDTO) {
         Ticket ticket = ticketConverter.createTicketFromDTOForUser(ticketDTO, flight, userService.getCurrentUser().get());
@@ -100,7 +100,7 @@ public class TicketController {
         return "admin/listTickets";
     }
 
-    @PostMapping(value = "/admin/listtickets")
+    @PostMapping(value = "/api/v1/admin/listtickets")
     public ResponseEntity<List<TicketDTO>> getListTickets() {
         return new ResponseEntity<>(ticketConverter.createTicketDTOsFromTickets(ticketService.findTicketsByFlight(flight)), HttpStatus.OK);
     }

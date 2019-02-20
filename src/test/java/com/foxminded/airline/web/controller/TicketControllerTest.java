@@ -136,7 +136,7 @@ public class TicketControllerTest {
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
         when(flightPriceConverter.createDTOsForFlightPrices(flight.getFlightPrices())).thenReturn(flightPriceDTOS);
 
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -144,7 +144,7 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/buyticket/flightprices")
+                get("/api/v1/tickets/flightprices")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -158,7 +158,7 @@ public class TicketControllerTest {
         when(sitService.getLevelTicketFromSitOrDefault(sit)).thenReturn(sit.getLevelTicket());
         when(sitService.findAvailableSitsForFlightAndLevelTicket(flight, sit.getLevelTicket())).thenReturn(sits);
 
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -166,7 +166,7 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/buyticket/sits")
+                get("/api/v1/tickets/sits")
                         .content(mapper.writeValueAsString(sit))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -180,7 +180,7 @@ public class TicketControllerTest {
         when(flightService.findFlightByNumberAndDateAndTime(number, dateString, timeString)).thenReturn(flight);
         when(ticketConverter.createTicketFromDTO(ticketDTO, flight)).thenReturn(ticket);
 
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -188,7 +188,7 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/buyticket")
+                post("/api/v1/tickets")
                         .content(mapper.writeValueAsString(ticketDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -202,7 +202,7 @@ public class TicketControllerTest {
         when(userService.getCurrentUser()).thenReturn(Optional.of(user));
         when(ticketConverter.createTicketFromDTOForUser(ticketDTO, flight, user)).thenReturn(ticket);
 
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -210,7 +210,7 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/user/buyticket")
+                post("/api/v1/user/tickets")
                         .content(mapper.writeValueAsString(ticketDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -224,7 +224,7 @@ public class TicketControllerTest {
         when(ticketService.findTicketsByFlight(flight)).thenReturn(tickets);
         when(ticketConverter.createTicketDTOsFromTickets(tickets)).thenReturn(ticketDTOS);
 
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -232,7 +232,7 @@ public class TicketControllerTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/admin/listtickets")
+                post("/api/v1/admin/listtickets")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 

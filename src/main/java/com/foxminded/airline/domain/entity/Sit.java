@@ -15,7 +15,7 @@ public class Sit {
     @Column(name = "sitId", unique = true)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "plane_id")
     private Plane plane;
 
@@ -24,7 +24,7 @@ public class Sit {
 
     private String place;
 
-    @OneToMany(mappedBy = "sit", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "sit", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JsonIgnore
     private List<Ticket> tickets;
 

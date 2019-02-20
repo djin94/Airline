@@ -11,8 +11,8 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @GetMapping(value = "/admin/searchflights")
+    @GetMapping(value = "/admin/flights")
     public String showSearchFlightsPage() {
-        return "admin/searchFlights";
+        return "admin/flight";
     }
 }

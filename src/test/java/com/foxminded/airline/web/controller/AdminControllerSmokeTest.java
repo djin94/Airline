@@ -44,12 +44,12 @@ public class AdminControllerSmokeTest {
     }
 
     @Test
-    public void whenGetSearchFlightPage_thenReturnSearchFlightPage() throws Exception {
-        request.setRequestURI("/admin/searchflights");
+    public void whenGetSearchFlightPage_thenReturnAdminPage() throws Exception {
+        request.setRequestURI("/admin/flights");
         request.setMethod("GET");
 
         ModelAndView mav = handleAdapter.handle(request, response, handlerMapping.getHandler(request).getHandler());
 
-        ModelAndViewAssert.assertViewName(mav, "admin/searchFlights");
+        ModelAndViewAssert.assertViewName(mav, "admin/flight");
     }
 }

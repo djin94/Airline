@@ -66,7 +66,7 @@ public class FlightControllerIntegrationTest {
 
     @Test
     public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnFlightsIfExist() throws Exception {
-        mvc.perform(get("/searchflight")
+        mvc.perform(get("/flights")
                 .param("nameDepartureAirport", flightDTO.getDepartureAirport())
                 .param("nameArrivalAirport", flightDTO.getArrivalAirport())
                 .param("date", flightDTO.getDateString())
@@ -74,7 +74,7 @@ public class FlightControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/searchflight/listflights")
+                get("/api/v1/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -84,7 +84,7 @@ public class FlightControllerIntegrationTest {
 
     @Test
     public void whenSearchFlightsByDepartureAirportAndArrivalAirportAndDate_thenReturnEmptyListFlightsIfNotExist() throws Exception {
-        mvc.perform(get("/searchflight")
+        mvc.perform(get("/flights")
                 .param("nameDepartureAirport", notExistFlightDTO.getDepartureAirport())
                 .param("nameArrivalAirport", notExistFlightDTO.getArrivalAirport())
                 .param("date", notExistFlightDTO.getDateString())
@@ -92,7 +92,7 @@ public class FlightControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/searchflight/listflights")
+                get("/api/v1/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -109,7 +109,7 @@ public class FlightControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/api/v1/admin/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
@@ -126,7 +126,7 @@ public class FlightControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse listFlightsResponse = mvc.perform(
-                get("/admin/listflights/flights")
+                get("/api/v1/admin/flights/listflights")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 

@@ -2,11 +2,13 @@ package com.foxminded.airline.web.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.foxminded.airline.dao.repository.TicketRepository;
 import com.foxminded.airline.domain.entity.*;
 import com.foxminded.airline.web.dto.FlightDTO;
 import com.foxminded.airline.web.dto.FlightPriceDTO;
 import com.foxminded.airline.web.dto.TicketDTO;
 import com.foxminded.airline.web.dto.UserDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.junit.Assert.assertEquals;
@@ -37,15 +40,20 @@ public class TicketControllerIntegrationTest {
     @Autowired
     private TicketController ticketController;
 
+    @Autowired
+    private TicketRepository ticketRepository;
+
     private MockMvc mvc;
 
     private String number;
     private String dateString;
     private String timeString;
+    private User user;
     private Sit sit;
     private Sit availableSit;
     private FlightPriceDTO flightPriceDTO;
     private TicketDTO ticketDTO;
+    private TicketDTO newTicketDTO;
 
     private ObjectMapper mapper;
 
@@ -94,7 +102,7 @@ public class TicketControllerIntegrationTest {
         flightPriceDTO.setLevelTicket(LevelTicket.ECONOM.getLevelTicket());
         flightPriceDTO.setPrice("100.0");
 
-        User user = new User();
+        user = new User();
         user.setId((long) 1);
         user.setLogin("Chir");
         user.setFirstName("Alexander");
@@ -114,6 +122,11 @@ public class TicketControllerIntegrationTest {
         ticketDTO.setUserDTO(userDTO);
         ticketDTO.setFlightDTO(flightDTO);
 
+        newTicketDTO = new TicketDTO();
+        newTicketDTO.setSit("15E");
+        newTicketDTO.setUserDTO(userDTO);
+        newTicketDTO.setFlightDTO(flightDTO);
+
         Ticket ticket = new Ticket();
         ticket.setUser(user);
         ticket.setSit(sit);
@@ -125,9 +138,19 @@ public class TicketControllerIntegrationTest {
         mvc = MockMvcBuilders.standaloneSetup(ticketController).build();
     }
 
+    @After
+    public void tearDown() {
+        List<Ticket> userTickets = ticketRepository.findByUser(user);
+        userTickets = userTickets.stream().filter(ticket -> ticket.getSit().getPlace().equals(newTicketDTO.getSit())).collect(Collectors.toList());
+        if (!userTickets.isEmpty()) {
+            Ticket newTicket = userTickets.get(0);
+            ticketRepository.delete(newTicket);
+        }
+    }
+
     @Test
     public void whenGetFlightPrices_thenReturnFlightPrices() throws Exception {
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -135,7 +158,7 @@ public class TicketControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/buyticket/flightprices")
+                get("/api/v1/tickets/flightprices")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -148,7 +171,7 @@ public class TicketControllerIntegrationTest {
 
     @Test
     public void whenGetAvailableSitsForFlight_thenReturnSits() throws Exception {
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -156,7 +179,7 @@ public class TicketControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                get("/buyticket/sits")
+                get("/api/v1/tickets/sits")
                         .content(mapper.writeValueAsString(sit))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
@@ -170,7 +193,7 @@ public class TicketControllerIntegrationTest {
 
     @Test
     public void whenCreateTicket_thenCreateTicket() throws Exception {
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -178,8 +201,8 @@ public class TicketControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/buyticket")
-                        .content(mapper.writeValueAsString(ticketDTO))
+                post("/api/v1/tickets")
+                        .content(mapper.writeValueAsString(newTicketDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -189,7 +212,7 @@ public class TicketControllerIntegrationTest {
     @Test
     @WithMockUser(username = "djin94")
     public void whenCreateTicketForUser_thenCreateTicketForUser() throws Exception {
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -197,8 +220,8 @@ public class TicketControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/user/buyticket")
-                        .content(mapper.writeValueAsString(ticketDTO))
+                post("/api/v1/user/tickets")
+                        .content(mapper.writeValueAsString(newTicketDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -207,7 +230,7 @@ public class TicketControllerIntegrationTest {
 
     @Test
     public void whenGetListTicketsForFlight_thenReturnListTicketsForFlight() throws Exception {
-        mvc.perform(get("/buyticket")
+        mvc.perform(get("/tickets")
                 .param("number", number)
                 .param("dateString", dateString)
                 .param("timeString", timeString)
@@ -215,7 +238,7 @@ public class TicketControllerIntegrationTest {
                 .andReturn().getResponse();
 
         MockHttpServletResponse response = mvc.perform(
-                post("/admin/listtickets")
+                post("/api/v1/admin/listtickets")
                         .contentType(MediaType.TEXT_HTML_VALUE))
                 .andReturn().getResponse();
 
