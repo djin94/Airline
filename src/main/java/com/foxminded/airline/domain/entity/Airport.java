@@ -17,7 +17,6 @@ public class Airport {
     @Column(name = "airportId", unique = true)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "departureAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
