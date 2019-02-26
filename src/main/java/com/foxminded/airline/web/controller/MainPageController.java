@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class MainPageController {
     }
 
     @PostMapping(value = "/api/v1/airports", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Airport>> searchAirports(@RequestBody Airport airport) {
-        return new ResponseEntity<>(airportService.findAirportsByNamePart(airport.getName()), HttpStatus.OK);
+    public ResponseEntity<List<Airport>> searchAirports(@RequestBody String name) {
+        List<Airport> airports= airportService.findAirportsByNamePart(name);
+
+        return new ResponseEntity<>(airportService.findAirportsByNamePart(name), HttpStatus.OK);
     }
 }

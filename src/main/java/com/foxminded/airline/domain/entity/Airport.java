@@ -3,12 +3,13 @@ package com.foxminded.airline.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Airport")
+@Table(name = "airport")
 public class Airport {
 
     @Id
@@ -16,6 +17,7 @@ public class Airport {
     @Column(name = "airportId", unique = true)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "departureAirport", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})

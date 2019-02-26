@@ -12,7 +12,7 @@ function searchDepartureAirport() {
         url: '/api/v1/airports',
         method: 'post',
         contentType: "application/json",
-        data: JSON.stringify({name: $('#nameDepartureAirport').val()}),
+        data: $('#nameDepartureAirport').val(),
         dataType: 'json',
         success: function (data) {
             loadAirports(data, 'departureAirports', 'nameDepartureAirport');
@@ -25,7 +25,7 @@ function searchArrivalAirport() {
         url: '/api/v1/airports',
         method: 'post',
         contentType: "application/json",
-        data: JSON.stringify({name: $('#nameArrivalAirport').val()}),
+        data: $('#nameArrivalAirport').val(),
         dataType: 'json',
         success: function (data) {
             loadAirports(data, 'arrivalAirports', 'nameArrivalAirport');

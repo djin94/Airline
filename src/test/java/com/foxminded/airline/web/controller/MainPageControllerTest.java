@@ -75,7 +75,7 @@ public class MainPageControllerTest {
 
         MockHttpServletResponse response = mvc.perform(
                 post("/api/v1/airports")
-                        .content(mapper.writeValueAsString(airportWithNamePart))
+                        .content(airportWithNamePart.getName())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -89,7 +89,7 @@ public class MainPageControllerTest {
 
         MockHttpServletResponse response = mvc.perform(
                 post("/api/v1/airports")
-                        .content(mapper.writeValueAsString(notExistAirportWithNamePart))
+                        .content(notExistAirportWithNamePart.getName())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
