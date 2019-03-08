@@ -1,11 +1,12 @@
 package com.foxminded.airline.domain.service.impl;
 
-import com.foxminded.airline.dao.repository.UserRepository;
-import com.foxminded.airline.domain.entity.*;
-import com.foxminded.airline.domain.service.TicketService;
 import com.foxminded.airline.dao.repository.TicketRepository;
+import com.foxminded.airline.dao.repository.UserRepository;
+import com.foxminded.airline.domain.entity.Flight;
+import com.foxminded.airline.domain.entity.Ticket;
+import com.foxminded.airline.domain.entity.User;
+import com.foxminded.airline.domain.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,11 +1,11 @@
 package com.foxminded.airline.domain.service.impl;
 
+import com.foxminded.airline.dao.repository.SitRepository;
+import com.foxminded.airline.dao.repository.TicketRepository;
 import com.foxminded.airline.domain.entity.Flight;
 import com.foxminded.airline.domain.entity.LevelTicket;
 import com.foxminded.airline.domain.entity.Sit;
 import com.foxminded.airline.domain.service.SitService;
-import com.foxminded.airline.dao.repository.SitRepository;
-import com.foxminded.airline.dao.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
